@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- <meta charset="EUC-KR"> -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes">
+        <meta name="naver-site-verification" content="c48015d1e12671a3f6b18c2fa440950534fcdb63">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="셀러허브|입점신청">
+        <meta property="og:description" content="셀러허브 입점신청하기">
+        <meta property="og:image" content="https://www.sellerhub.co.kr/img/icon-sellerhub-logo3.png?v=1.0">
+        <meta property="og:url" content="http://admin.sellerhub.co.kr/">
+        <title>셀러허브 관리자</title>
+        <!--<link rel="shortcut icon" href="../img/favicon.ico">-->
+        <link rel="icon" href="https://admin.sellerhub.co.kr/shop/admin_provider/new_favicon2.ico">
+        <link href="https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&amp;display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://pravs.co.kr/shop/admin_provider/common.css?version=1.08">
+        <link rel="styleSheet" href="https://pravs.co.kr/global/global_style.css">
+        <script type="text/javascript" async="" src="https://static.hotjar.com/c/hotjar-911327.js?sv=7"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" async="" src="https://cdn.channel.io/plugin/ch-plugin-web.js" charset="UTF-8"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-5NZXJJ3"></script><script src="/global/global_custom.js"></script>
+        <link rel="stylesheet" href="https://pravs.co.kr/shop/admin_provider/jquery-ui.css">
+        <script type="text/javascript" src="https://pravs.co.kr/shop/admin_provider/jquery-1.8.3.min.js"></script>
+        <!--[if lte IE 8]>
+        <script src="../poly-checked.min.js"></script> <![endif]-->
+        <script type="text/javascript" src="https://pravs.co.kr/shop/admin_provider/common.js?version=1591235789"></script>
+        <script type="text/javascript" src="https://pravs.co.kr/shop/admin_provider/custom.js?version=1.10"></script>
+        <script src="https://pravs.co.kr/shop/admin_provider/jquery-ui.js"></script>
+        <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+        <script>
+            var client_id = 8142;
+            function read_info(cate, idx, link) {
+                $.ajax({
+                    url: '/shop/admin_provider/noti.json.php'
+                    , type: 'post'
+                    , data: {'cate': cate, 'idx': idx}
+                    , success: function (data) {
+                        location.href = link;
+                    }
+                    , error: function (request, status, error) {
+                        console.log(request);
+                    }
+                });
+                return false;
+            }
+    
+            function init_info() {
+                $.ajax({
+                    url: '/shop/admin_provider/header_info.php'
+                    , type: 'post'
+                    , dataType: 'html'
+                    , success: function (data) {
+                        $(".news_list").append(data);
+                    }
+                    , error: function (request, status, error) {
+                        console.log(request);
+                    }
+                });
+            }
+    
+            $(function () {
+                $("#sdate, .ssdate").datepicker({
+                    numberOfMonths: 1,
+                    dateFormat: 'yymmdd',
+                    changeMonth: true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
+                    changeYear: true, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
+                    nextText: '다음 달', // next 아이콘의 툴팁.
+                    prevText: '이전 달', // prev 아이콘의 툴팁.
+                    numberOfMonths: [1, 1], // 한번에 얼마나 많은 월을 표시할것인가. [2,3] 일 경우, 2(행) x 3(열) = 6개의 월을 표시한다.
+                    showAnim: "slide", //애니메이션을 적용한다.
+                    showMonthAfterYear: true, // 월, 년순의 셀렉트 박스를 년,월 순으로 바꿔준다.
+                    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], // 요일의 한글 형식.
+                    monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'], // 월의 한글 형식.
+                    onClose: function (selectedDate) {
+                        $("#edate, .eedate").datepicker("option", "minDate", selectedDate);
+                    }
+                });
+    
+                $("#edate, .eedate").datepicker({
+                    numberOfMonths: 1,
+                    dateFormat: 'yymmdd',
+                    changeMonth: true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
+                    changeYear: true, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
+                    nextText: '다음 달', // next 아이콘의 툴팁.
+                    prevText: '이전 달', // prev 아이콘의 툴팁.
+                    numberOfMonths: [1, 1], // 한번에 얼마나 많은 월을 표시할것인가. [2,3] 일 경우, 2(행) x 3(열) = 6개의 월을 표시한다.
+                    showAnim: "slide", //애니메이션을 적용한다.
+                    showMonthAfterYear: true, // 월, 년순의 셀렉트 박스를 년,월 순으로 바꿔준다.
+                    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], // 요일의 한글 형식.
+                    monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'], // 월의 한글 형식.
+                    onClose: function (selectedDate) {
+                        $("#sdate, .ssdate").datepicker("option", "maxDate", selectedDate);
+                    }
+                });
+    
+                // 최초 실행 함수
+                init();
+            });
+    
+            function init(){
+                // init_cafe24_chk();
+                        }
+    
+            //카페24 연동 해제 체크
+            function init_cafe24_chk(){
+                $.ajax({
+                      url : '../chk.cafe24.php'
+                    , type : 'post'
+                    , beforeSend : function() {
+                        $('body').css('cursor', 'wait');
+                    }
+                    , dataType:"json"
+                    , success : function(data) {
+                        if(data['bool'] == 'false'){
+                            location.replace('/shop/admin_provider/member/chk.cafe24.php');
+                        }
+                    }
+                    , error : function(request, status, error) {
+                        console.log("error forward : " + request);
+                    }
+                    , complete : function() {
+                        $('body').css('cursor', 'auto');
+                    }
+                });
+            }
+    
+            //서브어드민 계정상태 체크
+            function chk_subAdminStatus() {
+                $.ajax({
+                    url: '../chk_subAdminStatus.php'
+                    , type: 'post'
+                    , beforeSend: function () {
+                        $('body').css('cursor', 'wait');
+                    }
+                    , dataType: "json"
+                    , success: function (data) {
+    
+                        if (data['status'] == 'P') {
+                            var pages = location.pathname.indexOf("/goods/");
+                            if (pages > -1) {
+                                window.alert(data['msg_goods']);
+                                location.replace('/shop/admin_provider/brandSet/brand_cfg_set_v2.php');
+                            } else {
+                                window.alert(data['msg_intro']);
+                            }
+                        }
+                    }
+                    , error: function (request, status, error) {
+                        console.log("error forward : " + request);
+                    }
+                    , complete: function () {
+                        $('body').css('cursor', 'auto');
+                    }
+                });
+            }
+    
+        </script>
+        <style>
+            .ui-datepicker {
+                font-size: 14px;
+            }
+            .container_wrap{margin-top: 20px; background-color: transparent;}
+        </style>
+    
+        <!-- Google Tag Manager -->
+        <script>(function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start':
+                        new Date().getTime(), event: 'gtm.js'
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-5NZXJJ3');</script>
+        <!-- End Google Tag Manager -->
+    
+        
+    <script async="" src="https://script.hotjar.com/modules.86894929204a09eb4a2e.js" charset="utf-8"></script>
+    
+    <style type="text/css">iframe#_hjRemoteVarsFrame {display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;}</style>
+
+    <link rel="stylesheet" href="../common_unit/css/style.admin.css">  <!-- 20200604 css 추가 -->
+    <link rel="stylesheet" href="style.visa_list.css">       <!-- 20200604 css 추가 -->
+    <script type="text/javascript">$(document).ready(function(){$("#header").load("../common_unit/pravs_header.html");});</script>
+</head>
+<body>
+    <div id="header"></div>
+    <div id="wrap" class="clearfix">
+        <div class="container_wrap">
+            <div>
+                <!-- Google Tag Manager (noscript) -->
+                <!-- <noscript>
+                    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5NZXJJ3"
+                            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+                </noscript> -->
+                <!-- End Google Tag Manager (noscript) -->
+                <div class="skip_navigation"><a href="#container" class="skip_btn">본문 바로가기</a></div>
+                <div id="dynamic"></div><!-- 지우지마세요. 정산대기리스트에서...주르륵 쓰여요 -->
+                <iframe name="ifrmHidden" src="../../blank.php" style="display:none;width:100%;height:500px;"></iframe>
+            </div>
+            <h2 class="title_section">선정산 상세 내역 <span class="txt_sub">년/월 별 선정산 신청/완료 상세내역을 확인할하실 수 있습니다.</span></h2>
+            <div class="section_g section_con">
+                <ul class="list_form">
+                    <li>
+                        <label for="searchText" class="tit_form">신청결과</label>
+                        <div class="item_put">
+                            <div class="cell_check">
+                                <input type="radio" id="rqType1" name="reqType1" value="" checked="">
+                                <label for="rqType1">전체</label>
+                                <input type="radio" id="rqType2" name="reqType1" value="fix">
+                                <label for="rqType2">선정산 신청</label>
+                                <input type="radio" id="rqType3" name="reqType1" value="cancel">
+                                <label for="rqType3">선정산 완료</label>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="searchText" class="tit_form">기간검색</label>
+                        <div class="item_put">
+                            <div class="cell_check">
+                                <input type="radio" id="dcntType1" name="reqType2" value="" checked="">
+                                <label for="dcntType1">선정산 신청일</label>
+                                <input type="radio" id="dcntType2" name="reqType2" value="fix">
+                                <label for="dcntType2">선정산 완료일</label>
+                            </div>
+                        </div>
+                        <div id="selDay" class="cell_period">
+                            <span id="selDay" class="date_put">
+                                <label for="sdate" class="blind">시작날짜</label>
+                                <input type="text" name="regdt[]" class="ssdate" value="20200601" class="hasDatepicker">
+                            </span>
+                            <span id="selDay" class="date_put">
+                                <label for="edate" class="blind">끝날짜</label>
+                                <input type="text" class="eedate" name="regdt[]" value="20200630" class="hasDatepicker">
+                            </span>
+                            <div class="date_qlist">
+                                <button type="button" onclick="setDate('regdt[]',20200702,20200702)" class="date-btn choice_date">오늘</button>
+                                <button type="button" onclick="setDate('regdt[]',20200625,20200702)" class="date-btn">일주일</button>
+                                <button type="button" onclick="setDate('regdt[]',20200617,20200702)" class="date-btn">15일</button>
+                                <button type="button" onclick="setDate('regdt[]',20200602,20200702)" class="date-btn">1개월</button>
+                                <button type="button" onclick="setDate('regdt[]',20200502,20200702)" class="date-btn">2개월</button>
+                                <button type="button" onclick="setDate('regdt[]')" class="date-btn">전체</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="wrap_button">
+                    <button type="submit" class="btn_g active">검색</button>
+                    <button type="button" class="btn_g">초기화</button>
+                </div>
+            </div>
+            <div class="section_g section_con">
+                <p class="cell_total">[TOTAL: <span class="total_1">0</span> 개 / 검색 <span class="total_2">0</span> 개]</p>
+                <div class="box_tbl account_wrap">
+                    <form name="frmList" method="post">
+                        <table class="tbl_comm tbl_detail" cellpadding="0" cellspacing="0">
+                            <caption class="blind">상품연동 테이블</caption>
+                            <colgroup>
+                                <col width="56px">
+                                <col width="134px">
+                                <col width="106px">
+                                <col width="120px">
+                                <col width="142px">
+                                <col width="142px">
+                                <col width="100px">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>번호</th>
+                                    <th>정산 년/월</th>
+                                    <th>선정산 신청 한 금액<br/>①</th>
+                                    <th>PG 수수료<br/>②</th>
+                                    <th>실 입금 금액<br/>(①-②)</th>
+                                    <th>신청결과</th>
+                                    <th>선정산 완료일 (입금일)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>999</td>
+                                    <td>2020-02</td>
+                                    <td>3,000</td>
+                                    <td>30</td>
+                                    <td>2,970</td>
+                                    <td class="txt_em">선정산 신청</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>999</td>
+                                    <td>2020-02</td>
+                                    <td>3,000</td>
+                                    <td>30</td>
+                                    <td>2,970</td>
+                                    <td class="link_state">선정산 완료</td>
+                                    <td>2020-06-16 11:20:11</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="tool_wrap">
+                            <a href="" class="btn_ecxel">엑셀로 저장 </a>
+                            <input type="hidden">                  
+                            <div class="cell_select">
+                                <label for="page_num1" class="blind">리스트출력옵션</label>
+                                <select name="page_num" id="page_num1">
+                                    <option value="20">20개 출력
+                                    </option><option value="50">50개 출력
+                                    </option><option value="100">100개 출력
+                                    </option>
+                                </select>
+                            </div>
+                        </div> 
+                    </form>
+                </div>
+                <div class="sec2_button"></div>
+                <div class="page_wrap">
+                    <a href="" class="ico_arrow"><span class="ico_dbleft"></span></a>
+                    <a href="" class="ico_arrow"><span class="ico_pgleft"></span></a>
+                    <a href="" class="btn_pgclk">1</a>
+                    <a href="">2</a>
+                    <a href="">3</a>
+                    <a href="">4</a>
+                    <a href="">5</a>
+                    <a href="">6</a>
+                    <a href="">7</a>
+                    <a href="">8</a>
+                    <a href="">9</a>
+                    <a href="">10</a>
+                    <a href="" class="ico_arrow"><span class="ico_pgright"></span></a>
+                    <a href="" class="ico_arrow"><span class="ico_dbright"></span>
+                </div>
+            </div>
+        </div>
+        <!-- //container_wrap -->
+    </div>
+    <script>
+        
+        $(".date-btn").on("click",function(){
+            $(".date-btn").removeClass("choice_date");
+            $(this).addClass("choice_date");
+        });
+    </script>
+</body>
+</html>

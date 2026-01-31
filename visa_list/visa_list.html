@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- <meta charset="EUC-KR"> -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes">
+        <meta name="naver-site-verification" content="c48015d1e12671a3f6b18c2fa440950534fcdb63">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="셀러허브|입점신청">
+        <meta property="og:description" content="셀러허브 입점신청하기">
+        <meta property="og:image" content="https://www.sellerhub.co.kr/img/icon-sellerhub-logo3.png?v=1.0">
+        <meta property="og:url" content="http://admin.sellerhub.co.kr/">
+        <title>셀러허브 관리자</title>
+        <!--<link rel="shortcut icon" href="../img/favicon.ico">-->
+        <link rel="icon" href="https://admin.sellerhub.co.kr/shop/admin_provider/new_favicon2.ico">
+        <link href="https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&amp;display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://pravs.co.kr/shop/admin_provider/common.css?version=1.08">
+        <link rel="styleSheet" href="https://pravs.co.kr/global/global_style.css">
+        <script type="text/javascript" async="" src="https://static.hotjar.com/c/hotjar-911327.js?sv=7"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" async="" src="https://cdn.channel.io/plugin/ch-plugin-web.js" charset="UTF-8"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-5NZXJJ3"></script><script src="/global/global_custom.js"></script>
+        <link rel="stylesheet" href="https://pravs.co.kr/shop/admin_provider/jquery-ui.css">
+        <script type="text/javascript" src="https://pravs.co.kr/shop/admin_provider/jquery-1.8.3.min.js"></script>
+        <!--[if lte IE 8]>
+        <script src="../poly-checked.min.js"></script> <![endif]-->
+        <script type="text/javascript" src="https://pravs.co.kr/shop/admin_provider/common.js?version=1591235789"></script>
+        <script type="text/javascript" src="https://pravs.co.kr/shop/admin_provider/custom.js?version=1.10"></script>
+        <script src="https://pravs.co.kr/shop/admin_provider/jquery-ui.js"></script>
+        <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+        <script>
+            var client_id = 8142;
+            function read_info(cate, idx, link) {
+                $.ajax({
+                    url: '/shop/admin_provider/noti.json.php'
+                    , type: 'post'
+                    , data: {'cate': cate, 'idx': idx}
+                    , success: function (data) {
+                        location.href = link;
+                    }
+                    , error: function (request, status, error) {
+                        console.log(request);
+                    }
+                });
+                return false;
+            }
+    
+            function init_info() {
+                $.ajax({
+                    url: '/shop/admin_provider/header_info.php'
+                    , type: 'post'
+                    , dataType: 'html'
+                    , success: function (data) {
+                        $(".news_list").append(data);
+                    }
+                    , error: function (request, status, error) {
+                        console.log(request);
+                    }
+                });
+            }
+    
+            $(function () {
+                $("#sdate, .ssdate").datepicker({
+                    numberOfMonths: 1,
+                    dateFormat: 'yymmdd',
+                    changeMonth: true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
+                    changeYear: true, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
+                    nextText: '다음 달', // next 아이콘의 툴팁.
+                    prevText: '이전 달', // prev 아이콘의 툴팁.
+                    numberOfMonths: [1, 1], // 한번에 얼마나 많은 월을 표시할것인가. [2,3] 일 경우, 2(행) x 3(열) = 6개의 월을 표시한다.
+                    showAnim: "slide", //애니메이션을 적용한다.
+                    showMonthAfterYear: true, // 월, 년순의 셀렉트 박스를 년,월 순으로 바꿔준다.
+                    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], // 요일의 한글 형식.
+                    monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'], // 월의 한글 형식.
+                    onClose: function (selectedDate) {
+                        $("#edate, .eedate").datepicker("option", "minDate", selectedDate);
+                    }
+                });
+    
+                $("#edate, .eedate").datepicker({
+                    numberOfMonths: 1,
+                    dateFormat: 'yymmdd',
+                    changeMonth: true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
+                    changeYear: true, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
+                    nextText: '다음 달', // next 아이콘의 툴팁.
+                    prevText: '이전 달', // prev 아이콘의 툴팁.
+                    numberOfMonths: [1, 1], // 한번에 얼마나 많은 월을 표시할것인가. [2,3] 일 경우, 2(행) x 3(열) = 6개의 월을 표시한다.
+                    showAnim: "slide", //애니메이션을 적용한다.
+                    showMonthAfterYear: true, // 월, 년순의 셀렉트 박스를 년,월 순으로 바꿔준다.
+                    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], // 요일의 한글 형식.
+                    monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'], // 월의 한글 형식.
+                    onClose: function (selectedDate) {
+                        $("#sdate, .ssdate").datepicker("option", "maxDate", selectedDate);
+                    }
+                });
+    
+                // 최초 실행 함수
+                init();
+            });
+    
+            function init(){
+                // init_cafe24_chk();
+                        }
+    
+            //카페24 연동 해제 체크
+            function init_cafe24_chk(){
+                $.ajax({
+                      url : '../chk.cafe24.php'
+                    , type : 'post'
+                    , beforeSend : function() {
+                        $('body').css('cursor', 'wait');
+                    }
+                    , dataType:"json"
+                    , success : function(data) {
+                        if(data['bool'] == 'false'){
+                            location.replace('/shop/admin_provider/member/chk.cafe24.php');
+                        }
+                    }
+                    , error : function(request, status, error) {
+                        console.log("error forward : " + request);
+                    }
+                    , complete : function() {
+                        $('body').css('cursor', 'auto');
+                    }
+                });
+            }
+    
+            //서브어드민 계정상태 체크
+            function chk_subAdminStatus() {
+                $.ajax({
+                    url: '../chk_subAdminStatus.php'
+                    , type: 'post'
+                    , beforeSend: function () {
+                        $('body').css('cursor', 'wait');
+                    }
+                    , dataType: "json"
+                    , success: function (data) {
+    
+                        if (data['status'] == 'P') {
+                            var pages = location.pathname.indexOf("/goods/");
+                            if (pages > -1) {
+                                window.alert(data['msg_goods']);
+                                location.replace('/shop/admin_provider/brandSet/brand_cfg_set_v2.php');
+                            } else {
+                                window.alert(data['msg_intro']);
+                            }
+                        }
+                    }
+                    , error: function (request, status, error) {
+                        console.log("error forward : " + request);
+                    }
+                    , complete: function () {
+                        $('body').css('cursor', 'auto');
+                    }
+                });
+            }
+    
+        </script>
+        <style>
+            .ui-datepicker {
+                font-size: 14px;
+            }
+            .container_wrap{margin-top: 20px; background-color: transparent;}
+        </style>
+    
+        <!-- Google Tag Manager -->
+        <script>(function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start':
+                        new Date().getTime(), event: 'gtm.js'
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-5NZXJJ3');</script>
+        <!-- End Google Tag Manager -->
+    
+        
+    <script async="" src="https://script.hotjar.com/modules.86894929204a09eb4a2e.js" charset="utf-8"></script>
+    
+    <style type="text/css">iframe#_hjRemoteVarsFrame {display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;}</style>
+
+    <link rel="stylesheet" href="../common_unit/css/style.admin.css">  <!-- 20200604 css 추가 -->
+    <link rel="stylesheet" href="style.visa_list.css">       <!-- 20200604 css 추가 -->
+    <script type="text/javascript">$(document).ready(function(){$("#header").load("../common_unit/pravs_header.html");});</script>
+</head>
+<body>
+    <div id="header"></div>
+    <div id="wrap" class="clearfix">
+        <div class="container_wrap">
+            <div>
+                <!-- Google Tag Manager (noscript) -->
+                <!-- <noscript>
+                    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5NZXJJ3"
+                            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+                </noscript> -->
+                <!-- End Google Tag Manager (noscript) -->
+                <div class="skip_navigation"><a href="#container" class="skip_btn">본문 바로가기</a></div>
+                <div id="dynamic"></div><!-- 지우지마세요. 정산대기리스트에서...주르륵 쓰여요 -->
+                <iframe name="ifrmHidden" src="../../blank.php" style="display:none;width:100%;height:500px;"></iframe>
+            </div>
+            <h2 class="title_section">VISA 선정산리스트 <span class="txt_sub">VISA 선정산 신청 및 완료내역등을 확인하실 수 있습니다.</span></h2>
+            <div class="section_g section_con visa_wrap">
+                <div class="box_tbl">
+                    <table class="tbl_comm tbl_summary tbl_apply" width="100%" cellpadding="0" cellspacing="0">
+                        <caption><h3 class="blind">선정산 서비스 승인신청표</h3></caption>
+                        <colgroup> 
+                            <col class="col_15">
+                            <col width="84.4%">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>VISA 선정산 서비스 승인신청</th>
+                                <td><em class="txt_info">승인완료 </em>(2020.06.25 11:00) / 선정산 가능 요율 : <em class="txt_info">80%</em> <button type="button" class="btn_detail btn_reque">요청 정보</button><button type="button" class="btn_account">※ 선정산이란?</button> </td>
+                            </tr>
+                            <tr>
+                                <th>VISA 선정산 서비스 승인신청</th>
+                                <td><button class="btn_ask lnk_popup">VISA 선정산 서비스 요청하기</button><button type="button" class="btn_account">※ 선정산이란?</button> </td>
+                            </tr>
+                            <tr>
+                                <th>VISA 선정산 서비스 승인신청</th>
+                                <td><em class="txt_info">승인요청</em> (2020.06.25 11:00)<button type="button" class="btn_detail btn_reque">요청 정보</button><button class="btn_ask lnk_popup">VISA 선정산 서비스 요청하기</button><button type="button" class="btn_account">※ 선정산이란?</button> </td>
+                            </tr>
+                            <tr>
+                                <th>VISA 선정산 서비스 승인신청</th>
+                                <td><em class="txt_info">반려 </em>(2020.06.25 11:00) <button type="button" class="btn_detail btn_reque">요청 정보</button><button class="btn_ask lnk_popup">VISA 선정산 서비스 요청하기</button><button type="button" class="btn_re">반려 사유</button><button type="button" class="btn_account">※ 선정산이란?</button> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <ul class="list_noti">
+                    <li><span class="ico_noti"></span><em class="txt_info">한번 선정산신청한건은 선정산 신청취소가 불가합니다.</em></li>
+                    <li><span class="ico_noti"></span><em class="txt_info">선정산 신청 및 선정산 완료된건은</em> 익월 25일 정산대금에서는 <em class="txt_info">해당 선정산 한(된) 금액만큼 차감이 됩니다.</em></li>
+                    <li><span class="ico_noti"></span><em class="txt_info">익월 25일에 정산받을 정산금액을 구매확정된 해당 월 1일~말일까지 신청이 가능합니다.</em></li>
+                    <li><span class="ico_noti"></span><em class="txt_info">선정산 금액은</em> [기본관리 > 3. 입점사 상세정보 관리]의 거래은행 정보<em class="txt_info">로 자동 입금됩니다.</em></li>
+                </ul>
+            </div>
+
+            <div class="section_g section_con">
+                <div id="account_list" class="tab_content">
+                    <p class="cell_total">[TOTAL: <span class="total_1">0</span> 개 / 검색 <span class="total_2">0</span> 개]</p>
+                    <div class="box_tbl">
+                        <form name="frmList" method="post">
+                            <table class="tbl_comm tbl_detail" width="1636px" cellpadding="0" cellspacing="0">
+                                <caption class="blind">선정산표</caption>
+                                <colgroup>
+                                    <col class="col_03">
+                                    <col class="col_06">
+                                    <col class="col_11">
+                                    <col class="col_06">
+                                    <col class="col_11">
+                                    <col class="col_11">
+                                    <col class="col_11">
+                                    <col class="col_11">
+                                    <col class="col_11">
+                                    <col class="col_07">
+                                    <col class="col_09">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>번호</th>
+                                        <th>정산 년/월</th>
+                                        <th>익월 정산예정금액<br/>① </th>
+                                        <th>선정산 요율<br/>② </th>
+                                        <th>선정산 가능 총 금액<br/>(① +②)</th>
+                                        <th>선정산 신청 한 총금액<br/>③</th>
+                                        <th>PG 총 수수료<br/>④</th>
+                                        <th>선정산 된 실입금 총금액<br/>(③+④)</th>
+                                        <th>남은 선정산<br/>신청가능 총금액</th>
+                                        <th>선정산신청</th>
+                                        <th>선정산내역</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- 리스트가 없을 경우 -->
+                                    <tr>
+                                        <td colspan="12"><p class="result_none">리스트가 존재 하지 않습니다.</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td>999</td>
+                                        <td>2020-02</td>
+                                        <td>10,000</td>
+                                        <td>80%</td>
+                                        <td>8,000</td>
+                                        <td>3,000</td>
+                                        <td>30</td>
+                                        <td>2,970</td>
+                                        <td>5,000</td>
+                                        <td><button type="button" class="btn_ask btn_regi">선정산 신청</button></td>
+                                        <td><a class="btn_detail lnk_acnt" href="account_list.html" target="black">선정산 상세 내역</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>999</td>
+                                        <td>2020-02</td>
+                                        <td>9,999,999,000</td>
+                                        <td>80%</td>
+                                        <td>7,999,999,200</td>
+                                        <td>7,999,999,200</td>
+                                        <td>79,999,992</td>
+                                        <td>9999</td>
+                                        <td>0</td>
+                                        <td><span>신청기간 만료</span></td>
+                                        <td><a class="btn_detail lnk_acnt" href="account_list.html" target="black">선정산 상세 내역</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="tool_wrap">
+                                <a href="" class="btn_ecxel">엑셀로 저장 </a>
+                                <input type="hidden">                  
+                                <div class="cell_select">
+                                    <label for="page_num1" class="blind">리스트출력옵션</label>
+                                    <select name="page_num" id="page_num1">
+                                        <option value="20">20개 출력
+                                        </option><option value="50">50개 출력
+                                        </option><option value="100">100개 출력
+                                        </option>
+                                    </select>
+                                </div>
+                            </div> 
+                        </form>
+                        <div class="sec2_button"></div>
+                    </div>
+                    <div class="page_wrap">
+                        <a href="" class="ico_arrow"><span class="ico_dbleft"></span></a>
+                        <a href="" class="ico_arrow"><span class="ico_pgleft"></span></a>
+                        <a href="" class="btn_pgclk">1</a>
+                        <a href="">2</a>
+                        <a href="">3</a>
+                        <a href="">4</a>
+                        <a href="">5</a>
+                        <a href="">6</a>
+                        <a href="">7</a>
+                        <a href="">8</a>
+                        <a href="">9</a>
+                        <a href="">10</a>
+                        <a href="" class="ico_arrow"><span class="ico_pgright"></span></a>
+                        <a href="" class="ico_arrow"><span class="ico_dbright"></span></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 선정산 서비스 요청내역 -->
+            <div class="popup_wrap popup_req"  style="display: none;">
+                <div class="popup_content">
+                    <div class="title_pop"><strong>VISA 선정산 서비스 요청 내역</strong></div>
+                    <div class="pop_container">
+                        <p class="pop_info">(<span class="txt_em"> * </span>)은 필수 입력항목입니다.</p>
+                        <table class="tbl_comm tbl_detail">
+                            <caption class="txt_cap">업체 정보</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_78">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>업체명</th>
+                                    <td>와이민 (법인사업자)</td>
+                                </tr>
+                                <tr>
+                                    <th>사업자등록번호</th>
+                                    <td>4871601115</td>
+                                </tr>
+                                <tr>
+                                    <th>대표자 국문명</th>
+                                    <td>홍길동</td>
+                                </tr>
+                                <tr>
+                                    <th>대표자 영문명</th>
+                                    <td>kang yeo min</td>
+                                </tr>
+                                <tr>
+                                    <th>대표전화번호 <em class="txt_em">*</em></th>
+                                    <td>02-1234-5678</td>
+                                </tr>
+                                <tr>
+                                    <th>FAX <em class="txt_em">*</em></th>
+                                    <td>02-1568-1234</td>
+                                </tr>
+                                <tr>
+                                    <th>사업장주소</th>
+                                    <td>(02551)서울특별시 동대문구 답십리로 61 (전농동) 2층</td>
+                                </tr>
+                                <tr>
+                                    <th>대표판매목록 <em class="txt_em">*</em></th>
+                                    <td>의류</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="tbl_comm tbl_detail">
+                            <caption>상점담당자</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_28">
+                                <col class="col_22">
+                                <col class="col_28">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>상점담당자</th>
+                                    <td>전동주</td>
+                                    <th>상점담당자 이메일</th>
+                                    <td>easternking@gmail.com</td>
+                                </tr>
+                                <tr>
+                                    <th>상점담당자 연락처</th>
+                                    <td>02-1234-5678</td>
+                                    <th>상점담당자 휴대전화</th>
+                                    <td>010-1234-5678</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="txt_em tbl_info">※ 공급사 정보의 "영업 담당자 정보"가 "상점담당자"로 지정됩니다.</p>
+                        <table class="tbl_comm tbl_detail">
+                            <caption>정산</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_78">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>거래은행(코드)</th>
+                                    <td>신한은행(088)</td>
+                                </tr>
+                                <tr>
+                                    <th>정산계좌번호</th>
+                                    <td>960-12-216791</td>
+                                </tr>
+                                <tr>
+                                    <th>정산계좌예금주명</th>
+                                    <td>홍길동</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="tbl_comm tbl_detail">
+                            <caption>첨부서류</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_28">
+                                <col class="col_22">
+                                <col class="col_28">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>사업자등록증</th>
+                                    <td><button type="button">[보기]</button></td>
+                                    <th>법인 인감증명서</th>
+                                    <td><button type="button">[보기]</button></td>
+                                </tr>
+                                <tr>
+                                    <th>입금계좌사본</th>
+                                    <td><button type="button">[보기]</button></td>
+                                    <th>법인 등기부등본</th>
+                                    <td><button type="button">[보기]</button></td>
+                                </tr>
+                                <tr>
+                                    <th>대표자 신분증 사본</th>
+                                    <td><button type="button">[보기]</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="tbl_comm tbl_detail">
+                            <caption>약관동의</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_28">
+                                <col class="col_22">
+                                <col class="col_28">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>선정산 이용약관</th>
+                                    <td><span class="txt_ag">동의</span><button type="button">[보기]</button></td>
+                                    <th>개인정보취급방침</th>
+                                    <td><span class="txt_ag">동의</span><button type="button">[보기]</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="tbl_comm tbl_detail">
+                            <caption>요청이력</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_78">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>요청일자</th>
+                                    <td>2020.06.25 11:00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="btn_wrap">
+                            <button type="button" class="btn_detail">취소</button>
+                            <button type="button" class="btn_apply">신청하기</button>
+                        </div>
+                    </div>
+                    <button type="button" class="ico_close"></button>
+                </div>
+            </div>
+
+            <!-- 선정산 서비스 요청내역 (승인완료 팝업) -->
+            <div class="popup_wrap" style="display: none;">
+                <div class="popup_content">
+                    <div class="title_pop"><strong>VISA 선정산 서비스 요청 내역</strong></div>
+                    <div class="pop_container">
+                        <p class="pop_info">(<span class="txt_em"> * </span>)은 필수 입력항목입니다.</p>
+                        <table class="tbl_comm tbl_detail">
+                            <caption class="txt_cap">업체 정보</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_78">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>업체명</th>
+                                    <td>와이민 (법인사업자)</td>
+                                </tr>
+                                <tr>
+                                    <th>사업자등록번호</th>
+                                    <td>4871601115</td>
+                                </tr>
+                                <tr>
+                                    <th>대표자 국문명</th>
+                                    <td>홍길동</td>
+                                </tr>
+                                <tr>
+                                    <th>대표자 영문명</th>
+                                    <td>kang yeo min</td>
+                                </tr>
+                                <tr>
+                                    <th>대표전화번호 <em class="txt_em">*</em></th>
+                                    <td>02-1234-5678</td>
+                                </tr>
+                                <tr>
+                                    <th>FAX <em class="txt_em">*</em></th>
+                                    <td>02-1568-1234</td>
+                                </tr>
+                                <tr>
+                                    <th>사업장주소</th>
+                                    <td>(02551)서울특별시 동대문구 답십리로 61 (전농동) 2층</td>
+                                </tr>
+                                <tr>
+                                    <th>대표판매목록 <em class="txt_em">*</em></th>
+                                    <td>의류</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="tbl_comm tbl_detail">
+                            <caption>상점담당자</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_28">
+                                <col class="col_22">
+                                <col class="col_28">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>상점담당자</th>
+                                    <td>전동주</td>
+                                    <th>상점담당자 이메일</th>
+                                    <td>easternking@gmail.com</td>
+                                </tr>
+                                <tr>
+                                    <th>상점담당자 연락처</th>
+                                    <td>02-1234-5678</td>
+                                    <th>상점담당자 휴대전화</th>
+                                    <td>010-1234-5678</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="txt_em tbl_info">※ 공급사 정보의 "영업 담당자 정보"가 "상점담당자"로 지정됩니다.</p>
+                        <table class="tbl_comm tbl_detail">
+                            <caption>정산</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_78">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>거래은행(코드)</th>
+                                    <td>신한은행(088)</td>
+                                </tr>
+                                <tr>
+                                    <th>정산계좌번호</th>
+                                    <td>960-12-216791</td>
+                                </tr>
+                                <tr>
+                                    <th>정산계좌예금주명</th>
+                                    <td>홍길동</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="tbl_comm tbl_detail">
+                            <caption>첨부서류</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_28">
+                                <col class="col_22">
+                                <col class="col_28">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>사업자등록증</th>
+                                    <td><button type="button">[보기]</button></td>
+                                    <th>법인 인감증명서</th>
+                                    <td><button type="button">[보기]</button></td>
+                                </tr>
+                                <tr>
+                                    <th>입금계좌사본</th>
+                                    <td><button type="button">[보기]</button></td>
+                                    <th>법인 등기부등본</th>
+                                    <td><button type="button">[보기]</button></td>
+                                </tr>
+                                <tr>
+                                    <th>대표자 신분증 사본</th>
+                                    <td><button type="button">[보기]</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="tbl_comm tbl_detail">
+                            <caption>약관동의</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_28">
+                                <col class="col_22">
+                                <col class="col_28">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>선정산 이용약관</th>
+                                    <td><span class="txt_ag">동의</span><button type="button">[보기]</button></td>
+                                    <th>개인정보취급방침</th>
+                                    <td><span class="txt_ag">동의</span><button type="button">[보기]</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="tbl_comm tbl_detail">
+                            <caption>요청이력</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_78">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>요청일자</th>
+                                    <td>2020.06.25 11:00</td>
+                                </tr>
+                                <tr>
+                                    <th>승인일자</th>
+                                    <td>2020.06.25 11:00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="btn_wrap">
+                            <button type="button" class="btn_detail">취소</button>
+                            <button type="button" class="btn_apply">신청하기</button>
+                        </div>
+                    </div>
+                    <button type="button" class="ico_close"></button>
+                </div>
+            </div>
+
+            <!-- 선정산 서비스 요청내역 (반려일자 팝업) -->
+            <div class="popup_wrap" style="display: none;" >
+                <div class="popup_content">
+                    <div class="title_pop"><strong>VISA 선정산 서비스 요청 내역</strong></div>
+                    <div class="pop_container">
+                        <p class="pop_info">(<span class="txt_em"> * </span>)은 필수 입력항목입니다.</p>
+                        <table class="tbl_comm tbl_detail">
+                            <caption class="txt_cap">업체 정보</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_78">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>업체명</th>
+                                    <td>와이민 (법인사업자)</td>
+                                </tr>
+                                <tr>
+                                    <th>사업자등록번호</th>
+                                    <td>4871601115</td>
+                                </tr>
+                                <tr>
+                                    <th>대표자 국문명</th>
+                                    <td>홍길동</td>
+                                </tr>
+                                <tr>
+                                    <th>대표자 영문명</th>
+                                    <td>kang yeo min</td>
+                                </tr>
+                                <tr>
+                                    <th>대표전화번호 <em class="txt_em">*</em></th>
+                                    <td>02-1234-5678</td>
+                                </tr>
+                                <tr>
+                                    <th>FAX <em class="txt_em">*</em></th>
+                                    <td>02-1568-1234</td>
+                                </tr>
+                                <tr>
+                                    <th>사업장주소</th>
+                                    <td>(02551)서울특별시 동대문구 답십리로 61 (전농동) 2층</td>
+                                </tr>
+                                <tr>
+                                    <th>대표판매목록 <em class="txt_em">*</em></th>
+                                    <td>의류</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="tbl_comm tbl_detail">
+                            <caption>상점담당자</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_28">
+                                <col class="col_22">
+                                <col class="col_28">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>상점담당자</th>
+                                    <td>전동주</td>
+                                    <th>상점담당자 이메일</th>
+                                    <td>easternking@gmail.com</td>
+                                </tr>
+                                <tr>
+                                    <th>상점담당자 연락처</th>
+                                    <td>02-1234-5678</td>
+                                    <th>상점담당자 휴대전화</th>
+                                    <td>010-1234-5678</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="txt_em tbl_info">※ 공급사 정보의 "영업 담당자 정보"가 "상점담당자"로 지정됩니다.</p>
+                        <table class="tbl_comm tbl_detail">
+                            <caption>정산</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_78">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>거래은행(코드)</th>
+                                    <td>신한은행(088)</td>
+                                </tr>
+                                <tr>
+                                    <th>정산계좌번호</th>
+                                    <td>960-12-216791</td>
+                                </tr>
+                                <tr>
+                                    <th>정산계좌예금주명</th>
+                                    <td>홍길동</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="tbl_comm tbl_detail">
+                            <caption>첨부서류</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_28">
+                                <col class="col_22">
+                                <col class="col_28">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>사업자등록증</th>
+                                    <td><button type="button">[보기]</button></td>
+                                    <th>법인 인감증명서</th>
+                                    <td><button type="button">[보기]</button></td>
+                                </tr>
+                                <tr>
+                                    <th>입금계좌사본</th>
+                                    <td><button type="button">[보기]</button></td>
+                                    <th>법인 등기부등본</th>
+                                    <td><button type="button">[보기]</button></td>
+                                </tr>
+                                <tr>
+                                    <th>대표자 신분증 사본</th>
+                                    <td><button type="button">[보기]</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="tbl_comm tbl_detail">
+                            <caption>약관동의</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_28">
+                                <col class="col_22">
+                                <col class="col_28">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>선정산 이용약관</th>
+                                    <td><span class="txt_ag">동의</span><button type="button">[보기]</button></td>
+                                    <th>개인정보취급방침</th>
+                                    <td><span class="txt_ag">동의</span><button type="button">[보기]</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="tbl_comm tbl_detail">
+                            <caption>요청이력</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_78">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>요청일자</th>
+                                    <td>2020.06.25 11:00</td>
+                                </tr>
+                                <tr>
+                                    <th>반려일자</th>
+                                    <td>2020.06.25 11:00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="btn_wrap">
+                            <button type="button" class="btn_detail">취소</button>
+                            <button type="button" class="btn_apply">신청하기</button>
+                        </div>
+                    </div>
+                    <button type="button" class="ico_close"></button>
+                </div>
+            </div>
+
+            <div class="popup_wrap popup_comm popup_account" style="display: none;">
+                <div class="popup_content">
+                    <div class="title_pop"><strong>VISA 선정산이란</strong></div>
+                    <div class="pop_inner">
+                        <p class="title_con">VISA 선정산이란</p>
+                        <div class="txt_box">
+                            품었기 실현에 듣기만 것이다. 가슴이 아니더면, 밝은 그들은 없으면, 불어 산야에 사막이다. 있을 피어나기 무엇이 되는 있다. 방지하는 구하지 실로 못할 뿐이다. 만물은 하는 살았으며, 우는 그들의 얼음이 너의 할지라도 칼이다. 어디 사라지지 우리의 얼음과 위하여 소리다.이것은 물방아 뿐이다. 긴지라 따뜻한 피어나는 것은 때문이다. 아니한 실로 보배를 품고 심장의 장식하는 것이다. 하였으며, 자신과 목숨이 청춘의 뛰노는 품에 풍부하게 트고, 있는 부패뿐이다.
+                            <br/><br/>
+                            웅대한 보배를 새가 생의 끝까지 꾸며 있을 목숨을 부패뿐이다. 이것을 이상 대중을 청춘의 가는 노년에게서 구할 위하여서 현저하게 것이다. 유소년에게서 것은 그들에게 사람은 대한 풀이 이것이다. 풀이 목숨을 인간은 구하지 가장 것이다. 그들의 그것은 것은 끓는 피어나기 오직 가치를 끓는 있으며, 칼이다. 갑 것이 생생하며, 꾸며 않는 구하지 예수는 뿐이다. 역사를 그러므로 그것은 그들에게 약동하다. 그들은 못할 원대하고, 그들은 무한한 따뜻한 이것을 소리다.이것은 찾아 위하여서. 되려니와, 두기 바이며, 미묘한 굳세게 찾아다녀도, 눈이 이 원질이 듣는다. 되는 청춘의 눈이 이것은 무한한 피부가 운다. 끝까지 인간이 이 속잎나고, 행복스럽고 꽃 아니한 것이다.
+                            <br/><br/>
+                            것은 때에, 소리다.이것은 청춘을 아름다우냐? 고동을 그것은 예수는 기쁘며, 전인 영락과 아름다우냐? 쓸쓸한 평화스러운 불러 사막이다. 되려니와, 고행을 불어 생의 실현에 천지는 인간은 방지하는 때에, 있다. 못할 이상 방황하여도, 꽃 보라. 그와 것이다.보라, 아니한 옷을 풍부하게 사막이다. 산야에 가는 커다란 싹이 크고 천지는 쓸쓸하랴? 실로 있음으로써 따뜻한 피어나는 말이다. 열매를 이상의 사람은 이것이다. 청춘을 봄날의 뼈 없는 타오르고 열락의 발휘하기 것이 교향악이다. 부패를 피가 가슴이 위하여 인생에 되려니와, 황금시대의 발휘하기 가치를 것이다.
+                            <br/><br/>
+                            풍부하게 청춘 새 기관과 이 쓸쓸하랴? 위하여 귀는 피어나기 얼음과 뼈 봄바람을 없으면 되는 봄바람이다. 갑 긴지라 청춘을 것이다. 위하여서 거친 스며들어 실현에 아니더면, 능히 이상, 아니다. 천고에 얼마나 인생을 그들의 그들은 뛰노는 곳으로 끓는다. 행복스럽고 노년에게서 끓는 때문이다. 영원히 수 있는 튼튼하며, 밝은 풍부하게 싸인 봄바람이다. 방황하여도, 내려온 품었기 용기가 기관과 되는 불어 간에 주며, 힘있다. 무엇을 인생을 청춘 얼음이 몸이 교향악이다. 이것이야말로 앞이 이상은 그림자는 가진 장식하는 물방아 살 싸인 것이다. 광야에서 인생을 무엇을 때에, 용기가 하였으며, 약동하다.
+                        </div>
+                        <div class="btn_wrap">
+                            <button type="button" class="btn_apply btn_cls">확인</button>
+                        </div>
+                    </div>
+                    <button type="button" class="ico_close"></button>
+                </div>
+            </div>
+            
+            <!-- 선정산 신청하기 팝업 -->
+            <div class="popup_wrap popup_comm popup_apply" style="display:none;">
+                <div class="popup_content">
+                    <div class="title_pop"><strong>VISA 선정산 신청하기</strong></div>
+                    <div class="pop_inner">
+                        <p class="title_con">신청하기</p>
+                        <div class="box_tbl">
+                            <table class="tbl_comm tbl_detail">
+                                <caption class="screen_hide">선정산신청표</caption>
+                                <colgroup>
+                                    <col class="col_22">
+                                    <col class="col_78">
+                                </colgroup>
+                                <tbody> 
+                                    <tr>
+                                        <th>선정산 정산 년/월</th>
+                                        <td>2020.06</td>
+                                    </tr>
+                                    <tr>
+                                        <th>선정산 신청가능 금액</th>
+                                        <td>7,000원</td>
+                                    </tr>
+                                    <tr>
+                                        <th>선정산 신청 금액</th>
+                                        <td><input type="text" placeholder="숫자만 입력해주세요"><button class="btn_ask">선정산 신청가능금액 전체</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>수수료</th>
+                                        <td>70원</td>
+                                    </tr>
+                                    <tr>
+                                        <th>실 입금액</th>
+                                        <td>6,930원</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="txt_em tbl_info">※ 수수료 및 실 입금액은 [선청산 신청 금액]입력 시 자동으로 계산되어 표기됩니다.</p>
+                        <div class="btn_wrap">
+                            <button type="button" class="btn_detail">취소</button>
+                            <button type="button" class="btn_apply">신청하기</button>
+                        </div>
+                    </div>
+                    <button type="button" class="ico_close"></button>
+                </div>
+            </div>
+
+            <!-- 법인사업자 팝업 -->
+            <div class="popup_wrap popup_corporate" style="display: none;">
+                <div class="popup_content">
+                    <div class="title_pop"><strong>VISA 선정산 서비스 요청</strong></div>
+                    <div class="pop_container">
+                        <p class="pop_info">(<span class="txt_em"> * </span>)은 필수 입력항목입니다.</p>
+                        <table class="tbl_comm tbl_detail">
+                            <caption class="txt_cap">업체 정보</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_78">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>업체명</th>
+                                    <td>와이민 (법인사업자)</td>
+                                </tr>
+                                <tr>
+                                    <th>사업자등록번호</th>
+                                    <td>4871601115</td>
+                                </tr>
+                                <tr>
+                                    <th>대표자 국문명</th>
+                                    <td><input type="text" class="input_txt" placeholder="예시) Hong Gildong"></td>
+                                </tr>
+                                <tr>
+                                    <th>대표전화번호 <em class="txt_em">*</em></th>
+                                    <td>
+                                        <div class="tbl_cell">
+                                            <input type="text" maxlength="4"><span class="dash_input"></span><input type="text" maxlength="4"><span class="dash_input"></span><input type="text" maxlength="4">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>FAX <em class="txt_em">*</em></th>
+                                    <td>
+                                        <div class="tbl_cell">
+                                            <input type="text" maxlength="4"><span class="dash_input"></span><input type="text" maxlength="4"><span class="dash_input"></span><input type="text" maxlength="4">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>사업장주소</th>
+                                    <td>(02551)서울특별시 동대문구 답십리로 61 (전농동) 2층</td>
+                                </tr>
+                                <tr>
+                                    <th>대표판매목록 <em class="txt_em">*</em></th>
+                                    <td><input type="text" class="input_txt"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="tbl_comm tbl_detail">
+                            <caption>상점담당자</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_28">
+                                <col class="col_22">
+                                <col class="col_28">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>상점담당자</th>
+                                    <td>전동주</td>
+                                    <th>상점담당자 이메일</th>
+                                    <td>easternking@gmail.com</td>
+                                </tr>
+                                <tr>
+                                    <th>상점담당자 연락처</th>
+                                    <td>02-1234-5678</td>
+                                    <th>상점담당자 휴대전화</th>
+                                    <td>010-1234-5678</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="txt_em tbl_info">※ 공급사 정보의 "영업 담당자 정보"가 "상점담당자"로 지정됩니다.</p>
+                        <table class="tbl_comm tbl_detail">
+                            <caption>정산</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_78">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>거래은행(코드)</th>
+                                    <td>신한은행(088)</td>
+                                </tr>
+                                <tr>
+                                    <th>정산계좌번호</th>
+                                    <td>960-12-216791</td>
+                                </tr>
+                                <tr>
+                                    <th>정산계좌예금주명</th>
+                                    <td>홍길동</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="txt_em tbl_info">※ [기본관리] > [3. 입점사 상세정보관리]의 "거래은행 정보"가 표기됩니다.</p>
+                        <table class="tbl_comm tbl_detail">
+                            <caption>첨부서류</caption>
+                            <colgroup>
+                                <col class="col_20">
+                                <col class="col_28">
+                                <col class="col_20">
+                                <col class="col_28">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>사업자등록증<em class="txt_em">*</em><br/>[보기]</th>
+                                    <td>
+                                        <div class="filebox">
+                                            <label for="ex_filename01">파일 선택</label>
+                                            <input class="upload-name" value="선택된 파일 없음" disabled="disabled">
+                                            <input type="file" name="file_excel" id="ex_filename01" required="" class="upload-hidden">
+                                        </div>
+                                    </td>
+                                    <th>법인 인감증명서<em class="txt_em">*</em><br/>[보기]</th>
+                                    <td>
+                                        <div class="filebox">
+                                            <label for="ex_filename02">파일 선택</label>
+                                            <input class="upload-name" value="선택된 파일 없음" disabled="disabled">
+                                            <input type="file" name="file_excel" id="ex_filename02" required="" class="upload-hidden">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>입금계좌사본<em class="txt_em">*</em><br/>[보기]</th>
+                                    <td>
+                                        <div class="filebox">
+                                            <label for="ex_filename03">파일 선택</label>
+                                            <input class="upload-name" value="선택된 파일 없음" disabled="disabled">
+                                            <input type="file" name="file_excel" id="ex_filename03" required="" class="upload-hidden">
+                                        </div>
+                                    </td>
+                                    <th>법인 등기부등본<em class="txt_em">*</em><br/>[보기]</th>
+                                    <td>
+                                        <div class="filebox">
+                                            <label for="ex_filename04">파일 선택</label>
+                                            <input class="upload-name" value="선택된 파일 없음" disabled="disabled">
+                                            <input type="file" name="file_excel" id="ex_filename04" required="" class="upload-hidden">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>대표자 신분증 사본<em class="txt_em">*</em><br/>[보기]</th>
+                                    <td>
+                                        <div class="filebox">
+                                            <label for="ex_filename05">파일 선택</label>
+                                            <input class="upload-name" value="선택된 파일 없음" disabled="disabled">
+                                            <input type="file" name="file_excel" id="ex_filename05" required="" class="upload-hidden">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="txt_em tbl_info">※ 입금계좌사본 첨부 시 위 [정산]에 표기된 계좌정보의 [통장사본]을 첨부하여야 심사가 시작됩니다.</p>
+                        <div class="agree_wrap">
+                            <p class="title_con">선정산 이용약관</p>
+                            <div class="txt_agree">
+                                예시 텍스트입니다. 진국님이 주신댔음
+                                자신과 듣기만 어디 사막이다. 따뜻한 못할 인생에 광야에서 용감하고 황금시대다. 청춘의 대중을 노래하며 스며들어 인생을 과실이 인생에 풍부하게 피가 아니다. 능히 사는가 그림자는 크고 되려니와, 가진 있다. 피가 피가 안고, 부패를 속에서 방황하였으며, 운다. 노년에게서 뭇 거선의 대고, 있는가? 설레는 따뜻한 같지 봄바람이다. 같지 영원히 있는 우리는 가슴에 얼음이 찬미를 무한한 것은 아름다우냐? 그들의 돋고, 무엇을 이상은 이상, 이성은 풀이 봄바람이다. 커다란 어디 길을 것이다.보라, 듣는다.
+                            </div>
+                            <input type="checkbox" id="chk_pop1"><label for="chk_pop1">선정산 이용약관에 동의 합니다.</label>
+                        </div>
+                        <div class="agree_wrap">
+                            <p class="title_con">선정산 이용약관</p>
+                            <div class="txt_agree">
+                                예시 텍스트입니다. 진국님이 주신댔음
+                                자신과 듣기만 어디 사막이다. 따뜻한 못할 인생에 광야에서 용감하고 황금시대다. 청춘의 대중을 노래하며 스며들어 인생을 과실이 인생에 풍부하게 피가 아니다. 능히 사는가 그림자는 크고 되려니와, 가진 있다. 피가 피가 안고, 부패를 속에서 방황하였으며, 운다. 노년에게서 뭇 거선의 대고, 있는가? 설레는 따뜻한 같지 봄바람이다. 같지 영원히 있는 우리는 가슴에 얼음이 찬미를 무한한 것은 아름다우냐? 그들의 돋고, 무엇을 이상은 이상, 이성은 풀이 봄바람이다. 커다란 어디 길을 것이다.보라, 듣는다.
+                            </div>
+                            <input type="checkbox" id="chk_pop2"><label for="chk_pop2">개인정보취급방침에 동의합니다.</label>
+                        </div>
+                        <p class="txt_em tbl_info">※ 카드심사 후 승인완료여부를 알려드립니다.</p>
+                        <div class="btn_wrap">
+                            <button type="button" class="btn_detail">취소</button>
+                            <button type="button" class="btn_apply">신청하기</button>
+                        </div>
+                    </div>
+                    <button type="button" class="ico_close"></button>
+                </div>
+            </div>
+
+
+            <!-- 개인사업자 팝업 -->
+            <div class="popup_wrap" style="display: none;">
+                <div class="popup_content">
+                    <div class="title_pop"><strong>VISA 선정산 서비스 요청</strong></div>
+                    <div class="pop_container">
+                        <p class="pop_info">(<span class="txt_em"> * </span>)은 필수 입력항목입니다.</p>
+                        <table class="tbl_comm tbl_detail">
+                            <caption class="txt_cap">업체 정보</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_78">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>업체명</th>
+                                    <td>와이민 (법인사업자)</td>
+                                </tr>
+                                <tr>
+                                    <th>사업자등록번호</th>
+                                    <td>4871601115</td>
+                                </tr>
+                                <tr>
+                                    <th>대표자 국문명</th>
+                                    <td><input type="text" class="input_txt" placeholder="예시) Hong Gildong"></td>
+                                </tr>
+                                <tr>
+                                    <th>대표전화번호 <em class="txt_em">*</em></th>
+                                    <td>
+                                        <div class="tbl_cell">
+                                            <input type="text" maxlength="4"><span class="dash_input"></span><input type="text" maxlength="4"><span class="dash_input"></span><input type="text" maxlength="4">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>FAX <em class="txt_em">*</em></th>
+                                    <td>
+                                        <div class="tbl_cell">
+                                            <input type="text" maxlength="4"><span class="dash_input"></span><input type="text" maxlength="4"><span class="dash_input"></span><input type="text" maxlength="4">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>사업장주소</th>
+                                    <td>(02551)서울특별시 동대문구 답십리로 61 (전농동) 2층</td>
+                                </tr>
+                                <tr>
+                                    <th>대표판매목록 <em class="txt_em">*</em></th>
+                                    <td><input type="text" class="input_txt"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="tbl_comm tbl_detail">
+                            <caption>상점담당자</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_30">
+                                <col class="col_22">
+                                <col class="col_30">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>상점담당자</th>
+                                    <td>전동주</td>
+                                    <th>상점담당자 이메일</th>
+                                    <td>easternking@gmail.com</td>
+                                </tr>
+                                <tr>
+                                    <th>상점담당자 연락처</th>
+                                    <td>02-1234-5678</td>
+                                    <th>상점담당자 휴대전화</th>
+                                    <td>010-1234-5678</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="txt_em tbl_info">※ 공급사 정보의 "영업 담당자 정보"가 "상점담당자"로 지정됩니다.</p>
+                        <table class="tbl_comm tbl_detail">
+                            <caption>정산</caption>
+                            <colgroup>
+                                <col class="col_22">
+                                <col class="col_78">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>거래은행(코드)</th>
+                                    <td>신한은행(088)</td>
+                                </tr>
+                                <tr>
+                                    <th>정산계좌번호</th>
+                                    <td>960-12-216791</td>
+                                </tr>
+                                <tr>
+                                    <th>정산계좌예금주명</th>
+                                    <td>홍길동</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="txt_em tbl_info">※ [기본관리] > [3. 입점사 상세정보관리]의 "거래은행 정보"가 표기됩니다.</p>
+                        <table class="tbl_comm tbl_detail">
+                            <caption>첨부서류</caption>
+                            <colgroup>
+                                <col class="col_20">
+                                <col class="col_28">
+                                <col class="col_20">
+                                <col class="col_28">
+                            </colgroup>
+                            <tbody> 
+                                <tr>
+                                    <th>사업자등록증<em class="txt_em">*</em><br/>[보기]</th>
+                                    <td>
+                                        <div class="filebox">
+                                            <label for="ex_filename06">파일 선택</label>
+                                            <input class="upload-name" value="선택된 파일 없음" disabled="disabled">
+                                            <input type="file" name="file_excel" id="ex_filename06" required="" class="upload-hidden">
+                                        </div>
+                                    </td>
+                                    <th>입금계좌사본<em class="txt_em">*</em><br/>[보기]</th>
+                                    <td>                                    
+                                        <div class="filebox">
+                                            <label for="ex_filename07">파일 선택</label>
+                                            <input class="upload-name" value="선택된 파일 없음" disabled="disabled">
+                                            <input type="file" name="file_excel" id="ex_filename07" required="" class="upload-hidden">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>대표자 신분증 사본<em class="txt_em">*</em><br/>[보기]</th>
+                                    <td>
+                                        <div class="filebox">
+                                            <label for="ex_filename08">파일 선택</label>
+                                            <input class="upload-name" value="선택된 파일 없음" disabled="disabled">
+                                            <input type="file" name="file_excel" id="ex_filename08" required="" class="upload-hidden">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="txt_em tbl_info">※ 입금계좌사본 첨부 시 위 [정산]에 표기된 계좌정보의 [통장사본]을 첨부하여야 심사가 시작됩니다.</p>
+                        <div class="agree_wrap">
+                            <p class="title_con">선정산 이용약관</p>
+                            <div class="txt_agree">
+                                예시 텍스트입니다. 진국님이 주신댔음
+                                자신과 듣기만 어디 사막이다. 따뜻한 못할 인생에 광야에서 용감하고 황금시대다. 청춘의 대중을 노래하며 스며들어 인생을 과실이 인생에 풍부하게 피가 아니다. 능히 사는가 그림자는 크고 되려니와, 가진 있다. 피가 피가 안고, 부패를 속에서 방황하였으며, 운다. 노년에게서 뭇 거선의 대고, 있는가? 설레는 따뜻한 같지 봄바람이다. 같지 영원히 있는 우리는 가슴에 얼음이 찬미를 무한한 것은 아름다우냐? 그들의 돋고, 무엇을 이상은 이상, 이성은 풀이 봄바람이다. 커다란 어디 길을 것이다.보라, 듣는다.
+                            </div>
+                            <input type="checkbox" id="chk_pop3"><label for="chk_pop3">선정산 이용약관에 동의 합니다.</label>
+                        </div>
+                        <div class="agree_wrap">
+                            <p class="title_con">선정산 이용약관</p>
+                            <div class="txt_agree">
+                                예시 텍스트입니다. 진국님이 주신댔음
+                                자신과 듣기만 어디 사막이다. 따뜻한 못할 인생에 광야에서 용감하고 황금시대다. 청춘의 대중을 노래하며 스며들어 인생을 과실이 인생에 풍부하게 피가 아니다. 능히 사는가 그림자는 크고 되려니와, 가진 있다. 피가 피가 안고, 부패를 속에서 방황하였으며, 운다. 노년에게서 뭇 거선의 대고, 있는가? 설레는 따뜻한 같지 봄바람이다. 같지 영원히 있는 우리는 가슴에 얼음이 찬미를 무한한 것은 아름다우냐? 그들의 돋고, 무엇을 이상은 이상, 이성은 풀이 봄바람이다. 커다란 어디 길을 것이다.보라, 듣는다.
+                            </div>
+                            <input type="checkbox" id="chk_pop4"><label for="chk_pop4">개인정보취급방침에 동의합니다.</label>
+                        </div>
+                        <p class="txt_em tbl_info">※ 공급사 정보의 "영업 담당자 정보"가 "상점담당자"로 지정됩니다.</p>
+                        <div class="btn_wrap">
+                            <button type="button" class="btn_detail">취소</button>
+                            <button type="button" class="btn_apply">신청하기</button>
+                        </div>
+                    </div>
+                    <button type="button" class="ico_close"></button>
+                </div>
+            </div>
+            
+            <div class="popup_wrap popup_comm popup_return" style="display: none;">
+                <div class="popup_content">
+                    <div class="title_pop"><strong>반려사유</strong></div>
+                    <div class="pop_inner">
+                        <div class="box_tbl">
+                            <table class="tbl_comm tbl_detail">
+                                <caption class="screen_hide">선정산신청표</caption>
+                                <colgroup>
+                                    <col class="col_22">
+                                    <col class="col_78">
+                                </colgroup>
+                                <tbody> 
+                                    <tr>
+                                        <th>업체명</th>
+                                        <td>와이민</td>
+                                    </tr>
+                                    <tr height="281px">
+                                        <th>사유</th>
+                                        <td>사유</td>
+                                    </tr>
+                                    <tr>
+                                        <th>승인요청일</th>
+                                        <td>2020.06.17 11:59:55</td>
+                                    </tr>
+                                    <tr>
+                                        <th>반려일자</th>
+                                        <td>2020.06.18 11:59:55</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="btn_wrap">
+                            <button type="button" class="btn_apply btn_cls">닫기</button>
+                        </div>
+                    </div>
+                    <button type="button" class="ico_close"></button>
+                </div>
+            </div>
+        </div>
+        <!-- //container_wrap -->
+    </div>
+    <script>
+        $('.btn_detail,.ico_close, .btn_detai0l, .btn_cls').on("click",function(){
+            $('.popup_wrap').hide();
+        });
+
+        $('.btn_account').on("click",function(){
+            $('.popup_account').show();
+        });
+
+        $('.btn_re').on("click",function(){
+            $('.popup_return').show();
+        });
+        $('.lnk_popup').on("click",function(){
+            $('.popup_corporate').show();
+        });
+        $('.btn_reque').on("click",function(){
+            $('.popup_req').show();
+        });
+        $('.btn_regi').on("click",function(){
+            $('.popup_apply').show();
+        });
+
+        init_file();
+
+        function init_file() {
+            $fileBox = $('.filebox');
+            fileLoad();
+        }
+
+        function fileLoad() {
+            $.each($fileBox, function(idx){
+                var $this = $fileBox.eq(idx), $btnUpload = $this.find('[type="file"]'), $label = $this.find('.file-label');
+                $btnUpload.on('change', function() {
+                    var $target = $(this), fileName = $target.val(), $fileText = $target.siblings('.upload-name');
+                    var name = $target.attr('name');
+
+                    if(fileName != ""){
+                        var fileurl = fileName.split("\\");
+                        var filelen = fileurl.length;
+                        $fileText.val(fileurl[filelen-1]);
+
+                        $("."+name).html("<div class='profile_img'><img id='preview_"+name+"' src=''/></div>");
+                    }
+                })
+            })
+        }
+    </script>
+</body>
+</html>
