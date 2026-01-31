@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Publisher Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span>UI/UX Designer</span>
+                <span class="highlight">& Publisher</span>
+            </h1>
+            <p class="hero-subtitle">// Product Design + Front-End Publishing</p>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">08</span>
+                    <span class="stat-label">Projects</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">2</span>
+                    <span class="stat-label">Specialties</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">Possibilities</span>
+                </div>
+            </div>
+
+            <div class="decorative-line"></div>
+        </div>
+
+        <div class="scroll-indicator">↓ Scroll to explore</div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects">
+        <h2 class="section-title">Selected Works</h2>
+        <p class="section-subtitle">// UI/UX Design & Publishing Portfolio</p>
+
+        <!-- Category Tabs -->
+        <div class="category-tabs">
+            <button class="tab-btn active" data-category="all">All Projects</button>
+            <button class="tab-btn" data-category="uiux">UI/UX Design</button>
+            <button class="tab-btn" data-category="publishing">Publishing</button>
+        </div>
+
+        <div class="project-grid">
+            <!-- UI/UX Project 1: Pickly -->
+            <div class="project-card" data-category="uiux">
+                <div class="project-image project-image-bg-pink">
+                    <img src="images/cover_pickly.png" alt="Pickly - 숏폼 저장 플랫폼">
+                    <div class="project-image-overlay">
+                        📱 Mobile App
+                    </div>
+                </div>
+                <div class="project-content">
+                    <div class="project-category">Product Design · Personal Project</div>
+                    <h3 class="project-title">Pickly - 숏폼 저장 플랫폼</h3>
+                    <div class="project-badge project-badge-pink">
+                        <span class="project-badge-text project-badge-text-pink">🎯 개인 프로젝트 · 기획/디자인 100%</span>
+                    </div>
+                    <p class="project-description">
+                        MZ세대의 '시성비' 중심 콘텐츠 소비 패턴을 분석하여, 숏폼 영상을 저장·정리·공유하는
+                        모바일 앱을 기획했습니다. AI 자동 분류, 리마인더, 그룹 큐레이션 등 차별화된 기능으로
+                        '저장 후 재탐색'의 문제를 해결했습니다.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">UX Research</span>
+                        <span class="tech-tag">User Interview</span>
+                        <span class="tech-tag">IA Design</span>
+                        <span class="tech-tag">UI/UX Design</span>
+                        <span class="tech-tag">Figma</span>
+                    </div>
+                    <div class="project-info-section">
+                        <p class="project-info-label">KEY INSIGHTS</p>
+                        <ul class="project-info-list">
+                            <li>• 사용자 60%가 시간 절약 서비스에 관심 (2030세대 86.6%)</li>
+                            <li>• 저장 기능보다 '재탐색 편의성'이 핵심 니즈</li>
+                            <li>• AI 자동 분류로 정리 스트레스 제거</li>
+                        </ul>
+                    </div>
+                    <a href="#"
+                        onclick="alert('Pickly는 컨셉 디자인 프로젝트입니다. PDF 포트폴리오에서 전체 디자인을 확인하실 수 있습니다.'); return false;"
+                        class="project-link project-link-margin">
+                        View Design Process →
+                    </a>
+                </div>
+            </div>
+
+            <!-- UI/UX Project 2: NICE Payments -->
+            <div class="project-card" data-category="uiux">
+                <div class="project-image project-image-bg-blue">
+                    <img src="images/cover_nice.png" alt="NICE Payments 홈페이지 리뉴얼">
+                    <div class="project-image-overlay">
+                        💳 Web Redesign
+                    </div>
+                </div>
+                <div class="project-content">
+                    <div class="project-category">Web Design · Personal Project</div>
+                    <h3 class="project-title">NICE Payments 홈페이지 리뉴얼</h3>
+                    <div class="project-badge project-badge-blue">
+                        <span class="project-badge-text project-badge-text-blue">🎯 개인 프로젝트 · 기획/디자인 100%</span>
+                    </div>
+                    <p class="project-description">
+                        연 매출 1.1조 규모 결제 시스템 기업의 노후화된 웹사이트를 리뉴얼했습니다.
+                        복잡한 GNB를 50% 단순화하고, 텍스트 중심 UI를 3D 인포그래픽으로 전환하여
+                        B2B 의사결정권자에게 기술 신뢰도를 시각적으로 전달했습니다.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Competitive Analysis</span>
+                        <span class="tech-tag">IA Redesign</span>
+                        <span class="tech-tag">Responsive Web</span>
+                        <span class="tech-tag">Design System</span>
+                        <span class="tech-tag">Figma</span>
+                    </div>
+                    <div class="project-info-section">
+                        <p class="project-info-label">IMPROVEMENTS</p>
+                        <ul class="project-info-list">
+                            <li>• 목표 도달 클릭 수 40% 감소 (IA 재설계)</li>
+                            <li>• 모바일 결제 비중 77% 반영한 반응형 최적화</li>
+                            <li>• 3D 카드형 UI로 서비스 구조 명확화</li>
+                        </ul>
+                    </div>
+                    <a href="#"
+                        onclick="alert('NICE Payments는 리뉴얼 컨셉 디자인 프로젝트입니다. PDF 포트폴리오에서 전체 디자인을 확인하실 수 있습니다.'); return false;"
+                        class="project-link project-link-margin">
+                        View Redesign Concept →
+                    </a>
+                </div>
+            </div>
+
+            <!-- UI/UX Project 3: Hyundai Card K-Pass -->
+            <div class="project-card" data-category="uiux">
+                <div class="project-image project-image-bg-yellow">
+                    <img src="hyundai_card_news.png" alt="현대카드 K패스 프로모션" class="project-image-contain">
+                </div>
+                <div class="project-content">
+                    <div class="project-category">Promotion Design · Personal Project</div>
+                    <h3 class="project-title">현대카드 K패스 프로모션 리뉴얼</h3>
+                    <div class="project-badge project-badge-yellow">
+                        <span class="project-badge-text project-badge-text-yellow">🎯 개인 프로젝트 · 기획/디자인 100%</span>
+                    </div>
+                    <p class="project-description">
+                        현대카드 Z Work Edition2 K패스 환급 프로모션을 리뉴얼했습니다.
+                        기존 배너 대비 시각적 임팩트를 강화하고, 카드뉴스·롤링보드·타임보드 등
+                        다양한 포맷으로 확장하여 캠페인 일관성을 높였습니다.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Banner Design</span>
+                        <span class="tech-tag">Card News</span>
+                        <span class="tech-tag">Rolling Board</span>
+                        <span class="tech-tag">Visual Identity</span>
+                        <span class="tech-tag">Photoshop</span>
+                        <span class="tech-tag">Illustrator</span>
+                    </div>
+                    <div class="project-info-section">
+                        <p class="project-info-label">DELIVERABLES</p>
+                        <ul class="project-info-list">
+                            <li>• 메인 프로모션 배너 리뉴얼 (Before/After)</li>
+                            <li>• 카드뉴스 시리즈 (K패스 환급 혜택 안내)</li>
+                            <li>• 롤링보드 & 타임보드 디자인</li>
+                            <li>• 브랜드 일관성 유지한 멀티 포맷 전개</li>
+                        </ul>
+                    </div>
+                    <div class="flex-container">
+                        <a href="hyundai_card_news.png" class="project-link" target="_blank">
+                            카드뉴스 보기 →
+                        </a>
+                        <a href="hyundai_promotion.png" class="project-link" target="_blank">
+                            프로모션 배너 →
+                        </a>
+                        <a href="hyundai_redesign.png" class="project-link" target="_blank">
+                            리뉴얼 비교 →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Professional Experience -->
+            <div class="project-card" data-category="uiux">
+                <div class="project-image project-image-bg-teal">
+                    <img src="images/cover_tdx.png" alt="TeddyX 디자인팀">
+                    <div class="project-image-overlay">
+                        🏢 TeddyX
+                    </div>
+                </div>
+                <div class="project-content">
+                    <div class="project-category">Professional Experience · 2024.08 ~ Present</div>
+                    <h3 class="project-title">TeddyX 디자인팀 사원</h3>
+                    <div class="project-badge project-badge-teal">
+                        <span class="project-badge-text project-badge-text-teal">💼 실무 프로젝트 · 기획/디자인/퍼블 100%</span>
+                    </div>
+                    <p class="project-description">
+                        웹 UI/UX 디자인 및 퍼블리싱 담당. 여행자보험 보상 청구 프로세스 UX 재설계로
+                        청구 단계를 5개→3개로 단축했으며, 대리점 웹사이트 리뉴얼에서 재사용 가능한
+                        컴포넌트 시스템을 구축하여 유지보수 효율을 개선했습니다.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">UX Flow Design</span>
+                        <span class="tech-tag">Component System</span>
+                        <span class="tech-tag">Figma</span>
+                        <span class="tech-tag">Publishing</span>
+                    </div>
+                    <div class="project-info-section">
+                        <p class="project-info-label">PROJECTS</p>
+                        <ul class="project-info-list">
+                            <li>• 여행자보험 청구 프로세스 - IA 설계부터 관여</li>
+                            <li>• 대리점 웹사이트 리뉴얼 - 디자인 시스템 구축</li>
+                        </ul>
+                    </div>
+                    <div class="flex-container">
+                        <a href="https://ca.ceylont.io/claim/db/travel" class="project-link" target="_blank">
+                            보험 청구 시스템 →
+                        </a>
+                        <a href="https://www.teddy10.com/" class="project-link" target="_blank">
+                            대리점 웹사이트 →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 1: Lotte ON - 티딜 접점 강조 -->
+            <div class="project-card" data-category="publishing" onclick="window.open('lotte-on/lotte.html', '_blank')">
+                <div class="project-image">
+                    <img src="lotte-on/img/step1.png" alt="롯데온 옵션 설정 페이지">
+                </div>
+                <div class="project-content">
+                    <div class="project-category">E-Commerce Platform · 셀러허브 | 🎯 티딜 핵심 기능</div>
+                    <h3 class="project-title">롯데 ON 셀러허브 - 쇼핑몰 연동 시스템</h3>
+                    <div class="project-badge project-badge-pink">
+                        <span class="project-badge-text-pretendard project-badge-text-pink">💼 실무 프로젝트 · 퍼블리싱
+                            100%</span>
+                    </div>
+                    <p class="project-description">
+                        <strong class="text-highlight">복잡한 커머스 데이터를 직관적으로 정리한 프로젝트</strong><br>
+                        여러 쇼핑몰(롯데온, 쿠팡, 이베이)의 상품 옵션·가격·재고를 한 화면에서 관리하는 시스템입니다.
+                        <strong>자동 매핑 로직, 다중 입력 폼, 연동 쇼핑몰 상태 표시</strong> 등 인크로스 티딜의
+                        핵심 운영 기능과 동일한 UX 문제를 해결했습니다.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Multi-Platform Integration</span>
+                        <span class="tech-tag">Data Table UI</span>
+                        <span class="tech-tag">Dynamic Form</span>
+                        <span class="tech-tag">SCSS</span>
+                        <span class="tech-tag">jQuery</span>
+                    </div>
+                    <div class="project-info-section">
+                        <p class="project-info-label-pretendard">KEY FEATURES</p>
+                        <ul class="project-info-list">
+                            <li>• 3개 쇼핑몰 옵션 데이터 일괄 관리 (티딜 멀티채널 운영과 유사)</li>
+                            <li>• 복잡한 테이블 구조 → 직관적 입력 플로우로 개선</li>
+                            <li>• 가이드 팝업으로 사용자 학습 곡선 단축</li>
+                        </ul>
+                    </div>
+                    <a href="lotte-on/lotte.html" class="project-link" target="_blank">
+                        View Project →
+                    </a>
+                </div>
+            </div>
+
+            <!-- Project 2: Visa List - 데이터 정산 -->
+            <div class="project-card" data-category="publishing"
+                onclick="window.open('visa_list/visa_list.html', '_blank')">
+                <div class="project-image">
+                    <img src="images/cover_db.png" alt="셀러허브 비자/계좌 정산 관리">
+                    <div class="project-image-overlay-pretendard">
+                        📋 정산 데이터 관리
+                    </div>
+                </div>
+                <div class="project-content">
+                    <div class="project-category">Admin Dashboard · 셀러허브 | 🎯 데이터 중심 UI</div>
+                    <h3 class="project-title">셀러허브 비자/계좌 정산 관리</h3>
+                    <div class="project-badge project-badge-green">
+                        <span class="project-badge-text-pretendard project-badge-text-green">💼 실무 프로젝트 · 퍼블리싱
+                            100%</span>
+                    </div>
+                    <p class="project-description">
+                        <strong class="text-highlight">수백 개의 정산 데이터를 필터링·검색 가능하게 구조화</strong><br>
+                        복잡한 금융 데이터(비자 정보, 계좌 내역, 거래 이력)를 테이블 형태로 정리하고,
+                        날짜 선택·검색·필터로 빠르게 탐색할 수 있도록 했습니다.
+                        <strong>티딜의 정산 관리 기능과 동일한 데이터 구조</strong>입니다.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Data Filtering</span>
+                        <span class="tech-tag">jQuery UI</span>
+                        <span class="tech-tag">Datepicker</span>
+                        <span class="tech-tag">Complex Table</span>
+                        <span class="tech-tag">Search UX</span>
+                    </div>
+                    <div class="project-info-section">
+                        <p class="project-info-label-pretendard">DATA UX HIGHLIGHTS</p>
+                        <ul class="project-info-list">
+                            <li>• 복잡한 금융 데이터 → 직관적 대시보드 변환</li>
+                            <li>• 다중 필터 조합으로 원하는 정보 즉시 탐색</li>
+                            <li>• 날짜 기반 정산 데이터 조회 최적화</li>
+                        </ul>
+                    </div>
+                    <a href="visa_list/visa_list.html" class="project-link" target="_blank">
+                        View Project →
+                    </a>
+                </div>
+            </div>
+
+            <!-- Project 3: Admin Provider -->
+            <div class="project-card" data-category="publishing"
+                onclick="window.open('admin_provider/inform.html', '_blank')">
+                <div class="project-image project-image-bg-yellow">
+                    <div class="project-image-overlay-small">
+                        ⚙️ Admin Dashboard
+                    </div>
+                </div>
+                <div class="project-content">
+                    <div class="project-category">Enterprise System · 셀러허브</div>
+                    <h3 class="project-title">셀러허브 관리자 페이지</h3>
+                    <div class="project-badge project-badge-yellow">
+                        <span class="project-badge-text project-badge-text-yellow">💼 실무 프로젝트 · 퍼블리싱 100%</span>
+                    </div>
+                    <p class="project-description">
+                        셀러허브의 종합 관리자 시스템입니다. 기본 정보 관리, 주문 관리,
+                        대시보드 등 다양한 관리 기능을 포함한 대규모 어드민 페이지입니다.
+                        복잡한 폼 구조와 데이터 시각화를 통해 효율적인 관리 환경을 제공합니다.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">jQuery</span>
+                        <span class="tech-tag">jQuery UI</span>
+                        <span class="tech-tag">Form Validation</span>
+                    </div>
+                    <a href="admin_provider/inform.html" class="project-link" target="_blank">
+                        View Project →
+                    </a>
+                </div>
+            </div>
+
+            <!-- Project 4: DomeHub -->
+            <div class="project-card" data-category="publishing" onclick="window.open('domehub/index.html', '_blank')">
+                <div class="project-image project-image-bg-purple">
+                    <div class="project-image-overlay-small">
+                        🛒 E-Commerce Platform
+                    </div>
+                </div>
+                <div class="project-content">
+                    <div class="project-category">B2B Commerce · 셀러허브</div>
+                    <h3 class="project-title">도매허브 쇼핑몰</h3>
+                    <div class="project-badge project-badge-purple">
+                        <span class="project-badge-text project-badge-text-purple">💼 실무 프로젝트 · 퍼블리싱 100%</span>
+                    </div>
+                    <p class="project-description">
+                        B2B 도매 전문 쇼핑몰 플랫폼입니다. 상품 리스트, 상세페이지, 장바구니, 주문 시스템과
+                        관리자 페이지까지 전체 쇼핑몰 시스템을 구축했습니다.
+                        카테고리 필터링, 반응형 레이아웃, 다양한 인터랙티브 요소를 포함합니다.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">jQuery</span>
+                        <span class="tech-tag">Responsive</span>
+                        <span class="tech-tag">E-Commerce</span>
+                    </div>
+                    <a href="domehub/index.html" class="project-link" target="_blank">
+                        View Project →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="decorative-line decorative-line-center"></div>
+
+            <p class="copyright">
+                © 2026 UI/UX DESIGNER & PUBLISHER PORTFOLIO
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Category Filter
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const category = button.dataset.category;
+
+                // Update active tab
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                // Filter projects
+                projectCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.classList.remove('hidden');
+                        setTimeout(() => {
+                            card.style.animation = 'slideUp 0.6s ease-out forwards';
+                        }, 100);
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'slideUp 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.style.opacity = '0';
+            observer.observe(card);
+        });
+    </script>
+</body>
+
+</html>
