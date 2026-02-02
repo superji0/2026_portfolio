@@ -1,0 +1,79 @@
+<div class="head_title">
+    <h1 id="title_logo"><a href="/" class="link_logo"><img src="/../../shop/admin_provider/img/logo/logo_domehub.svg" class="img_g" alt="도매허브"></a></h1>
+    <div class="search_box"><input type="text" class="inp_txt" title=""><button type="button" class="btn_searchs"><span class="icon_g icon_search_blue">검색</span></button></div>
+    <div id="lnb">
+        <a href="#none"><span class="icon_g icon_login">로그인</span></a>
+        <!-- <a href="#none"><span class="icon_g icon_logout">로그아웃</span></a> -->
+        <a href="#none"><span class="icon_g icon_mypage">마이페이지</span></a>
+        <!-- 차후 적용 예정
+            <a href="#none"><span class="icon_g icon_ranking">허브랭킹</span></a>-->
+    </div>
+</div>
+<div id="gnb">
+    <div class="inner_layout">
+        <button type="button" class="btn_menu"><span class="icon_g icon_menu">메뉴</span></button>
+        <ul class="list_gnb">
+            <li><a href="#none">패션의류</a></li>
+            <li><a href="#none">스포츠/레저</a></li>
+            <li><a href="#none">잡화/슈즈/쥬얼리</a></li>
+            <li><a href="#none">뷰티</a></li>
+            <li><a href="#none">명품/해외직구</a></li>
+            <li><a href="#none">출산/유아동</a></li>
+            <li><a href="#none">생활/건강</a></li>
+            <li><a href="#none">반려동물</a></li>
+            <li><a href="#none">식품</a></li>
+            <li><a href="#none">디지털/가전</a></li>
+            <li><a href="#none">가구/인테리어</a></li>
+        </ul>
+        <div class="chart_gnb">
+            <div class="chart_box">
+                <button onClick="javascript:chartShow();" class="chart_btn"></button>
+                <a href="#none"><strong>20.</strong> 마스크<span class="chart_up">1</span></a>
+            </div>
+            <div id="chart_layer">
+                <strong>인기 검색어</strong>
+                <ol>
+                    <li><a href="#none"><strong>1. </strong>물티슈<span class="chart_up">1</span></a></li>
+                    <li><a href="#none"><strong>11. </strong>물티슈<span class="chart_down">1</span></a></li>
+                    <li><a href="#none"><strong>21. </strong>물티슈<span class="chart_down">1</span></a></li>
+                    <li><a href="#none"><strong>2. </strong>등산모자/벙거지<span class="chart_down">1</span></a></li>
+                    <li><a href="#none"><strong>12. </strong>등산모자/벙거지<span class="chart_down">1</span></a></li>
+                    <li><a href="#none"><strong>22. </strong>등산모자/벙거지<span class="chart_down">1</span></a></li>
+                    <li><a href="#none"><strong>3. </strong>썬캡<span class="chart_new">NEW</span></a></li>
+                    <li><a href="#none"><strong>13. </strong>썬캡<span class="chart_new">NEW</span></a></li>
+                    <li><a href="#none"><strong>23. </strong>썬캡<span class="chart_new">NEW</span></a></li>
+                    <li><a href="#none"><strong>4. </strong>비닐 쇼핑백<span class="">-</span></a></li>
+                    <li><a href="#none"><strong>14. </strong>비닐 쇼핑백<span class="">-</span></a></li>
+                    <li><a href="#none"><strong>24. </strong>비닐 쇼핑백<span class="">-</span></a></li>
+                    <li><a href="#none"><strong>5. </strong>볼펜<span class="chart_up">1</span></a></li>
+                    <li><a href="#none"><strong>15. </strong>볼펜<span class="chart_up">1</span></a></li>
+                    <li><a href="#none"><strong>25. </strong>볼펜<span class="chart_up">1</span></a></li>
+                    <li><a href="#none"><strong>6. </strong>수동 안마기<span class="chart_new">NEW</span></a></li>
+                    <li><a href="#none"><strong>16. </strong>수동 안마기<span class="chart_new">NEW</span></a></li>
+                    <li><a href="#none"><strong>26. </strong>수동 안마기<span class="chart_new">NEW</span></a></li>
+                    <li><a href="#none"><strong>7. </strong>주방저울<span class="">-</span></a></li>
+                    <li><a href="#none"><strong>17. </strong>주방저울<span class="">-</span></a></li>
+                    <li><a href="#none"><strong>27. </strong>주방저울<span class="">-</span></a></li>
+                    <li><a href="#none"><strong>8. </strong>볼펜<span class="">-</span></a></li>
+                    <li><a href="#none"><strong>18. </strong>볼펜<span class="">-</span></a></li>
+                    <li><a href="#none"><strong>28. </strong>볼펜<span class="">-</span></a></li>
+                    <li><a href="#none"><strong>9. </strong>탁상시계<span class="chart_new">NEW</span></a></li>
+                    <li><a href="#none"><strong>19. </strong>탁상시계<span class="chart_new">NEW</span></a></li>
+                    <li><a href="#none"><strong>29. </strong>탁상시계<span class="chart_new">NEW</span></a></li>
+                    <li><a href="#none"><strong>10. </strong>암워머/팔토시<span class="chart_up">1</span></a></li>
+                    <li><a href="#none"><strong>20. </strong>암워머/팔토시<span class="chart_up">1</span></a></li>
+                    <li><a href="#none"><strong>30. </strong>암워머/팔토시<span class="chart_up">1</span></a></li>
+                </ol>
+                <span class="chart_update">2020.7.21 12:00 기준(3시간마다 업데이트)</span>
+            </div>
+
+            <script>        
+                function chartShow(){
+                    $("#chart_layer").toggleClass('open');
+                    $(".chart_btn").toggleClass('open');
+                }
+            </script>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,155 @@
+@charset "utf-8";
+
+/* 상품상세 */
+.type_detail #content{width:1200px;padding-top:30px}
+
+
+.num_price{font-family:'Roboto',sans-serif;font-weight:500;color:#242424}
+.num_price .txt_unit{margin-top:4px;font-weight:normal !important;font-size:0.77em;font-family:'Noto Sans KR',sans-serif;color:#242424}
+
+
+.box_select{position:relative;border-radius:2px;border:1px solid #c4c4c4;font-size:16px;line-height:46px;background-color:#fff;z-index:2;box-sizing:border-box}
+.box_select .txt_select{overflow:hidden;position:relative;height:46px;padding-left:10px;text-overflow:ellipsis;white-space:nowrap}
+.box_select .txt_select:after{content:'';float:right;margin-top:11px;margin-right:11px;width:24px;height:24px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='25' fill='none' viewBox='0 0 24 25'%3E%3Cpath fill='%23555' fill-rule='evenodd' d='M12 16.166c-.133 0-.26-.053-.354-.146l-6-5.995c-.195-.195-.195-.511 0-.707.196-.195.512-.195.708 0L12 14.96l5.646-5.642c.196-.195.512-.195.708 0 .195.196.195.512 0 .707l-6 5.995c-.094.093-.221.146-.354.146z' clip-rule='evenodd'/%3E%3C/svg%3E%0A") 0 0 no-repeat}
+.box_select .placeholder{color:#9a9a9a}
+.box_select .list_select{display:none;position:absolute;top:46px;left:-1px;width:100%;border-bottom-left-radius:2px;border-bottom-right-radius:2px;border:1px solid #242424;border-top:0 none;background-color:#fff}
+.box_select .list_select li{overflow:hidden;padding:0 10px;border-top:1px solid #ddd;text-overflow:ellipsis;white-space:nowrap;}
+.box_select .list_select li:hover{background-color:#f9f9f9}
+.box_select .list_select li.on{color:#4e79ff}
+.box_select.open{border:1px solid #242424;z-index:3;}
+.box_select.open .list_select{display:block;}
+.box_select.open .txt_select:after{background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none'%3e%3cpath fill='%23555' fill-rule='evenodd' d='M12 8.5a.504.504 0 00-.354.146l-6 6a.502.502 0 00.708.708L12 9.707l5.646 5.647a.502.502 0 00.708-.708l-6-6A.504.504 0 0012 8.5z' clip-rule='evenodd'/%3e%3c/svg%3e")}
+
+.box_text{position:relative;width:100%;height:160px;padding:9px 10px;border-radius:2px;border:1px solid #c4c4c4;font-size:14px;line-height:21px;background-color:#fff;box-sizing:border-box}
+.box_text textarea{display:block;width:100%;height:100%;border:0 none;outline:none;resize:none;color:#242424}
+
+/* summary_goods */
+.summary_goods{overflow:visible;position:relative;min-height:555px;padding-bottom:80px;clear:both;*zoom:1}
+.summary_goods:after{display:block;visibility:hidden;height:0;font-size:0;clear:both;content:''}
+.goods_gallery{float:left}
+.gallery_list{float:left;width:65px;}
+.gallery_list li{margin-top:10px}
+.gallery_list li:first-child{margin-top:0}
+.gallery_list a{display:block;position:relative;width:65px;height:65px}
+.gallery_list .on:after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;box-shadow:inset 0 0 0 1px #242424}
+.gallery_view{float:left;width:555px;margin-left:20px}
+
+.goods_detail{float:right;width:510px}
+
+.title_goods{display:block;display:-webkit-box;overflow:hidden;height:80px;font-size:28px;line-height:40px;color:#242424;text-overflow:ellipsis;word-break:break-all;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+
+.area_title{position:relative;padding-right:20px}
+.area_title .area_sns{top:auto;bottom:0}
+.btn_share .icon_share{width:24px;height:24px;background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none'%3e%3ccircle cx='12' cy='12' r='11.5' fill='%23fff' stroke='%23F0F0F0'/%3e%3cpath fill='%23242424' fill-rule='evenodd' d='M15 8a1 1 0 100-2 1 1 0 000 2zm0 1a2 2 0 10-1.893-1.352L8.511 10.69a2 2 0 10-.001 2.622l4.596 3.043a2 2 0 10.55-.835l-4.698-3.11a1.98 1.98 0 00.001-.817l4.699-3.11c.355.321.825.517 1.342.517zm0 9a1 1 0 100-2 1 1 0 000 2zm-7-6a1 1 0 11-2 0 1 1 0 012 0z' clip-rule='evenodd'/%3e%3c/svg%3e")}
+.item_share{display:none;overflow:hidden;position:absolute;top:29px;right:0;width:137px;height:24px;padding:4px;border-radius:32px;background-color:#fff;box-shadow:0 4px 20px rgba(0,0,0,.1);}
+.item_share a{float:left;width:24px;height:24px;margin-left:5px}
+.item_share .btn_close{float:left;width:16px;margin-left:5px}
+.item_share .btn_close .icon_g{width:16px;height:24px;background:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none'%3e%3crect width='16' height='16' fill='%23fff' rx='2'/%3e%3cpath fill='%23242424' fill-rule='evenodd' d='M8 7.295L3.403 2.7l-.706.707L7.292 8l-4.595 4.593.707.706L8 8.708l4.592 4.592.707-.707-4.592-4.592L13.3 3.41l-.707-.707-4.595 4.592z' clip-rule='evenodd'/%3e%3c/svg%3e") 50% 50% no-repeat}
+
+.area_info{padding:15px 0;border-top:1px solid #f0f0f0}
+.area_info.fst{margin-top:15px;border-top:1px solid #c4c4c4}
+.area_info dl{position:relative;min-height:22px;margin-top:10px;padding-left:175px;font-size:15px;line-height:22px;letter-spacing:-0.05em;color:#242424}
+.area_info dl:only-of-type{margin-top:0}
+.area_info dt{position:absolute;top:0;left:0;color:#9a9a9a;letter-spacing:0}
+.area_info .num_price{font-size:24px;line-height:28px}
+.area_info .num_price .txt_unit{margin-top:4px;font-weight:normal !important;font-size:0.77em;font-family:'Noto Sans KR',sans-serif;color:#242424}
+.area_info .selling_price{font-weight:bold;font-size:30px;line-height:32px;color:#ff4e4e}
+.area_info .selling_price .txt_unit{margin-top:6px;font-size:22px}
+.area_option{padding:15px 0 10px;border-top:1px solid #f0f0f0}
+.area_option dl{font-size:15px;line-height:22px;letter-spacing:-0.05em;color:#242424}
+.area_option dt{color:#9a9a9a;letter-spacing:0}
+.area_option .box_select{margin-top:5px}
+.area_option .count_stock{margin-left:5px;font-size:14px;font-family:'Roboto',sans-serif;color:#9a9a9a}
+.area_price{padding:6px 0;border-top:2px solid #242424;font-size:16px;line-height:28px;text-align:right;color:#555}
+.area_price .total_price{display:inline-block;margin-left:20px;font-weight:bold;font-size:24px;font-family:'Roboto',sans-serif;color:#ff4e4e;vertical-align:top}
+.area_price .txt_unit{margin-top:4px;font-weight:normal;font-size:18px;color:#242424}
+.area_stock dd{font-size:18px}
+.area_stock dd em{font-size:24px;font-family:'Roboto',sans-serif;color:#4e79ff}
+.area_button{overflow:hidden;margin-top:18px}
+.area_button .btn_g{float:left;width:223px;height:54px;margin-left:5px;font-size:16px;line-height:54px;font-family:'Noto Sans Bold',sans-serif;box-sizing:border-box;}
+.area_button .btn_cart{margin-left:0;border:1px solid #4e79ff;background-color:#fff;color:#4e79ff}
+.area_button .btn_buying{background-color:#4e79ff;color:#fff}
+.area_button .btn_pick{width:54px;border:1px solid #9a9a9a;background-color:#fff}
+.area_button .btn_pick .icon_g{width:32px;height:32px;margin-top:11px;background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='none'%3e%3cmask id='a' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M28.79 13.6A7.2 7.2 0 0016 7.219 7.2 7.2 0 003.21 13.6h-.002S5.2 20.2 16 28c10.8-7.8 12.792-14.4 12.792-14.4h-.002z' clip-rule='evenodd'/%3e%3c/mask%3e%3cpath fill='%239A9A9A' d='M28.79 13.6l-.943-.333-.47 1.33 1.411.003.002-1zM16 7.219l-.833.553L16 9.025l.832-1.253L16 7.22zM3.21 13.6l.001 1 1.412-.002-.47-1.331-.943.333zm-.002 0l-.002-1-1.344.002.389 1.287.957-.289zM16 28l-.586.81.586.424.585-.423L16 28zm12.792-14.4l.957.289.388-1.287-1.343-.002-.002 1zm-.592-2.4c0 .726-.125 1.422-.353 2.067l1.886.666A8.175 8.175 0 0030.2 11.2h-2zM22 5a6.2 6.2 0 016.2 6.2h2A8.2 8.2 0 0022 3v2zm-5.168 2.772A6.199 6.199 0 0122 5V3a8.193 8.193 0 00-6.833 3.665l1.665 1.107zM10 5c2.155 0 4.055 1.1 5.167 2.772l1.665-1.107A8.19 8.19 0 0010 3v2zm-6.2 6.2A6.2 6.2 0 0110 5V3c-4.53 0-8.2 3.671-8.2 8.2h2zm.352 2.067A6.187 6.187 0 013.8 11.2h-2c0 .957.164 1.877.467 2.733l1.885-.666zM3.21 14.6h.001l-.003-2h-.002l.004 2zm13.375 12.59c-5.313-3.838-8.432-7.36-10.213-9.89-.892-1.267-1.45-2.288-1.783-2.98-.166-.346-.275-.61-.342-.781a5.306 5.306 0 01-.068-.187l-.013-.04-.002-.005v.003c.001 0 .001.001-.956.29l-.957.29v.001l.001.004.003.008.007.023.025.074c.021.063.052.15.095.259.085.22.215.532.404.927.38.79.994 1.906 1.95 3.265 1.914 2.719 5.192 6.397 10.678 10.36l1.171-1.622zM28.792 13.6c-.958-.289-.957-.29-.957-.29v-.002s0-.001 0 0l-.001.005-.013.039-.069.187c-.066.171-.176.435-.342.781-.332.692-.89 1.713-1.782 2.98-1.782 2.53-4.9 6.052-10.214 9.89l1.171 1.62c5.487-3.962 8.764-7.64 10.678-10.36.957-1.358 1.571-2.475 1.95-3.264.19-.395.32-.707.405-.927.042-.11.073-.197.095-.259l.025-.074.007-.024.002-.007.001-.004c.001-.002.001-.002-.956-.291zm-.004 1h.002l.004-2h-.002l-.004 2z' mask='url(%23a)'/%3e%3c/svg%3e")}
+.area_button .btn_pick.active .icon_g{background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='none'%3e%3cpath fill='%23FF4E4E' fill-rule='evenodd' d='M28.79 13.6A7.2 7.2 0 0016 7.219 7.2 7.2 0 003.21 13.6h-.002S5.2 20.2 16 28c10.8-7.8 12.792-14.4 12.792-14.4h-.002z' clip-rule='evenodd'/%3e%3c/svg%3e")}
+
+.select_item{position:relative;margin-top:10px;padding:10px 15px;border-radius:2px;background-color:#f9f9f9}
+.select_item .btn_delete{position:absolute;top:10px;right:15px;}
+.select_item .btn_delete .icon_g{display:block;width:16px;height:16px;background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none'%3e%3crect width='15' height='15' x='.5' y='.5' fill='%23fff' stroke='%23E5E5E5' rx='1.5'/%3e%3cpath fill='%23242424' fill-rule='evenodd' d='M8 7.295L3.403 2.7l-.706.707L7.292 8l-4.595 4.593.707.706L8 8.708l4.592 4.592.707-.707-4.592-4.591L13.3 3.41l-.707-.707-4.595 4.592z' clip-rule='evenodd'/%3e%3c/svg%3e")}
+.name_item{margin-right:20px}
+.price_item{position:absolute;bottom:14px;right:15px;font-weight:500;font-size:20px;line-height:24px;font-family:'Roboto',sans-serif;letter-spacing:0;}
+.price_item .txt_unit{margin-top:1px;font-weight:normal;font-size:16px;font-family:'Noto Sans KR',sans-serif;}
+
+/* goods_detail */
+.detail_goods{min-height:1000px;border-top:1px solid #242424}
+.detail_goods .tab_list{width:892px;margin:0;border-bottom:1px solid #f0f0f0;z-index:3}
+.detail_goods .tab_list .btn_tab{width:287px;height:55px;border-bottom:0 none;font-size:16px;line-height:55px;color:#555}
+.detail_goods .tab_list .btn_tab:nth-of-type(2){width:288px;border-left:1px solid #f0f0f0;border-right:1px solid #f0f0f0;}
+.detail_goods .tab_list .btn_tab.on{border-color:#242424;background-color:#242424;font-weight:bold;color:#fff;}
+.detail_goods .tab_content{float:left;width:862px}
+.fixed_tab .detail_goods .tab_list{position:fixed;top:0}
+
+.tool_btn{padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:0;text-align:right}
+.tool_btn .sch_box{display:inline-block;position:relative;width:170px;padding-right:30px;border-radius:2px;background-color:#f0f0f0;vertical-align:top}
+.tool_btn .sch_box:after{content:'';position:absolute;top:7px;right:7px;width:16px;height:16px;background:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none'%3e%3cpath fill='%238C8C8C' fill-rule='evenodd' d='M12.667 7.333a5.334 5.334 0 11-10.668 0 5.334 5.334 0 0110.668 0zm-1.223 4.818a6.334 6.334 0 11.708-.708l2.402 2.404a.5.5 0 01-.707.707l-2.402-2.403z' clip-rule='evenodd'/%3e%3c/svg%3e") 0 0 no-repeat}
+.tool_btn .sch_box input{display:block;width:100%;font-size:12px;}
+.tool_btn .select_box{display:inline-block;margin-left:5px;vertical-align:top;}
+
+.title_tab{position:relative;padding:20px 0 10px;border-bottom:1px solid #242424}
+.title_tab h4{display:block;font-size:20px;line-height:30px;color:#242424;}
+.title_tab p{margin-top:4px;font-size:14px;line-height:21px;color:#8c8c8c;letter-spacing:-1px}
+.title_tab p a{text-decoration:underline;color:#555}
+.title_tab .tool_btn{position:absolute;top:30px;right:0;border:0 none}
+.title_tab .btn_h35{margin-top:0}
+
+.cont_none{display:block;padding:40px 0;border-bottom:1px solid #f0f0f0;font-size:14px;line-height:16px;color:#9a9a9a;text-align:center}
+.cont_none::before{content:'';display:block;width:77px;height:58px;margin:0 auto 10px;background:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='77' height='58' fill='none'%3e%3cpath stroke='%23C4C4C4' d='M75 .5A1.5 1.5 0 0176.5 2v42a1.5 1.5 0 01-1.5 1.5H43.5c-.472 0-.917.222-1.2.6l-7.8 10.4V47a1.5 1.5 0 00-1.5-1.5H2A1.5 1.5 0 01.5 44V2A1.5 1.5 0 012 .5h73z'/%3e%3cpath fill='%23C4C4C4' fill-rule='evenodd' d='M36 11.5h5l-1 16h-3l-1-16z' clip-rule='evenodd'/%3e%3cpath fill='%23C4C4C4' d='M40 29.5h-3v3h3v-3z'/%3e%3c/svg%3e") 0 0 no-repeat;background-size:100% 100%}
+
+.list_qna + .paging_common{margin-top:26px}
+.list_qna li{border-bottom:1px solid #f0f0f0}
+.list_qna .open .a_box{display:block}
+.q_box{display:block;position:relative;padding:10px 0;padding-right:65px;font-size:14px;line-height:21px;color:#242424}
+.q_box .tit_q{display:block}
+.q_box .txt_option{color:#9a9a9a}
+.q_box .num_date{position:absolute;bottom:10px;right:0;font-size:12px;line-height:20px;font-family:'Roboto', sans-serif;color:#8c8c8c}
+.q_box.q_lock .tit_q:before{content:'';display:inline-block;width:16px;height:16px;margin-top:3px;margin-right:5px;background:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none'%3e%3cpath fill='%23242424' fill-rule='evenodd' d='M5.5 3.5A1.5 1.5 0 017 2h2a1.5 1.5 0 011.5 1.5V6h-5V3.5zM4.5 6V3.5A2.5 2.5 0 017 1h2a2.5 2.5 0 012.5 2.5V6h1.022c.512 0 .99.158 1.35.433.36.273.628.686.628 1.178v5.803c0 .499-.278.907-.642 1.172a2.303 2.303 0 01-1.349.414H3.491c-.506 0-.985-.149-1.349-.414-.363-.265-.642-.673-.642-1.172V7.61c0-.492.268-.905.627-1.178.36-.275.839-.433 1.35-.433H4.5zm-2 1.611c0-.108.059-.25.233-.383A1.25 1.25 0 013.478 7h9.044c.311 0 .572.097.745.228.174.133.233.275.233.383v5.803c0 .1-.055.236-.231.364a1.304 1.304 0 01-.76.222H3.491c-.318 0-.585-.094-.76-.222-.176-.128-.231-.263-.231-.364V7.61z' clip-rule='evenodd'/%3e%3cpath stroke='%23242424' d='M8.5 10.5a.5.5 0 10-1 0 .5.5 0 001 0z'/%3e%3c/svg%3e") 0 0 no-repeat;vertical-align:top;}
+.a_box{display:none;padding:15px;font-size:14px;line-height:21px;background-color:#f9f9f9;color:#555}
+.a_box .lab_answer{display:block;width:36px;height:16px;margin-bottom:5px;border-radius:16px;border:1px solid #4e79ff;font-size:12px;line-height:16px;background-color:#fff;text-align:center;color:#4e79ff;letter-spacing:-1px}
+
+
+/* 쟈ㅜㅎ 주문서 */
+.wing_order{float:right;width:308px;z-index:3}
+.wing_order .inner_wing{width:308px}
+.wing_order .area_button{margin-top:10px}
+.wing_order .area_button .btn_cart{width:100%;margin-bottom:10px}
+.wing_order .area_button .btn_buying{width:249px;margin-left:0}
+.box_order{padding:14px 15px;border:1px solid #f0f0f0}
+.box_order .title_goods{height:auto;max-height:48px;font-size:16px;line-height:24px;letter-spacing:-1px;}
+.box_order .area_info{margin-top:15px;border-top:1px solid #f0f0f0}
+.box_order .area_info dt{color:#8c8c8c}
+.box_order .area_stock dl{font-size:16px;line-height:28px}
+.box_order .area_stock dd{text-align:right;}
+.box_order .box_select{width:274px;font-size:14px}
+.box_order .quantity_item{margin-top:10px}
+.box_order .price_item{display: block;    position: relative;    bottom: auto;    right: auto;    margin-top: 14px;}
+.box_order .select_item .btn_delete{top: auto;    bottom: 16px;    right: 10px;}
+.box_order .area_price{border-top:0 none}
+.box_order .area_price p{font-size:17px;line-height:20px;}
+.box_order .area_price .total_price{font-size:30px;line-height:35px}
+.box_order .area_price .txt_unit{margin-top:9px;font-size:22px}
+.fixed_order .wing_order{float:none;position:absolute;top:0;left:892px}
+.fixed_order .wing_order .inner_wing{position:fixed;top:0}
+.wing_order.absolute{height:100%}
+.wing_order.absolute .inner_wing{position:absolute;top:auto;bottom:100px;}
+
+
+/* 상품문의 */
+.layer_qna .layer_box{width:614px}
+.layer_qna .title_layer{margin-bottom:12px}
+.layer_qna .area_info{padding:0;border:0 none}
+.layer_qna .area_info dl{margin-top:10px;padding-left:100px;font-size:14px;line-height:21px;}
+.layer_qna .area_info dt{color:#8c8c8c}
+.layer_qna .thumb_goods{overflow:hidden;padding:10px;background-color:#f9f9f9}
+.layer_qna .thumb_goods img{float:left;width:60px;height:60px;}
+.layer_qna .thumb_goods .cell_tbl{float: left;width:388px;height:60px;margin-left:15px;font-size:14px}
+.layer_qna .btn_h35{width:99px}

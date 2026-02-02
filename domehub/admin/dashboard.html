@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes">
+    <title>셀러허브 관리자</title>
+    <link rel="stylesheet" type="text/css" href="/shop/admin_provider/common.css">
+    <link rel="stylesheet" type="text/css" href="css/dome_main.css">
+
+    <script src="/global/global_custom.js"></script>
+    <link rel="stylesheet" href="/shop/admin_provider/jquery-ui.css">
+    <script type="text/javascript" src="/shop/admin_provider/jquery-1.8.3.min.js"></script>
+    <!--[if lte IE 8]>
+    <script src="../poly-checked.min.js"></script> <![endif]-->
+    <script type="text/javascript" src="/shop/admin_provider/common.js"></script>
+    <script type="text/javascript" src="/shop/admin_provider/custom.js"></script>
+    <script src="/shop/admin_provider/jquery-ui.js"></script>
+    <script>
+        $( document ).ready(function() {
+            if (navigator.userAgent.indexOf('Mac OS X') != -1) {
+                $("body").addClass("mac");
+            } else {
+                $("body").addClass("pc");
+            }
+
+            $('.lnb-tab li a').click(function(){
+                var tab_id = $(this).attr('data-tab');
+
+                $('.lnb-tab li').removeClass('on');
+                $('.lnb_content').removeClass('on');
+
+                $(this).parent().addClass('on');
+                $("#"+tab_id).addClass('on');
+            });
+            $(".sub_arrow").click(function () {
+                $(this).toggleClass('on');
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="skip_navigation"><a href="#wrap" class="skip_btn">본문 바로가기</a></div>
+
+<div id="header" class="type_selleradmin">
+    <h1 class="logo"><a href="/shop/admin_provider/"><img src="/shop/admin_provider/img/common/logo.png" alt="로고"></a></h1>
+    <div id="gnb" class="gnb">
+        <ul class="gnb-list">
+            <li><a href="../basic/dashboard.php">기본관리</a></li>
+            <li><a href="../order/list_v2.php?mode=group&amp;first=1">주문</a></li>
+            <li><a href="../calc/list.done.php">정산</a></li>
+            <li><a href="../goods/list_v2.php">상품</a></li>
+            <li><a href="../board/provider_bbs_list_v2.php?bid=notice">게시판</a></li>
+            <li class=" additional_service_menu"><a href="/shop/admin_provider/linkage/linkage_state.php">연동현황</a></li>
+            <li><a href="../log/stat.sale_v2.php">통계데이타</a></li>
+            <li><a href="/shop/admin_provider/eventRequest/list.php">★ 행사신청</a></li>
+            <li><a href="#">서비스 이용료 결제관리</a></li>
+            <li><a href="#">개별연동</a></li>
+            <li><a href="#">부가서비스</a></li>
+            <li class="gnb_on"><a href="#">도매서비스</a></li>
+        </ul>
+        <ul class="side-list">
+            <li>
+                <button type="button" id="btnCollect" class="btn_collect ">상품<span class="txt_en">DB</span> 수집</button>
+                <div class="box_collect">
+                    <a href="<?= $gnb_link['6pm']?>" target="_blank">6PM 상품DB 수집</a>
+                    <a href="<?= $gnb_link['godo5'] ?>" target="_blank">고도몰5 상품DB 수집</a>
+                    <a href="<?= $gnb_link['enamoo'] ?>" target="_blank">이나무 상품DB 수집</a>
+                    <a href="<?= $gnb_link['sixshop'] ?>" target="_blank">SixShop 상품DB 수집</a>
+                    <a href="<?= $gnb_link['smartstore'] ?>" target="_blank">SmartStore 상품DB 수집</a>
+                    <a href="<?= $gnb_link['cafe24'] ?>" target="_blank">카페24 상품DB 수집</a>
+                    <a href="<?= $gnb_link['imweb'] ?>" target="_blank">아임웹 상품DB 수집</a>
+                </div>
+            </li>
+            <li><a href="https://www.sellerdeal.co.kr" class="shop_sellerdeal" target="_blank"><span class="icon_g icon_sellerdeal"></span></a></li>
+            <li><a href="https://<?=$_SERVER['HTTP_HOST']?>/shop/main/index.php" target="_blank"><span class="ls_2">셀러 전용 폐쇄형 복지몰</span><span class="shop_sellerhub">셀러허브샵</span></a></li>
+            <li><a href="javascript:void(0)" class="p_news on"><span class="icon_noti">알림보기</span><span class="news_count"></span></a></li>
+            <li>
+                <button type="button" class="sub_menu_btn"><span class="icon_profile">메뉴보기</span></button>
+                <div class="box_userinfo">
+                    <div class="frame_thumb">
+                        <span class="icon_profile"><img src="/shop/admin_provider/imgView.php?sno=22933&amp;type=3" alt="프로필사진"></span>
+                        <a href="/shop/admin_provider/basic/basic_set_2_v2.php" class="btn_revision">사진변경</a>
+                    </div>
+                    <strong class="id_wrap"><a href="#">올리고소프트</a></strong>
+                    <a href="../../member/logout.php?referer=../admin_provider/login/login.php" class="btn_logout">로그아웃</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="lnb">
+        <ul class="lnb-tab">
+            <li class="on" ><a href="#order" data-tab="lnb_dome_buy">구매</a></li>
+            <li><a href="#cancel" data-tab="lnb_dome_sale">판매</a></li>
+        </ul>
+        <ul id="lnb_dome_buy" class="lnb-list lnb_content on">
+            <li>
+                <a href="#" class="sub_arrow on">상품관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="dome_pool.html">도매상품 POOL</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">구매관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="order_buy_list.html">구매리스트</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">엑셀일괄주문</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="excel_order.html">엑셀 상품주문</a></li>
+                    <li><a href="excel_order_state.html">엑셀 상품주문현황</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">관심</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="pick_company.html">찜한 업체</a></li>
+                    <li><a href="pick_goods.html">찜한 상품</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">문의</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="ask_product.html">상품문의</a></li>
+                    <li><a href="ask_oto.html">1:1 문의</a></li>
+                    <li><a href="ask_seller.html">판매자에게 문의</a></li>
+                    <li><a href="??.html">자주하는 질문과 답변 (FAQ)</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul id="lnb_dome_sale" class="lnb-list lnb_content">
+            <li>
+                <a href="#" class="sub_arrow on">상품관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="dome_pool.html">도매상품 POOL</a></li>
+                    <li><a href="dome_list.html">도매 판매 상품리스트</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">판매관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="order__list.html">판매리스트</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">캐쉬</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="hubcash.html">허브캐쉬</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">문의</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="ask_product.html">상품문의</a></li>
+                    <li><a href="ask_oto.html">1:1 문의</a></li>
+                    <li><a href="ask_seller.html">판매자에게 문의</a></li>
+                    <li><a href="??.html">자주하는 질문과 답변 (FAQ)</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">내정보</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="manage.html">도매신청 관리</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div><!-- // header -->
+
+<div id="wrap">
+    <div class="container_wrap">
+        <!-- 도매허브 본문 시작 -->
+        <h2 class="screen_out">도매허브</h2>
+        <div class="board_div board_main">
+            <div class="box_board user_board">
+                <div class="pf_area">
+                    <span class="frame_thumb icon_profile"><img src="/shop/admin_provider/imgView.php?sno=1634&amp;type=3" alt="프로필사진"></span>
+                    <a href="#" class="btn_revision">편집</a>
+                </div>
+                <h3 class="title_greet">안녕하세요 <br><em>힘차고 담단한 아침</em></h3>
+                <div class="present_list">
+                    <dl><dt>판매회원</dt><dd>판매회원</dd></dl>
+                    <dl><dt>도매여부</dt><dd>도매판매중</dd></dl>
+                </div>
+                <span class="txt_info">도매시작일 : <span class="num_g">2020-04-06 15:35:23</span> <a href="#" class="btn_details">처리내역</a></span>
+            </div>
+
+            <div class="box_board hubcash_board">
+                <em class="info_hubcash">1허브캐쉬 = 1원 </em>
+                <h3 class="title_board">허브캐쉬 총 잔액 <em class="total_balance">99,999,999,000<span class="txt_unit">원</span></em></h3>
+                <div class="present_list">
+                    <dl><dt>상품판매금액 </dt><dd>99,999,999,999원 </dd></dl>
+                    <dl><dt>허브캐시 충전금액 </dt><dd>99,999,999,999원 </dd></dl>
+                </div>
+                <a href="#" class="btn_cash fst"><span class="ico_charge"></span>충전하기</a>
+                <a href="#" class="btn_cash"><span class="ico_payment"></span>출금하기</a>
+                <a href="#" class="btn_cash"><span class="ico_balance"></span>내역확인하기</a>
+            </div>
+
+            <div class="box_board state_board">
+                <dl class="item_define"><dt class="tit_define">판매중인 상품</dt><dd class="sale_count">57</dd></dl>
+                <dl class="item_define"><dt class="tit_define">판매종료 상품</dt><dd>14</dd></dl>
+            </div>
+
+            <div class="box_board pick_board">
+                <dl class="item_define"><dt class="tit_define">찜한 상품</dt><dd><span class="num_g">87</span>개</dd></dl>
+                <dl class="item_define"><dt class="tit_define">찜한 업체</dt><dd><span class="num_g">3</span>건</dd></dl>
+            </div>
+        </div>
+
+        <div class="board_div board_sale">
+            <div class="box_board">
+                <div class="title_box">
+                    <h3>상품판매현황</h3>
+                    <button type="button" onclick="window.location.reload()" class="btn_reload">새로고침</button>
+                </div>
+                <div class="detail_box">
+                    <ul class="state_total">
+                        <li><a href="#none"><span class="ico_s ico_ready"></span><strong>입금대기</strong><em class="num_g">999</em></a></li>
+                        <li><a href="#none"><span class="ico_s ico_deposit"></span><strong>입금확인</strong><em class="num_g">999</em></a></li>
+                        <li><a href="#none"><span class="ico_s ico_prepare"></span><strong>배송 준비 중</strong><em class="num_g">999</em></a></li>
+                        <li><a href="#none"><span class="ico_s ico_dely"></span><strong>배송 중</strong><em class="num_g">999</em></a></li>
+                        <li><a href="#none"><span class="ico_s ico_dely_end"></span><strong>배송완료</strong><em class="num_g">999</em></a></li>
+                        <li><a href="#none"><span class="ico_s ico_finish"></span><strong>구매확정</strong><em class="num_g">999</em></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="box_board">
+                <div class="title_box">
+                    <h3>상품판매 취소/반품/환불/교환</h3>
+                    <button type="button" onclick="window.location.reload()" class="btn_reload">새로고침</button>
+                </div>
+                <div class="detail_box">
+                    <div class="item_state item_return">
+                        <span class="ico_state icon_return"></span>
+                        <ul class="state_list">
+                            <li>반품요청               <a href="#none"><em class="num_g">999</em>건</a></li>
+                            <li>환불접수               <a href="#none"><em class="num_g">999</em>건</a></li>
+                            <li>환불완료 (최근 30일)    <a href="#none"><em class="num_g">999</em>건</a></li>
+                            <li>누적 환불완료 총 건수   <a href="#none"><em class="num_g">999</em>건</a></li>
+                            <li>취소완료 (최근 3일)     <a href="#none"><em class="num_g">999</em>건</a></li>
+                        </ul>
+                    </div>
+                    <div class="item_state item_exchange">
+                        <span class="ico_state icon_exchange"></span>
+                        <ul class="state_list">
+                            <li>교환요청                <a href="#none"><em class="num_g">999</em>건</a></li>
+                            <li>수거완료                <a href="#none"><em class="num_g">999</em>건</a></li>
+                            <li>재배송준비              <a href="#none"><em class="num_g">999</em>건</a></li>
+                            <li>재배송중                <a href="#none"><em class="num_g">999</em>건</a></li>
+                            <li>교환완료                <a href="#none"><em class="num_g">999</em>건</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="board_div board_buy">
+            <div class="box_board">
+                <div class="title_box">
+                    <h3>상품주문현황</h3>
+                    <button type="button" class="btn_h30 empty">엑셀 일괄주문하기</button>
+                    <button type="button" class="btn_h30 empty">엑셀 일괄주문현황 보기</button>
+                    <button type="button" onclick="window.location.reload()" class="btn_reload">새로고침</button>
+                </div>
+                <div class="detail_box">
+                    <ul class="state_total">
+                        <li><a href="#none"><span class="ico_s ico_ready"></span><strong>입금대기</strong><em class="num_g">999</em></a></li>
+                        <li><a href="#none"><span class="ico_s ico_deposit"></span><strong>입금확인</strong><em class="num_g">999</em></a></li>
+                        <li><a href="#none"><span class="ico_s ico_prepare"></span><strong>배송 준비 중</strong><em class="num_g">999</em></a></li>
+                        <li><a href="#none"><span class="ico_s ico_dely"></span><strong>배송 중</strong><em class="num_g">999</em></a></li>
+                        <li><a href="#none"><span class="ico_s ico_dely_end"></span><strong>배송완료</strong><em class="num_g">999</em></a></li>
+                        <li><a href="#none"><span class="ico_s ico_finish"></span><strong>구매확정</strong><em class="num_g">999</em></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="box_board">
+                <div class="title_box">
+                    <h3>상품구매 취소/반품/환불/교환</h3>
+                    <button type="button" onclick="window.location.reload()" class="btn_reload">새로고침</button>
+                </div>
+                <div class="detail_box">
+                    <div class="item_state item_return">
+                        <span class="ico_state icon_return"></span>
+                        <ul class="state_list">
+                            <li>반품요청               <a href="#none"><em class="num_g">999</em>건</a></li>
+                            <li>환불접수               <a href="#none"><em class="num_g">999</em>건</a></li>
+                            <li>환불완료 (최근 30일)    <a href="#none"><em class="num_g">999</em>건</a></li>
+                            <li>누적 환불완료 총 건수   <a href="#none"><em class="num_g">999</em>건</a></li>
+                            <li>취소완료 (최근 3일)     <a href="#none"><em class="num_g">999</em>건</a></li>
+                        </ul>
+                    </div>
+                    <div class="item_state item_exchange">
+                        <span class="ico_state icon_exchange"></span>
+                        <ul class="state_list">
+                            <li>교환요청                <a href="#none"><em class="num_g">999</em>건</a></li>
+                            <li>수거완료                <a href="#none"><em class="num_g">999</em>건</a></li>
+                            <li>재배송준비              <a href="#none"><em class="num_g">999</em>건</a></li>
+                            <li>재배송중                <a href="#none"><em class="num_g">999</em>건</a></li>
+                            <li>교환완료                <a href="#none"><em class="num_g">999</em>건</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="board_div">
+            <div class="box_board">
+                <div class="title_box">
+                    <h3>찜한 상품</h3>
+                </div>
+                <div class="detail_box">
+                    <ul class="list_pick_goods">
+                        <li>
+                            <a href="#none">
+                                <div class="goods_item">
+                                    <span class="img_item"><img src="http://i.lately.co.kr/8/2003/09/7712883_700_700.jpg" class="img_block" alt=""></span>
+                                    <strong>[셀러허브가이드] AFas상품등록테스트</strong>
+                                    <span class="num_price"><span class="num_g">99,999,999,999</span>원</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#none">
+                                <div class="goods_item">
+                                    <span class="img_item"><img src="http://i.lately.co.kr/8/2003/09/7712883_700_700.jpg" class="img_block" alt=""></span>
+                                    <strong>[셀러허브가이드] AFas상품등록테스트 [셀러허브가이드] AFas상품등록테스트 [셀러허브가이드] AFas상품등록테스트 [셀러허브가이드] AFas상품등록테스트 [셀러허브가이드] AFas상품등록테스트 [셀러허브가이드] AFas상품등록테스트</strong>
+                                    <span class="num_price"><span class="num_g">99,999,999,999</span>원</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#none">
+                                <div class="goods_item">
+                                    <span class="img_item"><img src="http://i.lately.co.kr/8/2003/09/7712883_700_700.jpg" class="img_block" alt=""></span>
+                                    <strong>[셀러허브가이드] AFas상품등록테스트</strong>
+                                    <span class="num_price"><span class="num_g">99,999,999,999</span>원</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#none">
+                                <div class="goods_item">
+                                    <span class="img_item"><img src="http://i.lately.co.kr/8/2003/09/7712883_700_700.jpg" class="img_block" alt=""></span>
+                                    <strong>[셀러허브가이드] AFas상품등록테스트</strong>
+                                    <span class="num_price"><span class="num_g">99,999,999,999</span>원</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="detail_more"><a href="#none" class="link_more">더보기</a></div>
+            </div>
+            <div class="box_board">
+                <div class="title_box">
+                    <h3>찜한 업체</h3>
+                </div>
+                <div class="detail_box">
+                    <ul class="list_comm">
+                        <li><a href="#none"><strong><em class="lab_state">[도매중]</em>힘차고 단단한 아침 (판매상품수 : 20 / 누적인기 100 )</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                        <li><a href="#none"><strong><em class="lab_state">[도매중]</em>힘차고 단단한 아침 (판매상품수 : 20 / 누적인기 100 )</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                        <li><a href="#none" class="sale_end"><strong><em class="lab_state">[도매종료]</em>힘차고 단단한 아침 (판매상품수 : 20 / 누적인기 100 )</strong><span class="date_g">2020.02.21 16:14:09</span></a></li>
+                        <li><a href="#none"><strong><em class="lab_state">[도매중]</em>힘차고 단단한 아침 힘차고 단단한 아침 힘차고 단단한 아침 힘차고 단단한 아침 힘차고 단단한 아침 (판매상품수 : 20 / 누적인기 100 )</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                        <li><a href="#none" class="sale_end"><strong><em class="lab_state">[도매종료]</em>힘차고 단단한 아침 힘차고 단단한 아침 힘차고 단단한 아침 힘차고 단단한 아침 (판매상품수 : 20 / 누적인기 100 )</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                        <li><a href="#none"><strong><em class="lab_state">[도매중]</em>힘차고 단단한 아침 (판매상품수 : 20 / 누적인기 100 )</strong><span class="date_g">2020.02.21 16:14:09</span></a></li>
+                        <li><a href="#none"><strong><em class="lab_state">[도매중]</em>힘차고 단단한 아침 (판매상품수 : 20 / 누적인기 100 )</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                    </ul>
+                </div>
+                <div class="detail_more"><a href="#none" class="link_more">더보기</a></div>
+            </div>
+        </div>
+
+        <div class="board_div board_notice">
+            <div class="box_board box_noti_tab">
+                <div class="title_box">
+                    <h3>미답변</h3>
+                </div>
+                <div class="detail_box">
+                    <ul class="tab_noti">
+                        <li class="on" ><a href="#goods_q" data-tab="goods_q_list">상품문의<span class="num_g">98</span></a></li>
+                        <li><a href="#oto_q" data-tab="oto_q_list">1:1문의<span class="num_g">99+</span></a></li>
+                        <li><a href="#seller_q" data-tab="seller_q_list">판매자에게 문의<span class="num_g">0</span></a></li>
+                    </ul>
+                    <div id="goods_q_list" class="tab_content on">
+                        <ul class="list_comm">
+                            <li><a href="#none"><strong><em class="lab_q">Q.</em>상품문의 미답변 리스트</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                            <li><a href="#none"><strong><em class="lab_q">Q.</em>크런치 프라이스 연동 쇼핑몰 추가 안내 및 재고부족상품 주문 자동취소 사실인가요 크런치 프라이스 연동 쇼핑몰 추가 안내 및 재고부족상품 주문 자동취소 사실인가요 </strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                            <li><a href="#none"><strong><em class="lab_q">Q.</em>크런치 프라이스 연동 쇼핑몰 추가 안내</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                            <li><a href="#none"><strong><em class="lab_q">Q.</em>크런치 프라이스 연동 쇼핑몰 추가 안내</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                            <li><a href="#none"><strong><em class="lab_q">Q.</em>크런치 프라이스 연동 쇼핑몰 추가 안내</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                            <li><a href="#none"><strong><em class="lab_q">Q.</em>크런치 프라이스 연동 쇼핑몰 추가 안내</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                            <li><a href="#none"><strong><em class="lab_q">Q.</em>크런치 프라이스 연동 쇼핑몰 추가 안내</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                        </ul>
+                    </div>
+                    <div id="oto_q_list" class="tab_content ">
+                        <ul class="list_comm">
+                            <li><a href="#none"><strong><em class="lab_q">Q.</em>1:1문의 미답변 리스트</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                            <li><a href="#none"><strong><em class="lab_q">Q.</em>크런치 프라이스 연동 쇼핑몰 추가 안내 및 재고부족상품 주문 자동취소 사실인가요 크런치 프라이스 연동 쇼핑몰 추가 안내 및 재고부족상품 주문 자동취소 사실인가요 </strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                            <li><a href="#none"><strong><em class="lab_q">Q.</em>1:1문의 미답변 리스트</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                            <li><a href="#none"><strong><em class="lab_q">Q.</em>1:1문의 미답변 리스트</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                            <li><a href="#none"><strong><em class="lab_q">Q.</em>1:1문의 미답변 리스트</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                            <li><a href="#none"><strong><em class="lab_q">Q.</em>1:1문의 미답변 리스트</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                            <li><a href="#none"><strong><em class="lab_q">Q.</em>1:1문의 미답변 리스트</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                        </ul>
+                    </div>
+                    <div id="seller_q_list" class="tab_content">
+                        <ul class="list_comm">
+                            <li><a href="#none"><strong><em class="lab_q">Q.</em>판매자에게 미답변 리스트</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                            <li><a href="#none"><strong><em class="lab_q">Q.</em>크런치 프라이스 연동 쇼핑몰 추가 안내 및 재고부족상품 주문 자동취소 사실인가요 크런치 프라이스 연동 쇼핑몰 추가 안내 및 재고부족상품 주문 자동취소 사실인가요 </strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                            <li><a href="#none"><strong><em class="lab_q">Q.</em>판매자에게 미답변 리스트</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                            <li><a href="#none"><strong><em class="lab_q">Q.</em>판매자에게 미답변 리스트</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                            <li><a href="#none"><strong><em class="lab_q">Q.</em>판매자에게 미답변 리스트</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                            <li><a href="#none"><strong><em class="lab_q">Q.</em>판매자에게 미답변 리스트</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                            <li><a href="#none"><strong><em class="lab_q">Q.</em>판매자에게 미답변 리스트</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="detail_more"><a href="#none" class="link_more">더보기</a></div>
+            </div>
+            <div class="box_board">
+                <div class="title_box">
+                    <h3>공지사항</h3>
+                </div>
+                <div class="detail_box">
+                    <ul class="list_comm">
+                        <li><a href="#none"><strong><em class="lab_noti">공지</em><span class="f_blue">[이벤트 안내]</span> 이베이’한가위 빅세일’행사 참여업체모집</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                        <li><a href="#none"><strong><em class="lab_noti">공지</em><span class="f_red">[중요]</span> 시스템 자동처리사항 및 셀러알리미시스템추가 관련 공지</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                        <li><a href="#none"><strong><em class="lab_noti">공지</em>셀러어드민 배송정책 설정 방식이 변경되었습니다</strong><span class="date_g">2020.02.21 16:14:09</span></a></li>
+                        <li><a href="#none"><strong><em class="lab_noti">공지</em>셀러허브샵(베타) : 입점사들만을 위한 폐쇄형 복지몰 안내 셀러허브샵(베타) : 입점사들만을 위한 폐쇄형 복지몰 안내 셀러허브샵(베타) : 입점사들만을 위한 폐쇄형 복지몰 안내</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                        <li><a href="#none"><strong><em class="lab_noti">공지</em>상품 승인 일정 변경 안내를 드립니다.</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                        <li><a href="#none"><strong><em class="lab_noti">공지</em><span class="f_blue">[이벤트 안내]</span> 크런치 프라이스 연동 쇼핑몰 추가 어쩌구 저쩌구 크런치 프라이스 연동 쇼핑몰 추가 어쩌구 저쩌구</strong><span class="date_g">2020.02.21 16:14:09</span></a></li>
+                        <li><a href="#none"><strong><em class="lab_noti">공지</em>셀러허브샵(베타) : 입점사들만을 위한 폐쇄형 복지몰 안내</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                        <li><a href="#none"><strong><em class="lab_noti">공지</em>셀러허브샵(베타) : 입점사들만을 위한 폐쇄형 복지몰 안내</strong></a><span class="date_g">2020.02.21 16:14:09</span></li>
+                    </ul>
+                </div>
+                <div class="detail_more"><a href="#none" class="link_more">더보기</a></div>
+            </div>
+            <div class="box_board">
+                <div class="title_box">
+                    <h3>자주하는 질문과 답변 TOP 5</h3>
+                </div>
+                <div class="detail_box">
+                    <ul class="list_comm list_qna">
+                        <li>
+                            <a href="#none">
+                                <strong><em class="lab_q">Q.</em>네이버스토어api세팅 방법</strong>
+                                <span class="txt_a">- <span class="lab_answer">답변준비중</span></span>
+                            </a>                            
+                            <span class="date_g">2020.02.21 16:14:09</span>
+                        </li>
+                        <li>
+                            <a href="#none">
+                                <strong><em class="lab_q">Q.</em>셀러허브 어드민 - 반품완료 방법 반품완료 방법 반품완료 방법 반품완료 방법</strong>
+                                <span class="txt_a">반품 주문 전산처리 방법입니다. 위치 : 주문 > 주문리스트 … 반품접수 리스트 어쩌구 저쩌구 <span class="lab_answer complete">답변완료</span></span>
+                            </a>                            
+                            <span class="date_g">2020.02.21 16:14:09</span>
+                        </li>
+                        <li>
+                            <a href="#none">
+                                <strong><em class="lab_q">Q.</em>셀러허브 어드민 - 교환처리 방법</strong>
+                                <span class="txt_a">교환 주문 전산처리 방법입니다. 위치 : 주문 > 주문리스트 <span class="lab_answer complete">답변완료</span></span>
+                            </a>                            
+                            <span class="date_g">2020.02.21 16:14:09</span>
+                        </li>
+                        <li>
+                            <a href="#none">
+                                <strong><em class="lab_q">Q.</em>셀러허브 어드민 - 발송예정 설정 방법</strong>
+                                <span class="txt_a">발송예정 주문 전산처리 방법입니다. 위치 : 주문 > 주문리스트 <span class="lab_answer complete">답변완료</span></span>
+                            </a>                            
+                            <span class="date_g">2020.02.21 16:14:09</span>
+                        </li>
+                        <li>
+                            <a href="#none">
+                                <strong><em class="lab_q">Q.</em>셀러허브 어드민 - 주문품절 방법</strong>
+                                <span class="txt_a">주문품절 전산처리 방법입니다. 위치 : 주문 > 주문리스트 <span class="lab_answer complete">답변완료</span></span>
+                            </a>                            
+                            <span class="date_g">2020.02.21 16:14:09</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="detail_more"><a href="#none" class="link_more">더보기</a></div>
+            </div>
+        </div>
+        <!-- // 도매허브 본문 끝 -->
+    </div>
+</div> <!-- // #wrap -->
+</div>
+
+
+<script type="text/javascript">    
+    $(document).ready(function(){
+        $('.tab_noti li a').click(function(){
+            var tab_id = $(this).attr('data-tab');
+    
+            $('.tab_noti li').removeClass('on');
+            $('.tab_content').removeClass('on');
+    
+            $(this).parent().addClass('on');
+            $("#"+tab_id).addClass('on');
+        })    
+    });
+</script>
+</body>
+</html>

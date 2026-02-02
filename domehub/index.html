@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>도매허브</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    
+    <link rel="stylesheet" type="text/css" href="./css/font.css" />
+    <link rel="stylesheet" type="text/css" href="./css/common.css" />
+    
+    <script type="text/javascript" src="./js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("#header").load("_header.html");
+        $("#asideTool").load("_aside.html");
+        $("#footer").load("_footer.html");
+    });
+    </script>
+    <style>
+    #sellerHubWrap{overflow:hidden;min-width:1200px}
+    #sellerHubHead{padding:20px 0 15px;border-bottom:1px solid #bbb;text-align:center}
+    #sellerHubHead h1{height:32px;padding-left:32px;text-align:left}
+    #sellerHubContent{overflow:hidden;padding:80px 30px 30px}
+
+    .tab_list{overflow:hidden;width:100%;border-bottom:2px solid #242424}
+    .tab_list .btn_tab{float:left;min-width:140px;width:auto;margin-left:-1px;padding:18px 12px 13px;font-size:15px;line-height:20px;border:1px solid #242424;border-bottom:0 none;border-top-left-radius:6px;border-top-right-radius:6px;-webkit-box-sizing:border-box;box-sizing: border-box;color:#242424}
+    .tab_list .btn_tab:first-of-type{margin-left:0}
+    .tab_list .btn_tab.on{border-color:#242424;font-weight:bold;background-color: #242424;color: #fff;}
+    .tab_content{display:none;min-height:400px}
+    .tab_content.on{display:block}
+
+    /* 테이블 */
+    .tbl_guide{width:100%}
+    .tbl_guide th{border-top:0 none !important;background-color:#ddd;font-weight:bold}
+    .tbl_guide th, .tbl_guide td{border:1px solid #aaa;padding:4px;text-align:center;vertical-align:middle}
+    .tbl_guide th{padding:10px 0 6px}
+    .tbl_guide tr.line td{border-bottom:1px solid #333}
+    .tbl_guide tr.delete td{text-decoration:line-through}
+    .tbl_guide td strong {font-weight:bold}
+    .tbl_guide .depth{padding:4px 6px;text-align:left}
+    .tbl_guide .blank{display:block;color:#999;text-decoration:line-through}
+    .tbl_guide>tbody>tr:nth-child(2n) td{background-color:#f2f2f2}
+    .tbl_guide>tbody td:first-child{padding:4px;text-align:center}
+    .tbl_guide>tbody td:last-child, .tbl_guide>tbody td:nth-child(5){padding:4px 6px;text-align:left}
+    .tbl_guide>tbody td.left{padding:4px 6px;text-align:left}
+    .tbl_guide a {color:#1689f7;text-decoration:underline}
+    .tbl_guide .tit_sub{padding:18px 0 !important;font-weight:bold;font-size:18px;text-align:center !important;color:#666;letter-spacing:2px}
+    .col_1{width:30px}
+    .col_2{width:140px}
+    .col_3{width:240px}
+    .col_4{width:136px}
+    .col_5{width:80px}
+    .col_7{width:190px}
+    .border_top{border-top:2px solid #333}
+    .ta_left{padding:4px 6px !important;text-align:left !important}
+    .tit_div{display:block}
+    .tit_bg{margin-top:10px;margin-bottom:5px;padding:8px 4px 0px;border-top:1px solid #ccc}
+    @media only screen and (max-width:640px) {
+        .tbl_guide th, .tbl_guide td {padding:2px;font-size:11px}
+        .tbl_guide tbody tr td.end, .tbl_guide tbody tr td.modify {padding:2px 0}
+    }
+    </style>
+</head>
+<body>
+<div id="sellerHubWrap">
+    <div id="sellerHubHead">
+        <h1><img src="https://sellerhub.co.kr/images/logo.svg" width="106" height="32" class="img_logo" alt="셀러허브"></h1>
+    </div>
+    <div id="sellerHubContent" class="cont_main">
+        <h2 class="screen_out">셀러허브 서비스별 인덱스</h2>
+        <div class="tab_list">
+            <button type="button" class="btn_tab on" onclick="openTab(event, 'tab_01')">도매허브몰</button>
+            <button type="button" class="btn_tab" onclick="openTab(event, 'tab_02')">도매허브 - 어드민</button>
+        </div>
+        <div id="tab_01" class="tab_content on">
+            <h3 class="screen_out">도매허브 - 고객향</h3>
+            <div class="wrap_table">
+                <table class="table tbl_guide">
+                    <caption class="screen_out">마크업 작업목록표</caption>
+                    <colgroup>
+                        <col class="col_1"><col class="col_2"><col class="col_2"><col class="col_2"><col class="col_3"><col class="col_4"><col class="col_5"><col class="col_5"><col class="col_6">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col"><span>No</span></th>
+                            <th scope="col"><span>1Depth</span></th>
+                            <th scope="col"><span>2Depth</span></th>
+                            <th scope="col"><span>3Depth</span></th>
+                            <th scope="col"><span>제플린</span></th>
+                            <th scope="col"><span>파일명</span></th>
+                            <th scope="col">완료일</th>
+                            <th scope="col">최종수정일</th>
+                            <th scope="col">비고</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>-</td>
+                            <td class="depth"><a href="../domehub/goods_list.html" target="_blank">상품리스트</a></td>
+                            <td class="depth"></td>
+                            <td class="depth"></td>
+                            <td>
+                                <a href="https://zpl.io/V03NZY9" target="_blank">상품리스트</a> (<a href="https://zpl.io/anDvm1k" target="_blank">선택태그 없을때</a>)<br/>
+                                <a href="https://zpl.io/V4WnA3y" target="_blank">1600px</a> / <a href="https://zpl.io/VDyQDkg" target="_blank">1280px</a><br/>
+                                <a href="https://zpl.io/VKMWBRW" target="_blank">바텀 메뉴 눌렀을 때</a><br/>
+                                <a href="https://zpl.io/bPkEMox" target="_blank">인기검색어&로케이션</a><br/>
+                                <a href="https://zpl.io/V10jA0B" target="_blank">브랜드 전체보기</a>
+                            </td>
+                            <td>goods_list.html</td>
+                            <td>2020.09.11</td>
+                            <td>-</td>
+                            <td><strong class="tit_div">팝업 정보</strong>상품리스트 > 브랜드리스트(class명: layer_brand), 상품찜(class명: layer_pick)</td>
+                        </tr>
+                        <tr>
+                            <td>-</td>
+                            <td class="depth"></td>
+                            <td class="depth"><a href="../domehub/goods_detail.html" target="_blank">상품상세</a></td>
+                            <td class="depth"></td>
+                            <td>
+                                <a href="https://zpl.io/2EMYRqY" target="_blank">상품상세</a><br/>
+                                <a href="https://zpl.io/awKZdzn" target="_blank">옵션 선택 열림</a><br/>
+                                상품문의 - <a href="https://zpl.io/adOm13E" target="_blank">내용 없을떄</a> / <a href="https://zpl.io/a3WpQAN" target="_blank">글쓰기 팝업</a><br/>
+                                장바구니, 찜하기 - <a href="https://zpl.io/V4WKlJ8" target="_blank">확인 팝업</a>
+                            </td>
+                            <td>goods_detail.html</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>-</td>
+                            <td class="depth"><a href="../domehub/ranking.html" target="_blank">허브랭킹</a></td>
+                            <td class="depth"></td>
+                            <td class="depth"></td>
+                            <td>
+                                <a href="https://zpl.io/2ZW9BLw" target="_blank">주간베스트 상품 100</a><br/>
+                                <a href="https://zpl.io/VkjBzX5" target="_blank">월간 베스트 카테고리 20</a><br/>
+                                <a href="https://zpl.io/VKMkLjX" target="_blank">월간 베스트 업체 20</a>
+                            </td>
+                            <td>ranking.html</td>
+                            <td>2020.09.14</td>
+                            <td>-</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>-</td>
+                            <td class="depth">주문</td>
+                            <td class="depth">
+                                <a href="../domehub/order.html" target="_blank">주문서 작성</a><br/>
+                                <a href="../domehub/cart.html" target="_blank">장바구니</a><br/>
+                            
+                            </td>
+                            <td class="depth">
+                                <a href="../domehub/order_finish.html" target="_blank">결제완료</a>
+                            </td>
+                            <td>
+                                주문서 작성 - <a href="https://zpl.io/VDyR9d3" target="_blank">입력전</a> / <a href="https://zpl.io/2ZW81BX" target="_blank">입력후</a><br/>
+                                주문서 작성 - <a href="https://zpl.io/bJyj4x9" target="_blank">결제수단 종류</a><br/>
+                                <a href="https://zpl.io/beRrppP" target="_blank">결제완료</a> (<a href="https://zpl.io/VOO9858" target="_blank">결제안내 폼</a>)<br/>
+                                <a href="https://zpl.io/adOW5Ye" target="_blank">장바구니</a>
+                            </td>
+                            <td>.html</td>
+                            <td>2020.09.16</td>
+                            <td>2020.09.23</td>
+                            <td><strong class="tit_div">팝업 정보</strong>장바구니 > 옵션변경 팝업(class명: layer_option)<br/>주문서작성 > 허브캐쉬부족(class명: layer_hc_alert), 이용약관(class명: order_terms1~4)<br/>주문서작성 > 허브캐쉬충전하기(class명: layer_charge), 허브캐쉬결제완료 - 가상계좌(class명: layer_charge2), 허브캐쉬결제완료 - 계좌이체(class명: layer_charge3)</td>
+                        </tr>
+                        <tr>
+                            <td>-</td>
+                            <td class="depth">고객센터</td>
+                            <td class="depth">
+                                <a href="../domehub/faq_buyer.html" target="_blank">구매자 FAQ</a><br/>
+                                <a href="../domehub/faq_seller.html" target="_blank">판매자 FAQ</a><br/>
+                                <a href="../domehub/notice.html" target="_blank">공지사항</a><br/>
+                                <a href="../domehub/qa.html" target="_blank">1:1 문의</a><br/>
+                                <a href="../domehub/qa_seller.html" target="_blank">판매자에게 문의하기</a>
+                            </td>
+                            <td class="depth">
+                                <a href="../domehub/faq_search.html" target="_blank">FAQ 통합검색</a>
+                            </td>
+                            <td>
+                                <a href="https://zpl.io/2ZWG3vE" target="_blank">구매자 FAQ</a><br/>
+                                <a href="https://zpl.io/bWOwyw7" target="_blank">판매자 FAQ</a><br/>
+                                <a href="https://zpl.io/bJylLPD" target="_blank">공지사항</a><br/>
+                                <a href="https://zpl.io/bAM8wjO" target="_blank">1:1 문의</a><br/>
+                                <a href="https://zpl.io/VOOYE4k" target="_blank">FAQ 통합검색</a><br/>
+                                <a href="https://zpl.io/bAM8wjn" target="_blank">판매자에게 문의하기</a>
+                            </td>
+                            <td>.html</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>-</td>
+                            <td class="depth">ETC</td>
+                            <td class="depth">
+                                <a href="../domehub/policy.html" target="_blank">약관</a><br/>
+                                <a href="../domehub/join.html" target="_blank">입점문의</a>
+                            </td>
+                            <td class="depth"></td>
+                            <td>
+                                <a href="https://zpl.io/2ZWGOxX" target="_blank">약관</a><br/>
+                                <a href="https://zpl.io/bo95QZX" target="_blank">입점문의</a>
+                            </td>
+                            <td>policy.html <br>join.html</td>
+                            <td>2020.09.17</td>
+                            <td>-</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="tab_02" class="tab_content">
+            <h3 class="screen_out">도매허브 - 어드민</h3>
+            <div class="wrap_table">
+                <table class="table tbl_guide">
+                    <caption class="screen_out">마크업 작업목록표</caption>
+                    <colgroup>
+                        <col class="col_1"><col class="col_2"><col class="col_2"><col class="col_2"><col class="col_3"><col class="col_4"><col class="col_5"><col class="col_5"><col class="col_6">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col"><span>No</span></th>
+                            <th scope="col"><span>1Depth</span></th>
+                            <th scope="col"><span>2Depth</span></th>
+                            <th scope="col"><span>3Depth</span></th>
+                            <th scope="col"><span>제플린</span></th>
+                            <th scope="col"><span>파일명</span></th>
+                            <th scope="col">완료일</th>
+                            <th scope="col">최종수정일</th>
+                            <th scope="col">비고</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>-</td>
+                            <td class="depth"><a href="../domehub/admin/dashboard.html" target="_blank">대시보드</a></td>
+                            <td class="depth"></td>
+                            <td class="depth"></td>
+                            <td class="ta_left">
+                                <a href="https://zpl.io/29WJy8d" target="_blank">대시보드</a><br/>
+                                <a href="https://zpl.io/aNXGqzD" target="_blank">대시보드 1280</a>
+                            </td>
+                            <td>.html</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="5">-</td>
+                            <td class="depth" rowspan="5">구매</td>
+                            <td class="depth">상품관리</td>
+                            <td class="depth">
+                                <a href="../domehub/admin/dome_pool.html" target="_blank">도매상품 POOL (공통)</a>
+                            </td>
+                            <td class="ta_left">
+                                <a href="https://zpl.io/aBMlLD0" target="_blank">도매상품 POOL</a>
+                            </td>
+                            <td>dome_pool.html</td>
+                            <td>2020.09.28</td>
+                            <td>-</td>
+                            <td><strong class="tit_div">팝업 정보</strong>도매상품 POOL > 주문하기(class명: layer_goodsorder, layer_domeorder)</td>
+                        </tr>
+                        <tr>
+                            <td class="depth">구매관리</td>
+                            <td class="depth"><a href="../domehub/admin/order_buy_list.html" target="_blank">구매리스트</a></td>
+                            <td class="ta_left">
+                                <a href="https://zpl.io/adOQGve" target="_blank">주문 리스트</a><br/>
+                                <a href="https://zpl.io/VOOE7ek" target="_blank">주문취소 리스트</a><br/>
+                                <a href="https://zpl.io/aXBqJeP" target="_blank">반품접수 리스트</a><br/>
+                                <a href="https://zpl.io/b6rwmLd" target="_blank">교환접수 리스트 </a><br/>
+                                <a href="https://zpl.io/adOQGgn" target="_blank">교환수거완료 리스트</a><br/>
+                            </td>
+                            <td>.html</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>
+                                <strong>Tab 구조</strong>
+                                <ul>
+                                    <li>주문 리스트</li>
+                                    <li>주문취소 리스트</li>
+                                    <li>반품접수 리스트</li>
+                                    <li>교환접수 리스트</li>
+                                    <li>교환수거완료 리스트</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="depth">엑셀일괄주문</td>
+                            <td class="depth">
+                                <a href="../domehub/admin/excel_order.html" target="_blank">엑셀 상품주문</a><br>
+                                <a href="../domehub/admin/excel_order_state.html" target="_blank">엑셀 상품주문현황</a>
+                            </td>
+                            <td class="ta_left">
+                                <a href="https://zpl.io/aNXv89Q" target="_blank">엑셀 상품주문</a><br/>
+                                <a href="https://zpl.io/ampxN5K" target="_blank">엑셀 상품주문현황</a>
+                            </td>
+                            <td>.html</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="depth">관심</td>
+                            <td class="depth">
+                                <a href="../domehub/admin/pick_company.html" target="_blank">찜한업체</a><br/>
+                                <a href="../domehub/admin/pick_goods.html" target="_blank">찜한상품</a>
+                            </td>
+                            <td class="ta_left">
+                                <a href="https://zpl.io/VKM9vxR" target="_blank">찜한업체</a><br/>
+                                <a href="https://zpl.io/bJydx8E" target="_blank">찜한상품</a>
+                            </td>
+                            <td>pick_company.html<br/>pick_goods.html</td>
+                            <td>2020.09.28<br/>2020.09.28</td>
+                            <td>-</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="depth">문의(공통)</td>
+                            <td class="depth">
+                                <a href="../domehub/admin/ask_product.html" target="_blank">상품문의</a><br>
+                                <a href="../domehub/admin/ask_oto.html" target="_blank">1:1 문의</a><br>
+                                <a href="../domehub/admin/ask_seller.html" target="_blank">판매자에게 문의</a><br>
+                                <a href="../domehub/admin/.html" target="_blank">자주하는 질문과 답변 (FAQ)</a>
+                            </td>
+                            <td class="ta_left">
+                                <a href="https://zpl.io/29W8LQz" target="_blank">상품문의</a><br/>
+                                <a href="https://zpl.io/VDyrLEe" target="_blank">1:1 문의</a><br/>
+                                <a href="https://zpl.io/bLMRez7" target="_blank">판매자에게 문의</a><br/>
+                                <a href="https://zpl.io/" target="_blank">자주하는 질문과 답변 (FAQ)</a><br/>
+                            </td>
+                            <td>ask_product.html<br/>.html<br/>ask_seller.html<br/>.html</td>
+                            <td>2020.09.25<br/>-<br/>2020.09.25<br/>-</td>
+                            <td>-</td>
+                            <td><strong class="tit_div">팝업 정보</strong>상품문의>상품문의 답변하기(class명:layer_ask),판매자에게 문의>판매자에게 문의 답변하기(class명:layer_ask)</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="5">-</td>
+                            <td class="depth" rowspan="5">판매</td>
+                            <td class="depth">상품관리</td>
+                            <td class="depth">
+                                도매상품 POOL - 구매과 동일<br>
+                                <a href="../domehub/admin/dome_list.html" target="_blank">도매 판매 상품리스트</a><br>
+                            </td>
+                            <td class="ta_left">
+                                <br>
+                                <a href="https://zpl.io/b6rwoKR" target="_blank">도매 판매 상품리스트</a><br/>
+                            </td>
+                            <td>.html</td>
+                            <td>2020.09.29</td>
+                            <td>-</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="depth">판매관리</td>
+                            <td class="depth"><a href="../domehub/admin/order_sale_list.html" target="_blank">판매매리스트</a></td>
+                            <td class="ta_left">
+                                <a href="https://zpl.io/adOQGve" target="_blank">주문 리스트</a><br/>
+                                <a href="https://zpl.io/VOOE7ek" target="_blank">주문취소 리스트</a><br/>
+                                <a href="https://zpl.io/aXBqJeP" target="_blank">반품접수 리스트</a><br/>
+                                <a href="https://zpl.io/b6rwmLd" target="_blank">교환접수 리스트 </a><br/>
+                                <a href="https://zpl.io/adOQGgn" target="_blank">교환수거완료 리스트</a><br/>
+                            </td>
+                            <td>.html</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>
+                                <strong>Tab 구조</strong>
+                                <ul>
+                                    <li>주문 리스트</li>
+                                    <li>주문취소 리스트</li>
+                                    <li>반품접수 리스트</li>
+                                    <li>교환접수 리스트</li>
+                                    <li>교환수거완료 리스트</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="depth">캐쉬</td>
+                            <td class="depth">
+                                <a href="../domehub/admin/hubcash.html" target="_blank">허브캐쉬</a><br>
+                            </td>
+                            <td class="ta_left">
+                                <a href="https://zpl.io/bJyd0m6" target="_blank">허브캐쉬 전체내역</a><br/>
+                                <a href="https://zpl.io/aROK0ON" target="_blank">허브캐쉬 충전내역</a><br/>
+                                <a href="https://zpl.io/bodEGdm" target="_blank">허브캐쉬 충전내역</a>
+                            </td>
+                            <td>hubcash.html</td>
+                            <td>2020.09.29</td>
+                            <td>-</td>
+                            <td>
+                                <strong>Tab 구조</strong>
+                                <ul>
+                                    <li>허브캐쉬 전체내역</li>
+                                    <li>허브캐쉬 충전내역</li>
+                                    <li>허브캐쉬 출금내역</li>
+                                </ul>
+                                <strong class="tit_div line_div">팝업 정보</strong>
+                                허브캐쉬 > 허브캐쉬충전(class명: layer_charge), 허브캐쉬충전 결제완료(class명: layer_charge2~3), 허브캐쉬출금(class명: layer_withdrawal), 허브캐쉬 출금신청완료(class명: layer_withcom)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="depth">내정보</td>
+                            <td class="depth">
+                                <a href="../domehub/admin/manage.html" target="_blank">도매신청관리</a>
+                            </td>
+                            <td class="ta_left">
+                                <a href="https://zpl.io/2p9NjjN" target="_blank">도매신청관리</a>
+                            </td>
+                            <td>manage.html</td>
+                            <td>2020.09.29</td>
+                            <td>-</td>
+                            <td><strong class="tit_div">팝업 정보</strong>도매신청 관리>도매신청 사유(class명: layer_reason), 도매신청 사유 입력(layer_putreason)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab_content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("btn_tab");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" on", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " on";
+    }
+</script>
+</body>
+</html>

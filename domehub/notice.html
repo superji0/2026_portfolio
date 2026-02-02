@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>도매허브</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    
+    <link rel="stylesheet" type="text/css" href="./css/common.css" />
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <!--
+    <link rel="stylesheet" type="text/css" href="./css/goods_detail.css" />
+    <link rel="stylesheet" type="text/css" href="./css/help_center.css" />
+    <link rel="stylesheet" type="text/css" href="./css/faq_seller.css" />
+    -->
+    <link rel="stylesheet" href="/shop/admin_provider/jquery-ui.css">
+    
+    <script type="text/javascript" src="./js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
+
+    <script src="/shop/admin_provider/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("#header").load("_header_faq.html");
+        $("#asideTool").load("_aside.html");
+        $("#footer").load("_footer.html");
+    });
+    </script>
+</head>
+<body>
+<div id="domeWrap" class="type_detail">
+    <Header id="header"></Header>
+
+    <div id="container">
+        <h2 id="domeBody" class="screen_out">도매허브 본문</h2>
+        <div class="result_Path sub_Path">
+            <div class="inner_layout">
+                <a href="#none">홈</a>
+                <div class="depth2">
+                    <a href="#none">고객만족센터</a>
+                </div>
+                <span class="icon_arr"></span>
+                <div class="depth3">
+                    <a href="#none">공지사항</a>
+                </div>
+            </div>
+        </div>
+        <div id="content">
+            <div class="sub_nav">
+                <ul>
+                    <li><a href="#" class="link_sub">구매자 FAQ</a></li>
+                    <li><a href="#" class="link_sub">판매자 FAQ</a></li>
+                    <li><a href="#" class="link_sub">공지사항</a></li>
+                    <li><a href="#" class="link_sub">1:1 문의</a></li>
+                </ul>
+                <div class="sub_info">
+                    <strong>고객문의</strong>
+                    <em>1522-9843</em>
+                    <span>AM 10시 ~ PM 18시<br/>토/일, 법정공휴일 휴무<br/>점심시간 : 13시 ~ 14시</span>
+                </div>
+            </div>
+            <div class="cs_wrap">
+                <h3 class="title_client">공지사항</h3>
+                <ul class="notice_search">
+                    <li>
+                        <strong class="search_title">등록일</strong>
+                        <div class="search_option">
+                            <span class="input_regisday"><input type="text" id="startDay" name="regisday[]" maxlength="8" value="" /></span>
+                            <span class="input_regisday"><input type="text" id="endDay" name="regisday[]" maxlength="8" value="" /></span>
+                            <button type="button" class="btn_date btn_h35">오늘</button>
+                            <button type="button" class="btn_date btn_h35 line">일주일</button>
+                            <button type="button" class="btn_date btn_h35 line">15일</button>
+                            <button type="button" class="btn_date btn_h35 line">한달</button>
+                            <button type="button" class="btn_date btn_h35 line">두달</button>
+                            <button type="button" class="btn_date btn_h35 line">전체</button>
+                        </div>
+                    </li>
+                    <li>
+                        <strong class="search_title">검색</strong>
+                        <div class="search_option">
+                            <div class="select_box">
+                                <select name="" id="">
+                                    <option value="">전체</option>
+                                    <option value="">제목</option>
+                                    <option value="">내용</option>
+                                </select>
+                            </div>
+                            <input type="text" class="search_text" />
+                        </div>
+                    </li>
+                    <li>
+                        <button type="button" class="btn_search btn_h35 line_b">초기화</button>
+                        <button type="submit" class="btn_search btn_h35">검색</button>
+                    </li>
+                </ul>
+                <div class="cslist_util">
+                    <div class="util_count">TOTAL : <span>699</span></div>
+                    <div class="select_box">
+                        <select name="" id="">
+                            <option>20개 출력</option>
+                            <option>40개 출력</option>
+                            <option>60개 출력</option>
+                            <option>80개 출력</option>
+                        </select>
+                    </div>
+                </div>
+                <ul class="cslist_g notice">
+                    <li>
+                        <div class="cslist_head">
+                            <em class="cslist_type">번호</em>
+                            <strong class="cslist_subject">제목</strong>
+                            <span class="cslist_date">등록일</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="cslist_line">
+                            <em class="cslist_type">123456</em>
+                            <strong class="cslist_subject"><em class="tag_line">공지</em>반품불가 기준 관련 상세페이지 이미지 삽입요청</strong>
+                            <span class="cslist_date">2020-08-03</span>
+                            <span class="cslist_content">
+                                그랑죠 그랑죠 마법으로 빛나는 그랑죠<br/>
+                                마법으로 변하는 그랑죠<br/>
+                                달나라의 미래 너에게만 달렸다<br/>
+                                번개전사 슈퍼 그랑죠<br/>
+                                그랑죠 불같은 우리 용감히 앞으로 가자<br/>
+                                나가자 우주마법 번개전사 날아라<br/>
+                                날아라 찬란한 섬광 빛나는 우정<br/>
+                                시간을 뛰어 넘어 화려한 미래 여행 시작된다<br/>
+                                그랑죠 그랑죠 마법으로 빛나는 그랑죠<br/>
+                                마법으로 변하는 그랑죠<br/>
+                                달나라의 미래 너에게만 달렸다<br/>
+                                번개전사 슈퍼 그랑죠 그랑죠
+                            </span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="cslist_line">
+                            <em class="cslist_type">12345</em>
+                            <strong class="cslist_subject"><em class="tag_line">공지</em><em class="tag_line line_r">중요</em>반품일까요? 반품일걸요? 반품이겠죠? 반품이어야죠? 반품이라니까요? 반품이죠! 반품이랑께! 반품이유! 반품입지비!</strong>
+                            <span class="cslist_date">2020-08-03</span>
+                            <span class="cslist_content">
+                                눈부신 햇살을 등지고 내달리는 거리 언제나처럼 어깨를 두드리네 너에게 마음을 빼앗길 이유 같은 건 없는데 그 실력은 얽매이지 않아 어느 틈엔가 눈동자를 빼앗기기 시작했네 놓치지 않아 흔들리지 않아 기다려줘 너를 좋아한다고 외치고 싶어 내일을 바꾸어보자 얼어붙어가는 시간들을 깨뜨리고 싶어 너를 좋아한다고 외치고 싶어 용기를 내어보자 이 뜨거운 추억들을 받아들이고 싶어
+                            </span>
+                        </div>
+                    </li><li>
+                        <div class="cslist_line">
+                            <em class="cslist_type">1234</em>
+                            <strong class="cslist_subject"><em class="tag_line">공지</em>회원가입을 어떻게 하나요?</strong>
+                            <span class="cslist_date">2020-08-03</span>
+                            <span class="cslist_content">
+                                붕붕붕 아주 작은 자동차 꼬마 자동차가 나왔다 붕붕붕 꽃향기를 맡으면 힘이 솟는 꼬마 자동차 엄마 찾아 모험 찾아 나서는 세계여행 우리도 함께 가지요 꼬마차가 나가신다 길을 비켜라 꼬마차가 나가신다 길을 비켜라 랄랄라라 랄랄라라 귀여운 꼬마차는 친구와 함께 어렵고 험한 길 헤쳐나간다 희망과 사랑을 심어주면서 아하 신나게 달린다 귀여운 꼬마 자동차 붕붕
+                            </span>
+                        </div>
+                    </li><li>
+                        <div class="cslist_line">
+                            <em class="cslist_type">123</em>
+                            <strong class="cslist_subject"><em class="tag_line">공지</em>회원가입을 어떻게 하나요?</strong>
+                            <span class="cslist_date">2020-08-03</span>
+                            <span class="cslist_content">
+                                카피카피 룸룸 카피카피 룸룸 카피카피 룸룸 카피카피 룸룸 일어나용 바람돌이 모래의 요정 이리 와서 들어봐요 우리의 요정 우주선을 태워줘요 공주도 되고 싶어요 어서 빨리 들어줘요 우리의 소원 얘들아 잠깐 소원은 하나씩 하루에 한가지 바람돌이 선물 모래요정 바람돌이 어린이의 친구 카피카피 룸룸 카피카피 룸룸 이루어져라 모래요정 바람돌이 신기한 친구 가자 가자 미래로 재밌는 여행
+                            </span>
+                        </div>
+                    </li><li>
+                        <div class="cslist_line">
+                            <em class="cslist_type">12</em>
+                            <strong class="cslist_subject"><em class="tag_line">공지</em>회원가입을 어떻게 하나요?</strong>
+                            <span class="cslist_date">2020-08-03</span>
+                            <span class="cslist_content">자체적으로 상품연동에 문제가 없는지 1차적으로 승인을 해드립니다.우선적으로 신청하신 분들부터 검토를 진행합니다.내부적으로는 영업일 기준 당일 내 처리를 목표로 하고 있습니다.</span>
+                        </div>
+                    </li><li>
+                        <div class="cslist_line">
+                            <em class="cslist_type">1</em>
+                            <strong class="cslist_subject"><em class="tag_line">공지</em>회원가입을 어떻게 하나요?</strong>
+                            <span class="cslist_date">2020-08-03</span>
+                            <span class="cslist_content">자체적으로 상품연동에 문제가 없는지 1차적으로 승인을 해드립니다.우선적으로 신청하신 분들부터 검토를 진행합니다.내부적으로는 영업일 기준 당일 내 처리를 목표로 하고 있습니다.</span>
+                        </div>
+                    </li>
+                </ul>
+                <div class="paging_common">
+                    <!-- 첫페이지일 경우 button에 hide 클래스 추가 (감춤) -->
+                    <button type="button" class="paging_btn hide"><span class="icon_g paging_btn_previous">이전 페이지</span></button>
+                    <!-- 현재 페이지에 present 클래스 추가 -->
+                    <button type="button" class="paging_present">1</button>
+                    <button type="button">2</button>
+                    <button type="button">3</button>
+                    <button type="button">4</button>
+                    <button type="button">...</button>
+                    <button type="button">999</button>
+                    <!-- 마지막 페이지일 경우 button에 hide 클래스 추가 (감춤) -->
+                    <button type="button" class="paging_btn"><span class="icon_g paging_btn_next">다음 페이지</span></button>
+                </div>
+            </div>
+        </div>
+    </div> <!-- // container -->
+
+    <footer id="footer"></footer>
+</div>
+
+<script>
+    $(function(){
+        $('.cslist_g li').on('click',function(){
+            $(this).toggleClass('spread');
+            $('.cslist_g li').not(this).removeClass('spread');
+        });
+
+        $('.btn_date').on('click',function(){
+            $(this).removeClass('line');
+            $('.btn_date').not(this).addClass('line');
+        })
+    });
+
+    jQuery(function () {
+        jQuery('#startDay').datepicker({
+            numberOfMonths: 1,
+            dateFormat: 'yymmdd',
+            changeMonth: false, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
+            changeYear: false, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
+            nextText: '다음 달', // next 아이콘의 툴팁.
+            prevText: '이전 달', // prev 아이콘의 툴팁.
+            numberOfMonths: [1, 1], // 한번에 얼마나 많은 월을 표시할것인가. [2,3] 일 경우, 2(행) x 3(열) = 6개의 월을 표시한다.
+            showAnim: 'slide', //애니메이션을 적용한다.
+            showMonthAfterYear: true, // 월, 년순의 셀렉트 박스를 년,월 순으로 바꿔준다.
+            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], // 요일의 한글 형식.
+            monthNames: ['.01', '.02', '.03', '.04', '.05', '.06', '.07', '.08', '.09', '.10', '.11', '.12'],
+            onClose: function (selectedDate) {
+                jQuery('#endDay').datepicker('option', 'minDate', selectedDate);
+            }
+        });
+
+        jQuery('#endDay').datepicker({
+            numberOfMonths: 1,
+            dateFormat: 'yymmdd',
+            changeMonth: false, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
+            changeYear: false, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
+            nextText: '다음 달', // next 아이콘의 툴팁.
+            prevText: '이전 달', // prev 아이콘의 툴팁.
+            numberOfMonths: [1, 1], // 한번에 얼마나 많은 월을 표시할것인가. [2,3] 일 경우, 2(행) x 3(열) = 6개의 월을 표시한다.
+            showAnim: 'slide', //애니메이션을 적용한다.
+            showMonthAfterYear: true, // 월, 년순의 셀렉트 박스를 년,월 순으로 바꿔준다.
+            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], // 요일의 한글 형식.
+            monthNames: ['.01', '.02', '.03', '.04', '.05', '.06', '.07', '.08', '.09', '.10', '.11', '.12'],
+            onClose: function (selectedDate) {
+                jQuery('#startDay').datepicker('option', 'maxDate', selectedDate);
+            }
+        });
+    });
+</script>
+</body>
+</html>

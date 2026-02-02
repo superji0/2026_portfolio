@@ -1,0 +1,17 @@
+.btn_radio input[type="radio"] + label{padding-left:20px}
+.btn_radio input[type="radio"] + label:before{width:14px;height:14px;border-radius:14px;margin-top:-8px}
+.btn_radio input[type="radio"]:checked + label:after{left:4px;margin-top:-4px;width:8px;height:8px;border-radius:8px}
+
+.box_agree{padding:16px;border:solid 1px #d1d1d1;background-color:#f9f9f9}
+.box_agree button{float:right;letter-spacing:-1px;color:#6c6c6c;text-decoration:underline}
+.popup_ask .inner_layer,.order_popup .inner_layer{height:auto;overflow:hidden;overflow-y:scroll}
+
+.popup_reason .inner_layer{top:50%;width:430px;height:259px;margin:0 auto;transform:translateY(-50%)}
+.reason_status.inner_layer{height:297px}
+.popup_reason .tit_sub{margin-top:0}
+.popup_reason .tbl_basic{margin-top:0}
+.popup_reason .box_txt{height:88px;overflow-y:scroll}
+
+.popup_ask td span{color:#909090}
+.popup_ask .goods_item{height:108px;padding-top:10px;padding-left:120px;border:solid 1px #d1d1d1}
+.popup_ask .img_item{top:10px;left:10px;width:100px;height:100px}

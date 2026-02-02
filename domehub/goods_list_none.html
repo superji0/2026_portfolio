@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>도매허브</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="./css/common.css" />
+    <!-- 20200907 datepicker용으로 추가 -->
+    <link rel="stylesheet" href="/shop/admin_provider/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <script type="text/javascript" src="./js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
+    <!-- 20200907 datepicker용으로 추가 -->
+    <script src="/shop/admin_provider/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("#header").load("_header.html");
+        $("#asideTool").load("_aside.html");
+        $("#footer").load("_footer.html");
+        $(".paging_common").load("_paging.html");
+    });
+    </script>
+</head>
+<body>
+<div id="domeWrap" class="type_list">
+    <Header id="header"></Header>
+
+    <div id="container" style="min-height: 1000px;">
+        <h2 id="domeBody" class="screen_out">도매허브 본문</h2>
+        <div class="result_Path">
+            <div class="inner_layout">
+                <a href="#none">홈</a>
+                <span class="icon_arr"></span>
+                <div class="depth2">
+                    <a href="#none">패션의류<span class="icon_rocation"></span></a>
+                    <div id="depth_layer" class="depth2_layer">
+                        <ul>
+                            <li><a href="#none">브랜드여성</a></li>
+                            <li><a href="#none">트렌드여성</a></li>
+                            <li><a href="#none">디자이너여성</a></li>
+                            <li><a href="#none">브랜드남성</a></li>
+                            <li><a href="#none">트랜드남성</a></li>
+                            <li><a href="#none">디자이너남성/유니섹스</a></li>
+                            <li><a href="#none">브랜드유니섹스</a></li>
+                            <li><a href="#none">트랜드유니섹스</a></li>
+                            <li><a href="#none">속옷/양말</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <span class="icon_arr"></span>
+                <div class="depth3">
+                    <a href="#none">브랜드여성<span class="icon_rocation"></span></a>
+                    <div id="depth_layer" class="depth3_layer">
+                        <ul>
+                            <li><a href="#none">브랜드여성</a></li>
+                            <li><a href="#none">트렌드여성</a></li>
+                            <li><a href="#none">디자이너여성</a></li>
+                            <li><a href="#none">브랜드남성</a></li>
+                            <li><a href="#none">트랜드남성</a></li>
+                            <li><a href="#none">디자이너남성/유니섹스</a></li>
+                            <li><a href="#none">브랜드유니섹스</a></li>
+                            <li><a href="#none">트랜드유니섹스</a></li>
+                            <li><a href="#none">속옷/양말</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <span class="icon_arr"></span>
+                <div class="depth4">
+                    <a href="#none">블라우스/셔츠<span class="icon_rocation"></span></a>
+                    <div id="depth_layer" class="depth4_layer">
+                        <ul>
+                            <li><a href="#none">브랜드여성</a></li>
+                            <li><a href="#none">트렌드여성</a></li>
+                            <li><a href="#none">디자이너여성</a></li>
+                            <li><a href="#none">브랜드남성</a></li>
+                            <li><a href="#none">트랜드남성</a></li>
+                            <li><a href="#none">디자이너남성/유니섹스</a></li>
+                            <li><a href="#none">브랜드유니섹스</a></li>
+                            <li><a href="#none">트랜드유니섹스</a></li>
+                            <li><a href="#none">속옷/양말</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <span class="icon_arr"></span>
+                <a href="#none">롱셔츠</a>
+            </div>
+        </div>
+        <div id="content">
+            <div class="filter_wrap">
+                <div class="filter_soldout">
+                    <input type="checkbox" value="1" name="soldout" id="ch_soldout">
+                    <label for="ch_soldout"><span>품절상품</span> 제외</label>
+                </div>
+                <div class="filter_category">
+                    <strong class="filter_title">카테고리</strong>
+                    <ul class="filter_category_list">
+                        <li>
+                            <a href="#none">패션의류</a>
+                            <ul>
+                                <li>
+                                    <a href="#none">브랜드 여성</a>
+                                    <ul>
+                                        <li>
+                                            <a href="#none">블라우스/셔츠</a>
+                                            <ul>
+                                                <li>
+                                                    <a href="#none" class="select">롱셔츠</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <button type="button" class="btn_filter"><span class="icon_g btn_filter_toggle">카테고리 필터 열기/닫기</span></button>
+                </div>
+                <div>
+                    <strong class="filter_title">브랜드</strong>
+                    <ul class="filter_list">
+                        <li>
+                            <input type="checkbox" value="1" name="brand01" id="brand_ch1">
+                            <label for="brand_ch1">아디다스</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" value="1" name="brand02" id="brand_ch2">
+                            <label for="brand_ch2">아디다스</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" value="1" name="brand03" id="brand_ch3">
+                            <label for="brand_ch3">아디다스</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" value="1" name="brand04" id="brand_ch4">
+                            <label for="brand_ch4">아디다스</label>
+                        </li>
+                        <li class="brand_all">
+                            <button type="button" name="layer_brand" class="btn_layer_show">브랜드 전체보기 ></button>
+                        </li>
+                    </ul>
+                    <button type="button" class="btn_filter"><span class="icon_g btn_filter_toggle">브랜드 필터 열기/닫기</span></button>
+                </div>
+                <div>
+                    <strong class="filter_title">준수판매가</strong>
+                    <ul class="filter_list">
+                        <li>
+                            <input type="checkbox" value="1" name="comply01" id="comply_ch1">
+                            <label for="comply_ch1">준수판매가 있음</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" value="1" name="comply02" id="comply_ch2">
+                            <label for="comply_ch2">준수판매가 없음</label>
+                        </li>
+                    </ul>
+                    <button type="button" class="btn_filter"><span class="icon_g btn_filter_toggle">준수판매가 필터 열기/닫기</span></button>
+                </div>
+                <div>
+                    <strong class="filter_title">판매여부</strong>
+                    <ul class="filter_list">
+                        <li>
+                            <input type="checkbox" value="1" name="saleY" id="sale_ch1">
+                            <label for="sale_ch1">판매중</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" value="1" name="saleN" id="sale_ch2">
+                            <label for="sale_ch2">판매종료</label>
+                        </li>
+                    </ul>
+                    <button type="button" class="btn_filter"><span class="icon_g btn_filter_toggle">판매여부 필터 열기/닫기</span></button>
+                </div>
+                <div>
+                    <strong class="filter_title">과세여부</strong>
+                    <ul class="filter_list">
+                        <li>
+                            <input type="checkbox" value="1" name="tax1" id="tax_ch1">
+                            <label for="tax_ch1">과세</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" value="1" name="tax2" id="tax_ch2">
+                            <label for="tax_ch2">면세</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" value="1" name="tax3" id="tax_ch3">
+                            <label for="tax_ch3">영세</label>
+                        </li>
+                    </ul>
+                    <button type="button" class="btn_filter"><span class="icon_g btn_filter_toggle">과세여부 필터 열기/닫기</span></button>
+                </div>
+                <div>
+                    <strong class="filter_title">배송비</strong>
+                    <ul class="filter_list">
+                        <li>
+                            <input type="checkbox" value="1" name="deli1" id="delivery_ch1">
+                            <label for="delivery_ch1">무료배송</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" value="1" name="deli2" id="delivery_ch2">
+                            <label for="delivery_ch2">유료배송</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" value="1" name="deli3" id="delivery_ch3">
+                            <label for="delivery_ch3">조건부무료배송 제외</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" value="1" name="deli4" id="delivery_ch4">
+                            <label for="delivery_ch4">착불배송상품</label>
+                        </li>
+                    </ul>
+                    <button type="button" class="btn_filter"><span class="icon_g btn_filter_toggle">배송비 필터 열기/닫기</span></button>
+                </div>
+                <div>
+                    <strong class="filter_title">원산지</strong>
+                    <ul class="filter_list">
+                        <li>
+                            <input type="checkbox" value="1" name="country1" id="country_ch1">
+                            <label for="country_ch1">국내산</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" value="1" name="country2" id="country_ch2">
+                            <label for="country_ch2">국외산</label>
+                        </li>
+                    </ul>
+                    <button type="button" class="btn_filter"><span class="icon_g btn_filter_toggle">원산지 필터 열기/닫기</span></button>
+                </div>
+                <div>
+                    <strong class="filter_title">도매가</strong>
+                    <ul class="filter_list">
+                        <li>
+                            <input type="radio" id="wholesale_rd1" name="wholesale" value="1" checked>
+                            <label for="wholesale_rd1"><span>1</span>만원 이하</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="wholesale_rd2" name="wholesale" value="1">
+                            <label for="wholesale_rd2"><span>1</span>만원 ~ <span>2</span>만원</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="wholesale_rd3" name="wholesale" value="1">
+                            <label for="wholesale_rd3"><span>2</span>만원 ~ <span>4</span>만원</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="wholesale_rd4" name="wholesale" value="1">
+                            <label for="wholesale_rd4"><span>4</span>만원 ~ <span>8</span>만원</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="wholesale_rd5" name="wholesale" value="1">
+                            <label for="wholesale_rd5"><span>8</span>만원 ~ <span>12</span>만원</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="wholesale_rd6" name="wholesale" value="1">
+                            <label for="wholesale_rd6"><span>12</span>만원 ~ <span>15</span>만원</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="wholesale_rd7" name="wholesale" value="1">
+                            <label for="wholesale_rd7"><span>15</span>만원 이상</label>
+                        </li>
+                        <li class="mt10">
+                            <span class="input_wholesale_price"><input type="text" id="minPrice" name="minPrice" value="" /></span>
+                            <span class="input_wholesale_price"><input type="text" id="maxPrice" name="maxPrice" value="" /></span>
+                            <button type="submit" class="btn_wholesale_search">검색</button>
+                        </li>
+                    </ul>
+                    <button type="button" class="btn_filter"><span class="icon_g btn_filter_toggle">도매가 필터 열기/닫기</span></button>
+                </div>
+                <div>
+                    <strong class="filter_title">상품등록일</strong>
+                    <ul class="filter_list">
+                        <li>
+                            <input type="radio" id="regisday_rd1" name="regisday" value="1" checked>
+                            <label for="regisday_rd1">오늘</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="regisday_rd2" name="regisday" value="1">
+                            <label for="regisday_rd2">일주일</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="regisday_rd3" name="regisday" value="1">
+                            <label for="regisday_rd3"><span>15</span>일</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="regisday_rd4" name="regisday" value="1">
+                            <label for="regisday_rd4"><span>1</span>개월</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="regisday_rd5" name="regisday" value="1">
+                            <label for="regisday_rd5"><span>2</span>개월</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="regisday_rd6" name="regisday" value="1">
+                            <label for="regisday_rd6">전체</label>
+                        </li>
+                        <li class="mt10">
+                            <span class="input_regisdays"><input type="text" id="startDay" name="regisday[]" maxlength="8" value="" /></span>
+                            <span class="input_regisdays"><input type="text" id="endDay" name="regisday[]" maxlength="8" value="" /></span>
+                            <button type="submit" class="btn_regisday_search">검색</button>
+                        </li>
+                    </ul>
+                    <button type="button" class="btn_filter"><span class="icon_g btn_filter_toggle">상품등록일 필터 열기/닫기</span></button>
+                </div>
+            </div>
+            <div class="content_wrap">
+                <h3 class="title_category">롱셔츠</h3>
+                <div class="wrap_tag">
+                    <div class="tag_list">
+                        <span class="tag_g">나이키<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">아디다스<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">퓨마<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">휠라<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">뉴발란스<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">카파<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">데상트<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">르꼬끄<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">엄브로<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">NFL<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">컨버스<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">크록스<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">프로스펙스<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">케이스위스<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">질스튜어트 스포츠<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">아디다스<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">아디다스<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">반팔티<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">아디다스<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">아디다스<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">반팔티<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">아디다스<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">아디다스<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                        <span class="tag_g">반팔티<button type="button" class="btn_tag"><span class="icon_g btn_tag_delete">태그 삭제</span></button></span>
+                    </div>
+                    <div class="tag_option">
+                        <!-- filterMore 동작 시 class spread 추가/삭제 -->
+                        <button type="button" class="btn_tag_opt"><span class="icon_g btn_tag_opt_spred">태그 전체보기</span></button>
+                        <button class="btn_tag_refrash">전체해제</button>
+                    </div>
+                </div>
+                <div class="wrap_goods">
+                    <div class="goods_sort">
+                        <input type="radio" id="sort_rd1" name="sort_goods" value="1" checked>
+                        <label for="sort_rd1">인기상품순</label>
+                        <input type="radio" id="sort_rd2" name="sort_goods" value="2">
+                        <label for="sort_rd2">최근등록순</label>
+                        <input type="radio" id="sort_rd3" name="sort_goods" value="3">
+                        <label for="sort_rd3">낮은가격순</label>
+                        <input type="radio" id="sort_rd4" name="sort_goods" value="4">
+                        <label for="sort_rd4">높은가격순</label>
+                        <div class="select_box sort_select">
+                            <select name="" id="">
+                                <option>20개 출력</option>
+                                <option>40개 출력</option>
+                                <option>60개 출력</option>
+                                <option>80개 출력</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="goods_util">
+                        <div class="util_left">
+                            <div class="util_count">총 <b>699</b>개 상품</div>
+                            <div class="util_chk_all">
+                                <input type="checkbox" value="1" name="chk_all" id="chk_all">
+                                <label for="chk_all">전체 선택</label>
+                            </div>
+                            <div class="util_select">
+                                <button type="button" name="layer_pick" class="select_btn_Pick btn_layer_show">선택상품 찜</button>
+                                <button type="button" class="select_btn_ExcelDown">선택상품 엑셀다운로드</button>
+                                <button type="button" class="select_btn_PickView">찜한상품 보기</button>
+                            </div>
+                        </div>
+                        <div class="util_page">
+                            <button type="button" class="page_btn"><span class="icon_g page_btn_pre end_page">이전 페이지</span></button>
+                            <span>1</span>/10
+                            <button type="button" class="page_btn"><span class="icon_g page_btn_next">다음 페이지</span></button>
+                        </div>
+                    </div>
+                    <!-- 2020.10.21 검색 결과 없을 때 -->
+                    <div class="list_goods goods_none">
+                        <b>검색조건에 맞는 상품이 없습니다.</b>
+                        <span>다른 조건으로 다시 검색해 보세요</span>
+                    </div>
+                    <div class="goods_util util_bot content_bottom">
+                        <div class="util_left">
+                            <div class="util_chk_all">
+                                <input type="checkbox" value="1" name="chk_all" id="chk_all_bot">
+                                <label for="chk_all_bot">전체 선택</label>
+                            </div>
+                            <div class="util_select">
+                                <button type="button" name="layer_pick" class="select_btn_Pick btn_layer_show">선택상품 찜</button>
+                                <button type="button" class="select_btn_ExcelDown">선택상품 엑셀다운로드</button>
+                                <button type="button" class="select_btn_PickView">찜한상품 보기</button>
+                            </div>
+                        </div>
+                        <div class="paging_common"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div> <!-- // container -->
+
+    <div id="asideTool"></div>
+    <footer id="footer"></footer>
+</div>
+
+<div class="layer_wrap layer_brand">
+    <div class="layer_box">
+        <strong class="title_layer">브랜드보기</strong>
+
+        <input type="checkbox" value="1" name="brand_chk_all" id="brand_chk_all">
+        <label for="brand_chk_all">전체</label>
+        <div class="brand_list">
+            <ol>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_01">
+                    <label for="brand_chk_01">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_02">
+                    <label for="brand_chk_02">나이키인듯나이키아닌나이키같은</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_03">
+                    <label for="brand_chk_03">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_04">
+                    <label for="brand_chk_04">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_05" checked>
+                    <label for="brand_chk_05">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_06">
+                    <label for="brand_chk_06">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_07">
+                    <label for="brand_chk_07">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_08">
+                    <label for="brand_chk_08">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_09">
+                    <label for="brand_chk_09">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_10">
+                    <label for="brand_chk_10">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_11">
+                    <label for="brand_chk_11">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_12">
+                    <label for="brand_chk_12">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_13">
+                    <label for="brand_chk_13">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_14">
+                    <label for="brand_chk_14">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_15">
+                    <label for="brand_chk_15">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_16">
+                    <label for="brand_chk_16">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_17">
+                    <label for="brand_chk_17">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_18">
+                    <label for="brand_chk_18">나이키</label>
+                </li>
+
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_19">
+                    <label for="brand_chk_19">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_20">
+                    <label for="brand_chk_20">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_21" checked>
+                    <label for="brand_chk_21">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_22">
+                    <label for="brand_chk_22">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_23">
+                    <label for="brand_chk_23">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_24">
+                    <label for="brand_chk_24">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_25">
+                    <label for="brand_chk_25">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_26">
+                    <label for="brand_chk_26">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_27">
+                    <label for="brand_chk_27">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_28">
+                    <label for="brand_chk_28">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_29">
+                    <label for="brand_chk_29">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_30">
+                    <label for="brand_chk_30">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_31">
+                    <label for="brand_chk_31">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_32">
+                    <label for="brand_chk_32">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_33">
+                    <label for="brand_chk_33">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_34">
+                    <label for="brand_chk_34">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_35">
+                    <label for="brand_chk_35">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_36">
+                    <label for="brand_chk_36">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_37">
+                    <label for="brand_chk_37">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_38">
+                    <label for="brand_chk_38">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_39">
+                    <label for="brand_chk_39">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_40">
+                    <label for="brand_chk_40">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_41">
+                    <label for="brand_chk_41">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_42">
+                    <label for="brand_chk_42">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_43">
+                    <label for="brand_chk_43">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_44">
+                    <label for="brand_chk_44">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_45">
+                    <label for="brand_chk_45">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_46">
+                    <label for="brand_chk_46">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_47">
+                    <label for="brand_chk_47">나이키</label>
+                </li>
+                <li>
+                    <input type="checkbox" value="1" name="brand_chk" id="brand_chk_48">
+                    <label for="brand_chk_48">나이키</label>
+                </li>
+            </ol>
+        </div>
+        <div class="wrap_button">
+            <button type="button" class="btn_h35">선택한 카테고리 적용하여 검색</button>
+        </div>
+        <button type="button" class="btn_closed"><span class="icon_g icon_close">레이어 닫기</span></button>
+    </div>
+</div>
+
+<div class="layer_wrap layer_pick">
+    <div class="layer_box">
+        <strong class="title_layer">상품 찜</strong>
+
+        <div class="layer_comment">선택하신 상품을 찜하였습니다.</div>
+
+        <div class="wrap_button">
+            <button type="button" class="btn_h35">쇼핑계속하기</button>
+            <button type="button" class="btn_h35">찜한 상품 보기</button>
+        </div>
+        <button type="button" class="btn_closed"><span class="icon_g icon_close">레이어 닫기</span></button>
+    </div>
+</div>
+
+<script>
+    $(function(){
+        $('.btn_filter').click(function(){
+            $(this).closest('div').toggleClass('close');
+        })
+
+        $('.btn_tag').click(function(){
+            $(this).closest('.tag_g').remove('.tag_g');
+        })
+
+        $('.btn_tag_opt').click(function(){
+            var tagHeight = $('.tag_list').outerHeight();
+            if(tagHeight > 41){
+                $('.wrap_tag').toggleClass('spread');
+                $(this).toggleClass('fold');
+            }
+        })
+        
+        $('.btn_tag_refrash').click(function(){
+            $('span').remove('.tag_g');
+        })
+
+        $('#brand_chk_all').click(function(){
+            if($('#brand_chk_all').prop('checked')) {
+                $('input[name=brand_chk]').prop('checked',true);
+                $('#brand_chk_all').prop('checked',true);
+            } else {
+                $('input[name=brand_chk]').prop('checked',false);
+                $('#brand_chk_all').prop('checked',false);
+            }
+        })
+    })
+
+    jQuery(function () {
+        jQuery('#startDay').datepicker({
+            numberOfMonths: 1,
+            dateFormat: 'yymmdd',
+            changeMonth: false, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
+            changeYear: false, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
+            nextText: '다음 달', // next 아이콘의 툴팁.
+            prevText: '이전 달', // prev 아이콘의 툴팁.
+            numberOfMonths: [1, 1], // 한번에 얼마나 많은 월을 표시할것인가. [2,3] 일 경우, 2(행) x 3(열) = 6개의 월을 표시한다.
+            showAnim: 'slide', //애니메이션을 적용한다.
+            showMonthAfterYear: true, // 월, 년순의 셀렉트 박스를 년,월 순으로 바꿔준다.
+            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], // 요일의 한글 형식.
+            monthNames: ['.01', '.02', '.03', '.04', '.05', '.06', '.07', '.08', '.09', '.10', '.11', '.12'],
+            onClose: function (selectedDate) {
+                jQuery('#endDay').datepicker('option', 'minDate', selectedDate);
+            }
+        });
+
+        jQuery('#endDay').datepicker({
+            numberOfMonths: 1,
+            dateFormat: 'yymmdd',
+            changeMonth: false, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
+            changeYear: false, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
+            nextText: '다음 달', // next 아이콘의 툴팁.
+            prevText: '이전 달', // prev 아이콘의 툴팁.
+            numberOfMonths: [1, 1], // 한번에 얼마나 많은 월을 표시할것인가. [2,3] 일 경우, 2(행) x 3(열) = 6개의 월을 표시한다.
+            showAnim: 'slide', //애니메이션을 적용한다.
+            showMonthAfterYear: true, // 월, 년순의 셀렉트 박스를 년,월 순으로 바꿔준다.
+            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], // 요일의 한글 형식.
+            monthNames: ['.01', '.02', '.03', '.04', '.05', '.06', '.07', '.08', '.09', '.10', '.11', '.12'],
+            onClose: function (selectedDate) {
+                jQuery('#startDay').datepicker('option', 'maxDate', selectedDate);
+            }
+        });
+    });
+</script>
+</body>
+</html>

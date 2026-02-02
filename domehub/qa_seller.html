@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>도매허브</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    
+    <link rel="stylesheet" type="text/css" href="./css/common.css" />
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <!--
+    <link rel="stylesheet" type="text/css" href="./css/goods_detail.css" />
+    <link rel="stylesheet" type="text/css" href="./css/help_center.css" />
+    <link rel="stylesheet" type="text/css" href="./css/faq_seller.css" />
+    -->
+    
+    <script type="text/javascript" src="./js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("#header").load("_header_faq.html");
+        $("#asideTool").load("_aside.html");
+        $("#footer").load("_footer.html");
+    });
+    </script>
+</head>
+<body>
+<div id="domeWrap" class="type_detail">
+    <Header id="header"></Header>
+
+    <div id="container">
+        <h2 id="domeBody" class="screen_out">도매허브 본문</h2>
+        <div class="result_Path sub_Path">
+            <div class="inner_layout">
+                <a href="#none">홈</a>
+                <div class="depth2">
+                    <a href="#none">고객만족센터</a>
+                </div>
+                <span class="icon_arr"></span>
+                <div class="depth3">
+                    <a href="#none">판매자에게 문의</a>
+                </div>
+            </div>
+        </div>
+        <div id="content">
+            <div class="sub_nav">
+                <ul>
+                    <li><a href="#" class="link_sub">구매자 FAQ</a></li>
+                    <li><a href="#" class="link_sub">판매자 FAQ</a></li>
+                    <li><a href="#" class="link_sub">공지사항</a></li>
+                    <li><a href="#" class="link_sub">1:1 문의</a></li>
+                </ul>
+                <div class="sub_info">
+                    <strong>고객문의</strong>
+                    <em>1522-9843</em>
+                    <span>AM 10시 ~ PM 18시<br/>토/일, 법정공휴일 휴무<br/>점심시간 : 13시 ~ 14시</span>
+                </div>
+            </div>
+            <div class="cs_wrap qa_wrap">
+                <h3 class="title_client">
+                    판매자에게 문의
+                    <span>(<em class="fc_red">*</em>)은 필수 입력사항입니다.</span>
+                </h3>
+                <ul class="faq_g">
+                    <li>
+                        <strong class="faq_title">문의상품</strong>
+                        <div class="faq_product">
+                            <img src="https://i.lately.co.kr/6/2009/18/12110353_700_700.jpg" alt="">
+                            <strong>MONCROSS 몽크로스 스위스 남성 메탈시계 MS3751MT-BK</strong>
+                            <span>판매자 : <em class="fc_blue">힘차고단단한아침</em></span>
+                        </div>
+                    </li>
+                    <li>
+                        <strong class="faq_title">상품옵션 <em class="fc_red">*</em></strong>
+                        <div class="select_box">
+                            <select name="" id="">
+                                <option value="">옵션을 선택하세요</option>
+                                <option value="">95/오렌지</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <strong class="faq_title">문의유형 <em class="fc_red">*</em></strong>
+                        <div class="select_box">
+                            <select name="" id="">
+                                <option value="">선택하세요</option>
+                                <option value="">배송문의</option>
+                                <option value="">A/S</option>
+                                <option value="">교환반품</option>
+                                <option value="">취소</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <strong class="faq_title">문의내용 <em class="fc_red">*</em></strong>
+                        <textarea placeholder="문의내용을 입력해주세요."></textarea>
+                    </li>
+                    <li>
+                        <strong class="faq_title">파일첨부</strong>
+                        <div class="input_file">
+                            <input class="file_nm" value="용량 최대 10M" disabled />
+
+                            <label for="faq_file">파일첨부</label>
+                            <input type="file" id="faq_file" class="filebox_hide">
+                        </div>
+                    </li>
+                    <li>
+                        <strong class="faq_title">답변받기</strong>
+                        <input type="checkbox" value="1" name="reply_sms" id="reply1" checked />
+                        <label for="reply1">SMS<span class="reply_text">01012345678</span></label>
+                        <input type="checkbox" value="2" name="repla_email" id="reply2">
+                        <label for="reply2">EMAIL<span class="reply_text">jinkook.park@sellerhub.co.kr</span></label>
+                    </li>
+                </ul>
+                <button type="submit" class="btn_h35">문의하기</button>
+            </div>
+        </div>
+    </div> <!-- // container -->
+
+    <footer id="footer"></footer>
+</div>
+
+<script>
+    $(function(){
+        $(".link_sub").on('click',function(){
+            $(this).toggleClass('on');
+            $('.link_sub').not(this).removeClass('on');
+        });
+
+        $('.area_answer').hide();
+        $('.list_client li').on('click',function(){
+            $(this).children('div').toggleClass('show');
+            $('.list_client li').not(this).children('div').removeClass('show');
+        });
+
+        $(".keyword_g").on('click',function(){
+            $(this).toggleClass('on');
+            $(".keyword_g").not(this).removeClass("on");
+        });
+    });
+</script>
+</body>
+</html>

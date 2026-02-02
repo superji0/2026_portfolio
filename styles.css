@@ -488,6 +488,10 @@ body::before {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
+.project-image-bg-green {
+    background: linear-gradient(135deg, #6BCB77 0%, #4D96A9 100%);
+}
+
 .project-image-overlay {
     position: absolute;
     font-family: 'Space Mono', monospace;

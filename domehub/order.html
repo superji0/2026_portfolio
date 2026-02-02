@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>도매허브</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="./css/common.css" />
+    
+    <link rel="stylesheet" href="/shop/admin_provider/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <script type="text/javascript" src="./js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
+
+    <script src="/shop/admin_provider/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("#header").load("_header.html");
+        $("#asideTool").load("_aside.html");
+        $("#footer").load("_footer.html");
+    });
+    </script>
+</head>
+<body>
+<div id="domeWrap" class="type_sub">
+    <Header id="header"></Header>
+
+    <div class="order_wrap">
+        <div id="container" style="min-height: 600px;">
+            <h2 id="domeBody" class="screen_out">도매허브 본문</h2>
+            <h3 class="title_order">
+                주문결제
+                <div class="order_nav">
+                    <em>장바구니</em>
+                    <span class="nav_icon_arr"></span>
+                    <em class="on">주문관리</em>
+                    <span class="nav_icon_arr"></span>
+                    <em>주문완료</em>
+                </div>
+            </h3>
+
+            <table class="order_list">
+                <caption>주문 상품 리스트</caption>
+                <colgroup>
+                    <col class="col_type6">
+                    <col class="col_type4">
+                    <col class="col_type2">
+                    <col class="col_type4">
+                    <col class="col_type2">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>상품명/옵션</th>
+                        <th>도매가</th>
+                        <th>수량</th>
+                        <th>합계금액</th>
+                        <th>배송비</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="order_goodsinfo">
+                                <a href="#none">
+                                    <div class="order_goodsimg">
+                                        <img src="https://i.lately.co.kr/6/2009/03/11477311_600_600.jpg" alt="" />
+                                    </div>
+                                    <span class="order_goodsnm">
+                                        콜핑 PGD01 여성등산자켓 방수
+                                    </span>
+                                </a>
+                                <div class="order_goodsopt">
+                                    옵션 : 95/오렌지
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="order_goodsprice"><b>99,999,999</b>원</span>
+                        </td>
+                        <td>
+                            <div class="order_goodsquantity">
+                                10
+                            </div>
+                        </td>
+                        <td>
+                            <span class="order_goodsprice"><b>99,999,999</b>원</span>
+                        </td>
+                        <td>
+                            <em class="txt_em">무료배송</em>
+                        </td>
+                    </tr>
+                    <!-- 품절 상품은 tr에 class : sold_out 추가 -->
+                    <tr>
+                        <td>
+                            <div class="order_goodsinfo">
+                                <a href="#none">
+                                    <div class="order_goodsimg">
+                                        <img src="https://i.lately.co.kr/6/2009/05/11580910_700_700.jpg" alt="" />
+                                    </div>
+                                    <span class="order_goodsnm">
+                                        콜핑 PGD01 여성등산자켓 방수 투습 전체심실링 전문형 고로- J KPJ6689123456789876 티셔츠 콜핑 PGD01 여성등산자켓 방수 투습 전체심실링 전문형 고로- J KPJ6689123456789876 티셔츠
+                                    </span>
+                                </a>
+                                <div class="order_goodsopt">
+                                    옵션 : 95/오렌지
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="order_goodsprice"><b>99,999,999</b>원</span>
+                        </td>
+                        <td>
+                            <div class="order_goodsquantity">
+                                1
+                            </div>
+                        </td>
+                        <td>
+                            <span class="order_goodsprice"><b>99,999,999</b>원</span>
+                        </td>
+                        <td>
+                            <em class="txt_em">무료배송</em>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="order_section">
+                <div class="order_info">
+                    <h4>주문고객정보</h4>
+                    <ul class="order_g">
+                        <li>
+                            <strong>주문자명</strong>
+                            <input type="text" placeholder="주문자명을 입력해 주세요." />
+                        </li>
+                        <li>
+                            <strong>전화번호</strong>
+                            <input type="text" placeholder="-없이 전화번호를 입력해 주세요." />
+                        </li>
+                        <li>
+                            <strong>휴대폰번호</strong>
+                            <input type="text" placeholder="-없이 휴대폰번호를 입력해 주세요." />
+                        </li>
+                        <li>
+                            <strong>이메일</strong>
+                            <input type="text" class="input_type1" placeholder="메일주소를 입력해 주세요." />
+                        </li>
+                    </ul>
+
+                    <h4>
+                        배송지정보
+                        <input type="checkbox" value="1" name="seller_location" id="seller_location">
+                        <label for="seller_location">주문자 정보와 같음</label>
+                    </h4>
+                    <ul class="order_g">
+                        <li>
+                            <strong class="strong_type2">배송지</strong>
+                            <input type="radio" id="deli_loca_rd1" name="delivery_location" value="1" checked>
+                            <label for="deli_loca_rd1">최근 배송지</label>
+                            <input type="radio" id="deli_loca_rd2" name="delivery_location" value="2">
+                            <label for="deli_loca_rd2">새로입력</label>
+                        </li>
+                        <li>
+                            <strong>받는분 성명</strong>
+                            <input type="text" placeholder="받는 분을 입력해 주세요."/>
+                        </li>
+                        <li>
+                            <strong>우편번호</strong>
+                            <div class="input_postal">
+                                <input type="text" readonly />
+                                <button type="button" class="btn_h35">우편번호 검색</button>
+                            </div>
+                        </li>
+                        <li>
+                            <strong>주소</strong>
+                            <div class="input_address">
+                                <input type="text" class="input_type1" readonly />
+                                <input type="text" class="input_type1" placeholder="상세주소를 입력해 주세요." />
+                            </div>
+                        </li>
+                        <li>
+                            <strong>전화번호</strong>
+                            <input type="text" placeholder="-없이 전화번호를 입력해 주세요." />
+                        </li>
+                        <li>
+                            <strong>휴대폰번호</strong>
+                            <input type="text" placeholder="-없이 휴대폰번호를 입력해 주세요." />
+                        </li>
+                        <li>
+                            <strong>배송 메세지</strong>
+                            <input type="text" class="input_type1" placeholder="메세지를 입력하세요." />
+                        </li>
+                    </ul>
+
+                    <h4>결제수단</h4>
+                    <div class="order_g opder_payment">
+                        <div>
+                            <input type="radio" id="payment_rd1" name="payment_type" value="1" class="type_hubcash" checked>
+                            <label for="payment_rd1">허브캐쉬</label>
+                            <input type="radio" id="payment_rd2" name="payment_type" value="2" class="type_credit_card">
+                            <label for="payment_rd2">신용카드</label>
+                            <input type="radio" id="payment_rd3" name="payment_type" value="3" class="type_virtual_account">
+                            <label for="payment_rd3">가상계좌</label>
+                            <input type="radio" id="payment_rd4" name="payment_type" value="4" class="type_account_transfer">
+                            <label for="payment_rd4">실시간 계좌</label>
+                        </div>
+                        <ul>
+                            <li>
+                                <strong>허브캐쉬</strong>
+                                <div class="input_hubcash">
+                                    <input type="text" />
+                                    <span>허브캐쉬 사용 후 잔액 : <em>5,000</em>원</span>
+                                    <button type="button" name="layer_charge" class="btn_h35 btn_layer_show">허브캐쉬 충전하기</button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="notice_hubcash">※ 허브캐쉬 소진순서 : 충전금액 > 상품판매금액</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="order_amount">
+                    <div class="order_g amount_info">
+                        <h4>총 결제금액</h4>
+                        <dl>
+                            <dt class="amount_goods">총 상품 금액</dt>
+                            <dd class="amount_goods"><b>99,999,999</b>원</dd>
+                            <dt>배송비</dt>
+                            <dd><b>0</b>원</dd>
+                            <dt class="amount_discount">상품할인금액</dt>
+                            <dd class="amount_discount"><b>-3,958</b>원</dd>
+                        </dl>
+                        <dl>
+                            <dt class="amount_total">총 1건</dt>
+                            <dd class="total_price"><b>99,999,999</b>원</dd>
+                        </dl>
+                    </div>
+                    <ul class="order_g terms_info">
+                        <li>
+                            <strong>주문내역확인 동의</strong>
+                            <button type="button" name="order_terms1" class="btn_layer_show">보기</button>
+                        </li>
+                        <li>
+                            <strong>전자금융거래 이용약관</strong>
+                            <button type="button" name="order_terms2" class="btn_layer_show">보기</button>
+                        </li>
+                        <li>
+                            <strong>개인정보 수집 및 이용동의</strong>
+                            <button type="button" name="order_terms3" class="btn_layer_show">보기</button>
+                        </li>
+                        <li>
+                            <strong>개인정보 제공 및 위탁동의</strong>
+                            <button type="button" name="order_terms4" class="btn_layer_show">보기</button>
+                        </li>
+                    </ul>
+                    <button type="submit" class="btn_h35 btn_order">위 약관에 동의하고 결제하기</button>
+                    <button type="button" class="btn_h35 line_b btn_shopping">취소하기</button>
+                </div>
+            </div>
+
+            <button type="button" name="layer_hc_alert" class="btn_h35 line_b btn_layer_show" style="position:fixed;right:50px;bottom:300px">(임시)허브캐쉬 부족 시</button>
+            <button type="button" name="layer_charge3" class="btn_h35 line_b btn_layer_show" style="position:fixed;right:50px;bottom:250px">(임시)허브캐시 결제완료(계좌이체)</button>
+
+        </div> <!-- // container -->
+
+    </div>
+
+    <div class="layer_wrap layer_charge">
+        <div class="layer_box type_2">
+            <strong class="title_layer">허브캐쉬 충전하기</strong>
+
+            <div class="layer_comment">
+                <div class="section_notice">
+                    <b>허브캐쉬 잔액 : <em class="fc_blue">99,999,999</em>원</b> (상품판매 금액 : <em class="fc_blue">99,999,999</em>원 / 허브캐쉬 충전금액 : <em class="fc_blue">99,999,999</em>원 )
+                </div>
+                
+                <h4>충전</h4>
+                <ul class="tb_charge">
+                    <li>
+                        <strong>허브캐쉬 충전</strong>
+                        <div>
+                            <input type="text" />
+                            <em>※ 충전금액은 1회 충전시 최소 10,000원에서 최대 1,000,000,000원까지 충전가능합니다.</em>
+                            <em>※ 1캐쉬 = 1원</em>
+                        </div>
+                    </li>
+                </ul>
+
+                <h4>충전</h4>
+                <ul class="tb_charge">
+                    <li>
+                        <strong>결제금액</strong>
+                        <div>
+                            99,999,999,999
+                        </div>
+                    </li>
+                    <li>
+                        <strong>결제수단</strong>
+                        <div>
+                            <input type="radio" id="hubcash_charge1" name="hubcash_charge" value="1" checked>
+                            <label for="hubcash_charge1">실시간 계좌이체</label>
+                            <input type="radio" id="hubcash_charge2" name="hubcash_charge" value="2">
+                            <label for="hubcash_charge2">가상계좌</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="wrap_button">
+                <button type="button" class="btn_closed btn_h35 line_b">닫기</button>
+                <button type="button" name="layer_charge2" class="btn_h35 btn_layer_show">결제하기</button>
+            </div>
+            <button type="button" class="btn_closed close_type2"><span class="icon_g icon_close">레이어 닫기</span></button>
+        </div>
+    </div>
+
+    <div class="layer_wrap layer_charge2">
+        <div class="layer_box type_2">
+            <strong class="title_layer">허브캐쉬 충전하기</strong>
+
+            <div class="layer_comment">
+                <b class="charge_title">결제가 완료되었습니다.</b>
+                <span class="charge_sub">[허브캐쉬충전내역]에서 충전내역을 확인하실 수 있습니다.</span>
+                
+                <ul class="tb_charge mt24">
+                    <li>
+                        <strong>결제금액</strong>
+                        <div>
+                            99,999,999,999원
+                        </div>
+                    </li>
+                    <li>
+                        <strong>결제수단</strong>
+                        <div>
+                            가상계좌
+                        </div>
+                    </li>
+                    <li>
+                        <strong>입금자</strong>
+                        <div>
+                            홍길동
+                        </div>
+                    </li>
+                    <li>
+                        <strong>결제계좌</strong>
+                        <div>
+                            국민은행 / 121201210281021 / (주)셀러허브
+                        </div>
+                    </li>
+                    <li>
+                        <strong>결제예정일자</strong>
+                        <div>
+                            2020-02-21 16:14:09
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="wrap_button">
+                <button type="button" class="btn_closed btn_h35 line_b">닫기</button>
+                <button type="button" class="btn_h35">확인</button>
+            </div>
+            <button type="button" class="btn_closed close_type2"><span class="icon_g icon_close">레이어 닫기</span></button>
+        </div>
+    </div>
+
+    <div class="layer_wrap layer_charge3">
+        <div class="layer_box type_2">
+            <strong class="title_layer">허브캐쉬 충전하기</strong>
+
+            <div class="layer_comment">
+                <b>결제가 완료되었습니다.</b>
+                <span>[허브캐쉬충전내역]에서 충전내역을 확인하실 수 있습니다.</span>
+                
+                <ul class="tb_charge">
+                    <li>
+                        <strong>결제금액</strong>
+                        <div>
+                            99,999,999,999원
+                        </div>
+                    </li>
+                    <li>
+                        <strong>결제수단</strong>
+                        <div>
+                            실시간계좌이체
+                        </div>
+                    </li>
+                    <li>
+                        <strong>입금자</strong>
+                        <div>
+                            홍길동
+                        </div>
+                    </li>
+                    <li>
+                        <strong>결제계좌</strong>
+                        <div>
+                            국민은행 / 121201210281021 / (주)셀러허브
+                        </div>
+                    </li>
+                    <li>
+                        <strong>결제일자</strong>
+                        <div>
+                            2020-02-21 16:14:09
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="wrap_button">
+                <button type="button" class="btn_closed btn_h35 line_b">닫기</button>
+                <button type="button" class="btn_h35">확인</button>
+            </div>
+            <button type="button" class="btn_closed close_type2"><span class="icon_g icon_close">레이어 닫기</span></button>
+        </div>
+    </div>
+
+    <div class="layer_wrap layer_order order_terms1">
+        <div class="layer_box">
+            <h4 class="title_layer">주문내역확인 동의</h4>
+
+            <div class="terms_layer">
+                <b>제목형 텍스트입니다.</b>
+                <p>
+                    약관동의 내용이 나옵니다.<br/>
+                    약관동의 내용이 나옵니다.약관동의 내용이 나옵니다.<br/>
+                    약관동의 내용이 나옵니다.약관동의 내용이 나옵니다.약관동의 내용이 나옵니다.<br/>
+                    약관동의 내용이 나옵니다.<br/><br/>
+                    약관동의 내용이 나옵니다.<br/>
+                    약관동의 내용이 나옵니다.<br/>
+                    약관동의 내용이 나옵니다.<br/><br/><br/>
+                    약관동의 내용이 나옵니다.<br/>
+                    약관동의 내용이 나옵니다.<br/>
+                    약관동의 내용이 나옵니다.<br/>
+                    약관동의 내용이 나옵니다.<br/>
+                    약관동의 내용이 나옵니다.<br/>
+                    약관동의 내용이 나옵니다.<br/>
+                    약관동의 내용이 나옵니다.<br/>
+                    약관동의 내용이 나옵니다.
+                </p>
+            </div>
+
+            <div class="wrap_button">
+                <button type="button" class="btn_h35 btn_closed">확인</button>
+            </div>
+            <button type="button" class="btn_closed"><span class="icon_g icon_close">레이어 닫기</span></button>
+        </div>
+    </div>
+
+    <div class="layer_wrap layer_order order_terms2">
+        <div class="layer_box">
+            <strong class="title_layer">전자금융거래 이용약관</strong>
+
+            <div class="terms_layer">
+                <b>제목형 텍스트입니다.</b>
+                <p>
+                    약관동의 내용이 나옵니다.
+                </p>
+            </div>
+
+            <div class="wrap_button">
+                <button type="button" class="btn_h35 btn_closed">확인</button>
+            </div>
+            <button type="button" class="btn_closed"><span class="icon_g icon_close">레이어 닫기</span></button>
+        </div>
+    </div>
+
+    <div class="layer_wrap layer_order order_terms3">
+        <div class="layer_box">
+            <strong class="title_layer">개인정보 수집 및 이용동의</strong>
+
+            <div class="terms_layer">
+                <b>제목형 텍스트입니다.</b>
+                <p>
+                    약관동의 내용이 나옵니다.
+                </p>
+            </div>
+
+            <div class="wrap_button">
+                <button type="button" class="btn_h35 btn_closed">확인</button>
+            </div>
+            <button type="button" class="btn_closed"><span class="icon_g icon_close">레이어 닫기</span></button>
+        </div>
+    </div>
+
+    <div class="layer_wrap layer_order order_terms4">
+        <div class="layer_box">
+            <strong class="title_layer">개인정보 제공 및 위탁동의</strong>
+
+            <div class="terms_layer">
+                <b>제목형 텍스트입니다.</b>
+                <p>
+                    약관동의 내용이 나옵니다.
+                </p>
+            </div>
+
+            <div class="wrap_button">
+                <button type="button" class="btn_h35 btn_closed">확인</button>
+            </div>
+            <button type="button" class="btn_closed"><span class="icon_g icon_close">레이어 닫기</span></button>
+        </div>
+    </div>
+
+    <div class="layer_wrap layer_hc_alert">
+        <div class="layer_box">
+            <strong class="title_layer">허브캐쉬</strong>
+
+            <div class="later_alert_hc">
+                <em>허브캐쉬가 부족합니다.</em>
+                허브캐쉬 충전 후 다시 주문해주세요.
+                <div>
+                    허브캐쉬잔액 :
+                    <span><b>999,999,999</b>원</span>
+                </div>
+            </div>
+
+            <div class="wrap_button">
+                <button type="button" class="btn_h35 line_b">허브캐쉬충전</button>
+                <button type="button" class="btn_h35 btn_closed">확인</button>
+            </div>
+            <button type="button" class="btn_closed"><span class="icon_g icon_close">레이어 닫기</span></button>
+        </div>
+    </div>
+
+    <script>
+        $('input:radio').change('on',function() {
+                var paymentType = $('input[name=payment_type]:checked').val();
+
+                if(paymentType == 1){
+                    $('.opder_payment ul').show();
+                }else{
+                    $('.opder_payment ul').hide();
+                }
+            })
+    </script>
+
+    <div id="asideTool"></div>
+    <footer id="footer"></footer>
+</div>
+
+</body>
+</html>

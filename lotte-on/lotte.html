@@ -1,0 +1,249 @@
+<?php header('Content-Type: text/html; charset=euc-kr'); ?>
+<!DOCTYPE html>
+<head>
+	<meta charset="euc-kr">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=yes, target-densitydpi=medium-dpi" />
+    <title>/develop/publishing/lotte-on</title>
+    <link rel="stylesheet" type="text/css" href="common.css">
+    <link rel="stylesheet" type="text/css" href="./css/header.css">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/option.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumBarunGothic@1.0/nanumbarungothicsubset.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <!--header-->
+    <div class=wrap>
+        <header class="header">
+            <section class="gnb">
+                <ul class="gnb-list">
+                    <li><a href="" class="list">기본관리</a><span class="gnb-line"></span></li>
+                    <li><a href="" class="list">주문</a><span></span></li>
+                    <li><a href="" class="list">정산</a><span></span></li>
+                    <li><a href="" class="list">상품</a><span></span></li>
+                    <li><a href="" class="list">게시판</a></li>
+                    <li><a href="" class="list">연동현황</a></li>
+                    <li><a href="" class="list">통계데이터</a></li>
+                </ul>
+                <ul class="side-list">
+                    <li class="sellerhub-shop"><a href="" >셀러 전용 폐쇄형 복지몰 <span class="s-shop">셀러허브샵</span></a></li>
+                    <li class="news-btn"><a href=""><img src="./img/icbtn_noti.svg" alt=""></a></li>
+                    <li class="sub-btn"><a href=""><img src="./img/icbtn_gnb_details.svg" alt=""></a></li>
+                </ul>
+            </section>
+            <section class="lnb">
+               <h1 class="logo"><a href=""><img src="./img/logo.png" alt=""></a></h1>
+               <ul class="lnb-list">
+                   <li class="lnb-menu"><a href="" class="title-on">주문</a></li>
+                   <li><a href="">주문리스트</a></li>
+                   <li><a href="">주문취소 리스트(조회)</a></li>
+                   <li><a href="">반품접수 리스트</a></li>
+                   <li><a href="">교환접수 / 완료 리스트</a></li>
+               </ul>
+            </section>
+        </header>
+    </div>
+    <!--header end-->
+
+    <section class="option-wrap">
+        <h2 class="option-title">옵션 가격/재고 설정</h2>
+        <p class="read">필독!</p>
+        <div class="required-text">
+            ① 옵션가는 판매가와 동일한 가격으로만 등록가능합니다.<br>
+            ② 옵션명(옵션제목)은 최대 2개까지 설정할 수 있습니다.(우측 +버튼으로 추가할 수 있습니다.)<br>
+            ③ 옵션명/옵션값 입력 후 반드시 "옵션생성"을 눌러 재고수량까지 입력해 주셔야 등록이 완료됩니다.<br>
+            ④ 옵션 생성 후 옵션명은 수정이 불가하며, 추가/삭제만 가능합니다.<br>
+               추가 시 "+옵션(품목)추가" 버튼 클릭 / 삭제 시 옵션항목 우측의 "삭제(x)" 버튼 클릭)<br>
+            ⑤ 기존 옵션을 모두 삭제하고 새로 등록하고자 하실 때에는 "옵션(품목) 새로등록" 버튼을 클릭하여 새로 작성할 수 있습니다.<br>
+            ⑥ 옵션은 조합된 옵션 개수를 기준으로 최대 50개까지 가능하며, 항목 당 옵션명 글자수는 50byte까지 입력 가능합니다.<br>
+            <span class="more-important">
+                ※ 연동쇼핑몰의 [재고, 쇼핑몰판매가, 소비자 정상가]는 셀러허브 기준으로 동일하게 적용됩니다.<br>
+                ※ 연동쇼핑몰의 옵션명을 선택하지 않은 옵션의 경우 해당 연동쇼핑몰에는 연동이 되지 않습니다.
+            </span>
+        </div>
+        <button class="guide-btn">연동쇼핑몰 <span class="btn-style">옵션연동</span> 가이드</button>
+
+        <table class="option-table mt40" width="100%" cellpadding="0" cellspacing="0" border="0">
+            <colgroup>
+                <col width="13.60%">
+                <col width="20.92307%">
+                <col width="20.92307%">
+                <col width="13.6%">
+                <col width="13.6%">
+                <col width="13.6%">
+                <col width="3.32512">
+            </colgroup>
+                <tr>
+                    <th align="left" rowspan="4" style="height:176px;">기본설정</th>
+                    <th align="left" rowspan="2">옵션명</th>
+                    <th align="left" rowspan="2">옵션값</th>
+                    <th class="option-input"><input type="text" class="t-input" placeholder="입력"><button class="option_apply_btn">적용</button></th>
+                    <th class="option-input"><input type="text" class="t-input" placeholder="입력"><button class="option_apply_btn">적용</button></th>
+                    <th class="option-input"><input type="text" class="t-input" placeholder="입력"><button class="option_apply_btn">적용</button></th>
+                    <td class="option-input"> </td>
+                </tr>
+            <tr>
+                <th>재고</td>
+                <th>쇼핑몰판매가</th>
+                <th>소비자 정상가</th>
+                <th>삭제</th>
+            </tr>
+            <tr>
+                <td>에센스팩트</td>
+                <td>21호</td>
+                <td style="text-align: right;" class="option-td"><input type="text" placeholder="입력"></td>
+                <td style="text-align: right;" class="option-td"><input type="text" placeholder="입력"></td>
+                <td style="text-align: right;" class="option-td"><input type="text" placeholder="입력"></td>
+                <td><button class="option_delete_btn">x</button></td>
+            </tr>
+            <tr>
+                <td>에센스팩트</td>
+                <td>21호</td>
+                <td style="text-align: right;" class="option-td"><input type="text" placeholder="입력"></td>
+                <td style="text-align: right;" class="option-td"><input type="text" placeholder="입력"></td>
+                <td style="text-align: right;" class="option-td"><input type="text" placeholder="입력"></td>
+                <td><button class="option_delete_btn">x</button></td>
+            </tr>
+        </table>
+
+        <button class="add-btn">+옵션(품목) 추가</button>
+        <button class="newadd-btn">옵션(품목) 새로 등록</button>
+
+        <div class="search-category">
+            <span class="category-area">카테고리 : 뷰티 >  메이크업/향수 > 기초케어 >로션</span>
+        </div>
+
+        <table class="mall-table mt40" width="100%" cellpadding="0" cellspacing="0" border="0">
+            <colgroup>
+                <col width="24%">
+                <col width="24%">
+                <col width="24%">
+                <col width="24%">
+            </colgroup>
+            <tr>
+                <th >연동쇼핑몰(연동여부)</th>
+                <th >셀러허브 옵션명</th>
+                <th >연동쇼핑몰 옵션명</th>
+                <th>옵션값</th>
+            </tr>
+            <tr>
+                <td rowspan="2" class="lotte-icon"><img src="./img/lotte.png" alt="">롯데 ON</td>
+                <td>에센스팩트</td>
+                <td>
+                    <select name="" id="" class="option-select">
+                        <option value="">선택</option>
+                        <option value="">선택</option>
+                        <option value="">선택</option>
+                        <option value="">선택</option>
+                    </select>
+                </td>
+                <td>21호</td>
+            </tr>
+            <tr>
+                <td>에센스팩트</td>
+                <td>
+                    <select name="" id="" class="option-select">
+                        <option value="">선택</option>
+                        <option value="">선택</option>
+                        <option value="">선택</option>
+                        <option value="">선택</option>
+                    </select>
+                </td>
+                <td>21호</td>
+            </tr>
+
+            <tr>
+                <td rowspan="2" class="coupang-icon"><img src="./img/coupang.png" alt="">쿠팡</td>
+                <td>에센스팩트</td>
+                <td>
+                    <select name="" id="" class="option-select">
+                        <option value="">선택</option>
+                        <option value="">선택</option>
+                        <option value="">선택</option>
+                        <option value="">선택</option>
+                    </select>
+                </td>
+                <td>21호</td>
+            </tr>
+            <tr>
+                <td>에센스팩트</td>
+                <td>
+                    <select name="" id="" class="option-select">
+                        <option value="">선택</option>
+                        <option value="">선택</option>
+                        <option value="">선택</option>
+                        <option value="">선택</option>
+                    </select>
+                </td>
+                <td>21호</td>
+            </tr>
+
+            <tr>
+                <td rowspan="2" class="ebay-icon"><img src="./img/ebay.png" alt="">이베이</td>
+                <td>에센스팩트</td>
+                <td>
+                    <select name="" id="" class="option-select">
+                        <option value="">선택</option>
+                        <option value="">선택</option>
+                        <option value="">선택</option>
+                        <option value="">선택</option>
+                    </select>
+                </td>
+                <td>21호</td>
+            </tr>
+            <tr>
+                <td>에센스팩트</td>
+                <td>
+                    <select name="" id="" class="option-select">
+                        <option value="">선택</option>
+                        <option value="">선택</option>
+                        <option value="">선택</option>
+                        <option value="">선택</option>
+                    </select>
+                </td>
+                <td>21호</td>
+            </tr>
+        </table>
+    </section>
+
+    <!--연동쇼핑몰 옵션연동 가이드 팝업-->
+    <section class="guide-wrap">
+        <article class="guide-popup">
+            <h2 class="guide-title">연동쇼핑몰 옵션연동 가이드</h2>
+            <button class="guide-close"><img src="./img/btn_delete.png" alt=""></button>
+            <p class="step">STEP 1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;셀러허브[옵션명/옵션값]을 선택 후 추가/신규등록을 합니다.</p>
+            <div class="option-img">
+                <ul class="add-btnwrap">
+                    <li><button class="add-btn">+옵션(품목) 추가</button></li>
+                    <li><button class="newadd-btn">옵션(품목) 새로 등록</button></li>
+                </ul>
+                <span class="btn-drop"><img src="./img/btn_drop_up.png" alt=""></span>
+                <img src="./img/step1.png" alt="" class="guide-screen">
+            </div>
+            <p class="step">STEP 2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[STEP1] 에서 선택한 [옵션명/옵션값]이 연동쇼핑몰의 [옵션명/옵션값]에 표기가 되며, 해당 연동쇼핑몰의 [옵션명]을 선택할 수 있습니다. </p>
+            <div class="search-category category-popup">
+                <span class="category-area">카테고리 : 뷰티 >  메이크업/향수 > 기초케어 >로션</span>
+            </div>
+            <img src="./img/step2.png" alt="" class="table-img">
+            <p class="step2-text">
+                1. 연동쇼핑몰의 옵션명을 선택하지 않은 옵션의 경우 
+                해당 연동쇼핑몰에는 연동이 되지 않습니다.  </p>
+
+            <button class="popup-close">닫기</button>
+        </article>
+    </section>
+
+    <script>
+        $(document).ready(function(){
+            $(".guide-btn").on("click",function(){
+                $(".guide-wrap").show();
+            });
+            $(".popup-close, .guide-close").on("click",function(){
+                $(".guide-wrap").hide();
+            });
+        });
+    </script>
+</body>
+</html>

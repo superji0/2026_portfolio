@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes">
+    <title>도매허브 관리자</title>
+    <link rel="stylesheet" type="text/css" href="/shop/admin_provider/common.css">
+
+    <script src="/global/global_custom.js"></script>
+    <link rel="stylesheet" href="/shop/admin_provider/jquery-ui.css">
+    <script type="text/javascript" src="/shop/admin_provider/jquery-1.8.3.min.js"></script>
+    <!--[if lte IE 8]>
+    <script src="../poly-checked.min.js"></script> <![endif]-->
+    <script type="text/javascript" src="/shop/admin_provider/common.js"></script>
+    <script type="text/javascript" src="/shop/admin_provider/custom.js"></script>
+    <script src="/shop/admin_provider/jquery-ui.js"></script>
+    <script>
+        $( document ).ready(function() {
+            if (navigator.userAgent.indexOf('Mac OS X') != -1) {
+                $("body").addClass("mac");
+            } else {
+                $("body").addClass("pc");
+            }
+
+            $('.lnb-tab li a').click(function(){
+                var tab_id = $(this).attr('data-tab');
+
+                $('.lnb-tab li').removeClass('on');
+                $('.lnb_content').removeClass('on');
+
+                $(this).parent().addClass('on');
+                $("#"+tab_id).addClass('on');
+            });
+            $(".sub_arrow").click(function () {
+                $(this).toggleClass('on');
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="header" class="type_selleradmin">
+    <h1 class="logo"><a href="/shop/admin_provider/"><img src="/shop/admin_provider/img/common/logo.png" alt="로고"></a></h1>
+    <div id="gnb" class="gnb">
+        <ul class="gnb-list">
+            <li><a href="../basic/dashboard.php">기본관리</a></li>
+            <li><a href="../order/list_v2.php?mode=group&amp;first=1">주문</a></li>
+            <li><a href="../calc/list.done.php">정산</a></li>
+            <li><a href="../goods/list_v2.php">상품</a></li>
+            <li><a href="../board/provider_bbs_list_v2.php?bid=notice">게시판</a></li>
+            <li class=" additional_service_menu"><a href="/shop/admin_provider/linkage/linkage_state.php">연동현황</a></li>
+            <li><a href="../log/stat.sale_v2.php">통계데이타</a></li>
+            <li><a href="/shop/admin_provider/eventRequest/list.php">★ 행사신청</a></li>
+            <li><a href="#">서비스 이용료 결제관리</a></li>
+            <li><a href="#">개별연동</a></li>
+            <li><a href="#">부가서비스</a></li>
+            <li class="gnb_on"><a href="#">도매서비스</a></li>
+        </ul>
+        <ul class="side-list">
+            <li>
+                <button type="button" id="btnCollect" class="btn_collect ">상품<span class="txt_en">DB</span> 수집</button>
+                <div class="box_collect">
+                    <a href="<?= $gnb_link['6pm']?>" target="_blank">6PM 상품DB 수집</a>
+                    <a href="<?= $gnb_link['godo5'] ?>" target="_blank">고도몰5 상품DB 수집</a>
+                    <a href="<?= $gnb_link['enamoo'] ?>" target="_blank">이나무 상품DB 수집</a>
+                    <a href="<?= $gnb_link['sixshop'] ?>" target="_blank">SixShop 상품DB 수집</a>
+                    <a href="<?= $gnb_link['smartstore'] ?>" target="_blank">SmartStore 상품DB 수집</a>
+                    <a href="<?= $gnb_link['cafe24'] ?>" target="_blank">카페24 상품DB 수집</a>
+                    <a href="<?= $gnb_link['imweb'] ?>" target="_blank">아임웹 상품DB 수집</a>
+                </div>
+            </li>
+            <li><a href="https://www.sellerdeal.co.kr" class="shop_sellerdeal" target="_blank"><span class="icon_g icon_sellerdeal"></span></a></li>
+            <li><a href="https://<?=$_SERVER['HTTP_HOST']?>/shop/main/index.php" target="_blank"><span class="ls_2">셀러 전용 폐쇄형 복지몰</span><span class="shop_sellerhub">셀러허브샵</span></a></li>
+            <li><a href="javascript:void(0)" class="p_news on"><span class="icon_noti">알림보기</span><span class="news_count"></span></a></li>
+            <li>
+                <button type="button" class="sub_menu_btn"><span class="icon_profile">메뉴보기</span></button>
+                <div class="box_userinfo">
+                    <div class="frame_thumb">
+                        <span class="icon_profile"><img src="/shop/admin_provider/imgView.php?sno=22933&amp;type=3" alt="프로필사진"></span>
+                        <a href="/shop/admin_provider/basic/basic_set_2_v2.php" class="btn_revision">사진변경</a>
+                    </div>
+                    <strong class="id_wrap"><a href="#">올리고소프트</a></strong>
+                    <a href="../../member/logout.php?referer=../admin_provider/login/login.php" class="btn_logout">로그아웃</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="lnb">
+        <ul class="lnb-tab">
+            <li><a href="#order" data-tab="lnb_dome_buy">구매</a></li>
+            <li class="on"><a href="#cancel" data-tab="lnb_dome_sale">판매</a></li>
+        </ul>
+        <ul id="lnb_dome_buy" class="lnb-list lnb_content ">
+            <li>
+                <a href="#" class="sub_arrow on">상품관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="dome_pool.html">도매상품 POOL</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">구매관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="order_buy_list.html">구매리스트</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">엑셀일괄주문</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="excel_order.html">엑셀 상품주문</a></li>
+                    <li><a href="excel_order_state.html">엑셀 상품주문현황</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">관심</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="pick_company.html">찜한 업체</a></li>
+                    <li><a href="pick_goods.html">찜한 상품</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">문의</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="ask_product.html">상품문의</a></li>
+                    <li><a href="ask_oto.html">1:1 문의</a></li>
+                    <li><a href="ask_seller.html">판매자에게 문의</a></li>
+                    <li><a href="??.html">자주하는 질문과 답변 (FAQ)</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul id="lnb_dome_sale" class="lnb-list lnb_content on">
+            <li>
+                <a href="#" class="sub_arrow on">상품관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="dome_pool.html">도매상품 POOL</a></li>
+                    <li><a href="dome_list.html">도매 판매 상품리스트</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">판매관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="order__list.html">판매리스트</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">캐쉬</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="hubcash.html" class="now_on">허브캐쉬</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">문의</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="ask_product.html">상품문의</a></li>
+                    <li><a href="ask_oto.html">1:1 문의</a></li>
+                    <li><a href="ask_seller.html">판매자에게 문의</a></li>
+                    <li><a href="??.html">자주하는 질문과 답변 (FAQ)</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">내정보</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="manage.html">도매신청 관리</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div><!-- // header -->
+
+<div id="wrap">
+    <div class="container_wrap">
+        <!-- 도매허브 본문 시작 -->
+        <link rel="stylesheet" type="text/css" href="/shop/admin_provider/style.order.css">
+        <link rel="stylesheet" type="text/css" href="../css/style.admin.css">
+        <script type="text/javascript" src="../js/common.js"></script>
+
+        <h2 class="screen_out">도매허브</h2>
+        <h3 class="title_section">허브캐쉬</h3>
+
+        <ul class="middle-tab">
+            <li class="btn_tab on" onclick="openTab(event, 'all_list')"><a href="#all">허브캐쉬 전체내역</a></li>
+            <li class="btn_tab" onclick="openTab(event, 'charge_list')"><a href="#charge">허브캐쉬 충전내역</a></li>
+            <li class="btn_tab" onclick="openTab(event, 'withdraw_list')"><a href="#withdraw">허브캐쉬 출금내역</a></li>
+        </ul>
+
+        <div id="all_list" class="tab_content tab_type2" style="display:block">
+            <div class="section_g section_top">
+                <div class="section_g section_notice">
+                    <b>허브캐쉬 잔액 : <em class="fc_blue">99,999,999</em>원</b> (상품판매 금액 : <em class="fc_blue">99,999,999</em>원 / 허브캐쉬 충전금액 : <em class="fc_blue">99,999,999</em>원 )
+                    <em class="fc_red">※ 1허브캐쉬 = 1원</em>
+                    <div class="hubcash_btn">
+                        <button type="button" name="layer_charge" class="btn_h30 btn_layer_show">허브캐쉬 충전하기</button>
+                        <button type="button" name="layer_withdrawal" class="btn_h30 btn_layer_show">허브캐쉬 출금하기</button>
+                    </div>
+                </div>
+                <ul class="list_form mt15">
+                    <li>
+                        <strong class="tit_form">구분</strong>
+                        <div class="item_cate">
+                            <input type="checkbox" id="sort_all" name="sort"" value="">
+                            <label for="sort_all" class="lab_em2">전체</label>
+                            <input type="checkbox" id="sort_1" name="sort"" value="">
+                            <label for="sort_1" class="lab_em2">상품판매</label>
+                            <input type="checkbox" id="sort_2" name="sort"" value="">
+                            <label for="sort_2" class="lab_em2">상품구매</label>
+                            <input type="checkbox" id="sort_3" name="sort"" value="">
+                            <label for="sort_3" class="lab_em2">구매대금 환불</label>
+                            <input type="checkbox" id="sort_4" name="sort"" value="">
+                            <label for="sort_4" class="lab_em2">충전</label>
+                            <input type="checkbox" id="sort_5" name="sort"" value="">
+                            <label for="sort_5" class="lab_em2">결제취소</label>
+                            <input type="checkbox" id="sort_6" name="sort"" value="">
+                            <label for="sort_6" class="lab_em2">상품판매금액 출금</label>
+                            <input type="checkbox" id="sort_7" name="sort"" value="">
+                            <label for="sort_7" class="lab_em2">충전금액 출금</label>
+                        </div>
+                    </li>
+                    <li>
+                        <strong class="tit_form">일자</strong>
+                        <div class="cell_period">
+                            <span class="unit_select">
+                                <label for="skey1" class="blind">일자 검색 옵션</label>
+                                <select idx="0" name="cate[]" class="mr10">
+                                    <option value="">발생일자</option>
+                                </select>
+                            </span>
+                            <span class="inp_date">
+                                <label for="sdate" class="blind">시작날짜</label>
+                                <input type="text" name="regdt[]" id="sdate" value="20200924" autocomplete="off">
+                            </span>
+                            <span class="inp_date">
+                                <label for="edate" class="blind">끝날짜</label>
+                                <input type="text" id="edate" name="regdt[]" value="20200924" autocomplete="off">
+                            </span>
+                            <div class="date_qlist">
+                                <button type="button" onclick="setDate('regdt[]',20200924,20200924)" class="date-btn choice_date">오늘</button>
+                                <button type="button" onclick="setDate('regdt[]',20200917,20200924)" class="date-btn">일주일</button>
+                                <button type="button" onclick="setDate('regdt[]',20200909,20200924)" class="date-btn">15일</button>
+                                <button type="button" onclick="setDate('regdt[]',20200824,20200924)" class="date-btn">한 달</button>
+                                <button type="button" onclick="setDate('regdt[]',20200724,20200924)" class="date-btn">두 달</button>
+                                <button type="button" onclick="setDate('regdt[]')" class="date-btn">전체</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <strong class="tit_form">검색어</strong>
+                        <div class="unit_txt">
+                            <label for="sword1" class="blind">주문 검색 입력창</label>
+                            <input type="text" id="sword1" name="sword" placeholder="검색어를 입력해주세요" value="">
+                        </div>
+                    </li>
+                </ul>
+                <div class="wrap_button">
+                    <button type="button" class="btn_g">초기화</button>
+                    <button type="submit" class="btn_g active">검색</button>
+                </div>
+            </div>
+
+            <div class="section_g ">
+                <div class="tool_wrap">
+                    <div class="unit_select">
+                        <select name="page_num">
+                            <option value="100" selected="">100개씩 출력</option>
+                            <option value="80">80개씩 출력</option>
+                            <option value="60">60개씩 출력</option>
+                            <option value="40">40개씩 출력</option>
+                            <option value="20">20개씩 출력</option>
+                        </select>
+                    </div>
+                </div>
+                <p class="cell_total">[TOTAL: <span class="total_1">2</span> 개 / 검색 <span class="total_1">2</span> 개]</p>
+                <div class="box_tbl scroll_x">
+                    <table class="tbl_comm tbl_cash">
+                        <caption class="blind">배송준비중 주문목록표</caption>
+                        <colgroup>
+                            <col class="col_04"> <!-- 번호 -->
+                            <col class="col_10">  <!-- 캐쉬 -->
+                            <col class="col_15">  <!-- 발생일자 -->
+                            <col class="col_08"> <!-- 구분 -->
+                            <col class="col_auto"> <!-- 내역 -->
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>번호</th>
+                                <th>캐쉬</th>
+                                <th>발생일자</th>
+                                <th>구분</th>
+                                <th>내역</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>999</td>
+                                <td><span class="fc_minus">99,999,999,999</span></td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td>결제취소</td>
+                                <td>
+                                    <p class="cash_detail">
+                                        <span>허브캐쉬 충전취소</span>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>999</td>
+                                <td><span class="fc_plus">99,999,999,999</span></td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td>결제취소</td>
+                                <td>
+                                    <p class="cash_detail">
+                                        <span>허브캐쉬 출금(출급신청금액 : 1,000원 / 허브캐쉬 출금 예정금액 : 800원 / 출금출금수수료 : 44원 / 실입금액 : 756원)</span>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>999</td>
+                                <td><span class="fc_minus">99,999,999,999</span></td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td>결제취소</td>
+                                <td>
+                                    <p class="cash_detail">
+                                        <span>오늘밤엔 무슨일을 할까? 누구에게 기쁨을 줄까? 나쁜마음 끝이없는 욕심 멀리멀리 사라지면 훨씬 아름다운 세상될꺼야 포동포동 고슴도치 귀여운 루비 아빠 엄마께선 비밀을 아실까? 긴머리를 높이 묶고 요술봉휘두르며 빨주노초파남보 동그라미 풍선 행복 나눠주는 천사소녀 네티 긴머리 높이 묶고 요술봉휘두르며 빨주노초파남보 동그라미 풍선 행복 나눠주는 천사소녀 네티</span>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>999</td>
+                                <td><span class="fc_plus">99,999,999,999</span></td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td>결제취소</td>
+                                <td>
+                                    <p class="cash_detail">
+                                        <span>[주문번호 : 1589508030263][셀러허브가이드] AFas상품등록테스트 옵션 빨강 / S 수량 1개</span>
+                                        <button type="button" class="btn_h30 order_detail">주문상세내역</button>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>999</td>
+                                <td><span class="fc_minus">99,999,999,999</span></td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td>결제취소</td>
+                                <td>
+                                    <p class="cash_detail">
+                                        <span>허브캐쉬 충전취소</span>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>999</td>
+                                <td><span class="fc_plus">99,999,999,999</span></td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td>결제취소</td>
+                                <td>
+                                    <p class="cash_detail">
+                                        <span>허브캐쉬 충전취소</span>
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="page_wrap"><ul class="pagination"><li class="disabled"><span>«</span></li> <li class="active"><span>1</span></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=2">2</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=3">3</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=4">4</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=5">5</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=6">6</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=7">7</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=8">8</a></li><li class="disabled"><span>...</span></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=115">115</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=116">116</a></li> <li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=2" rel="next">»</a></li></ul></div>
+            </div>
+        </div>
+
+        <div id="charge_list" class="tab_content tab_type2" style="display:none">
+            <div class="section_g section_top">
+                <div class="section_g section_notice">
+                    <b>허브캐쉬 잔액 : <em class="fc_blue">99,999,999</em>원</b> (상품판매 금액 : <em class="fc_blue">99,999,999</em>원 / 허브캐쉬 충전금액 : <em class="fc_blue">99,999,999</em>원 )
+                    <em class="fc_red">※ 1허브캐쉬 = 1원</em>
+                    <div class="hubcash_btn">
+                        <button type="button" name="layer_charge" class="btn_h30 btn_layer_show">허브캐쉬 충전하기</button>
+                        <button type="button" name="layer_withdrawal" class="btn_h30 btn_layer_show">허브캐쉬 출금하기</button>
+                    </div>
+                </div>
+                <ul class="list_form mt15">
+                    <li>
+                        <strong class="tit_form">진행상황</strong>
+                        <div class="item_cate">
+                            <div class="cell_radio radio_custom">
+                                <input type="radio" id="progress_1" name="progress" value="" checked>
+                                <label for="progress_1">전체</label>
+                            </div>
+                            <div class="cell_radio radio_custom">
+                                <input type="radio" id="progress_2" name="progress" value="">
+                                <label for="progress_2">입금대기</label>
+                            </div>
+                            <div class="cell_radio radio_custom">
+                                <input type="radio" id="progress_3" name="progress" value="">
+                                <label for="progress_3">결제완료</label>
+                            </div>
+                            <div class="cell_radio radio_custom">
+                                <input type="radio" id="progress_4" name="progress" value="">
+                                <label for="progress_4">결제취소</label>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <strong class="tit_form">일자</strong>
+                        <div class="cell_period">
+                            <span class="unit_select">
+                                <label for="skey1" class="blind">일자 검색 옵션</label>
+                                <select idx="0" name="cate[]" class="mr10">
+                                    <option value="">발생일자</option>
+                                </select>
+                            </span>
+                            <span class="inp_date">
+                                <label for="sdate" class="blind">시작날짜</label>
+                                <input type="text" name="regdt[]" id="sdate" value="20200924" autocomplete="off">
+                            </span>
+                            <span class="inp_date">
+                                <label for="edate" class="blind">끝날짜</label>
+                                <input type="text" id="edate" name="regdt[]" value="20200924" autocomplete="off">
+                            </span>
+                            <div class="date_qlist">
+                                <button type="button" onclick="setDate('regdt[]',20200924,20200924)" class="date-btn choice_date">오늘</button>
+                                <button type="button" onclick="setDate('regdt[]',20200917,20200924)" class="date-btn">일주일</button>
+                                <button type="button" onclick="setDate('regdt[]',20200909,20200924)" class="date-btn">15일</button>
+                                <button type="button" onclick="setDate('regdt[]',20200824,20200924)" class="date-btn">한 달</button>
+                                <button type="button" onclick="setDate('regdt[]',20200724,20200924)" class="date-btn">두 달</button>
+                                <button type="button" onclick="setDate('regdt[]')" class="date-btn">전체</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <strong class="tit_form">내역검색</strong>
+                        <div class="unit_txt">
+                            <label for="sword1" class="blind">주문 검색 입력창</label>
+                            <input type="text" id="sword1" name="sword" placeholder="검색어를 입력해주세요" value="">
+                        </div>
+                    </li>
+                </ul>
+                <div class="wrap_button">
+                    <button type="button" class="btn_g">초기화</button>
+                    <button type="submit" class="btn_g active">검색</button>
+                </div>
+            </div>
+
+            <div class="section_g ">
+                <div class="tool_wrap">
+                    <div class="unit_select">
+                        <select name="page_num">
+                            <option value="100" selected="">100개씩 출력</option>
+                            <option value="80">80개씩 출력</option>
+                            <option value="60">60개씩 출력</option>
+                            <option value="40">40개씩 출력</option>
+                            <option value="20">20개씩 출력</option>
+                        </select>
+                    </div>
+                </div>
+                <p class="cell_total">[TOTAL: <span class="total_1">2</span> 개 / 검색 <span class="total_1">2</span> 개]</p>
+                <div class="box_tbl scroll_x">
+                    <table class="tbl_comm tbl_cash">
+                        <caption class="blind">배송준비중 주문목록표</caption>
+                        <colgroup>
+                            <col class="col_04"> <!-- 체크박스 -->
+                            <col class="col_04"> <!-- 번호 -->
+                            <col class="col_10">  <!-- 결제금액 -->
+                            <col class="col_08">  <!-- 결제방법 -->
+                            <col class="col_10"> <!-- 결제은행/결제카드 -->
+                            <col class="col_12"> <!-- 계좌번호/신용카드 번호 -->
+                            <col class="col_08"> <!-- 입금자명 -->
+                            <col class="col_08"> <!-- 진행현황 -->
+                            <col class="col_10"> <!-- 결제일자 -->
+                            <col class="col_10"> <!-- 취소일자 -->
+                            <col class="col_08"> <!-- 취소 -->
+                            <col class="col_08"> <!-- 영수증 -->
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="chkAll" class="frm_approve">
+                                    <label for="chkAll"></label>
+                                </th>
+                                <th>번호</th>
+                                <th>결제금액</th>
+                                <th>결제방법</th>
+                                <th>결제은행/결제카드</th>
+                                <th>계좌번호/신용카드번호</th>
+                                <th>입금자명</th>
+                                <th>진행현황</th>
+                                <th>결제일자</th>
+                                <th>취소일자</th>
+                                <th>취소</th>
+                                <th>영수증</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" id="cashorder_1" name="goodsno[]" value="" class="frm_approve">
+                                    <label for="cashorder_1"></label>
+                                </td>
+                                <td>999</td>
+                                <td>99,999,999,999</td>
+                                <td>무통장입금</td>
+                                <td>우리은행</td>
+                                <td>123-4667-25-258</td>
+                                <td>홍길동</td>
+                                <td>입금대기</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td><button type="button" class="btn_h30">거래내역서</button></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" id="cashorder_2" name="goodsno[]" value="" class="frm_approve">
+                                    <label for="cashorder_2"></label>
+                                </td>
+                                <td>999</td>
+                                <td>99,999,999,999</td>
+                                <td>실시간계좌이체</td>
+                                <td>우리은행</td>
+                                <td>123-4667-25-258</td>
+                                <td>홍길동</td>
+                                <td>입금대기</td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td>-</td>
+                                <td><button type="button" class="btn_h30">결제취소</button></td>
+                                <td><button type="button" class="btn_h30">거래내역서</button></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" id="cashorder_3" name="goodsno[]" value="" class="frm_approve">
+                                    <label for="cashorder_3"></label>
+                                </td>
+                                <td>999</td>
+                                <td>99,999,999,999</td>
+                                <td>신용카드</td>
+                                <td>우리은행</td>
+                                <td>1234-5678-8765-4321</td>
+                                <td>홍길동</td>
+                                <td>입금대기</td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td><em class="fc_red">취소완료</em></td>
+                                <td><button type="button" class="btn_h30">거래내역서</button></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" id="cashorder_4" name="goodsno[]" value="" class="frm_approve">
+                                    <label for="cashorder_4"></label>
+                                </td>
+                                <td>999</td>
+                                <td>99,999,999,999</td>
+                                <td>무통장입금</td>
+                                <td>우리은행</td>
+                                <td>123-4667-25-258</td>
+                                <td>홍길동</td>
+                                <td>입금대기</td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td><em class="fc_red">취소완료</em></td>
+                                <td><button type="button" class="btn_h30">거래내역서</button></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" id="cashorder_5" name="goodsno[]" value="" class="frm_approve">
+                                    <label for="cashorder_5"></label>
+                                </td>
+                                <td>999</td>
+                                <td>99,999,999,999</td>
+                                <td>무통장입금</td>
+                                <td>우리은행</td>
+                                <td>123-4667-25-258</td>
+                                <td>홍길동</td>
+                                <td>입금대기</td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td><em class="fc_red">취소완료</em></td>
+                                <td><button type="button" class="btn_h30">거래내역서</button></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" id="cashorder_6" name="goodsno[]" value="" class="frm_approve">
+                                    <label for="cashorder_6"></label>
+                                </td>
+                                <td>999</td>
+                                <td>99,999,999,999</td>
+                                <td>무통장입금</td>
+                                <td>우리은행</td>
+                                <td>123-4667-25-258</td>
+                                <td>홍길동</td>
+                                <td>입금대기</td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td><em class="fc_red">취소완료</em></td>
+                                <td><button type="button" class="btn_h30">거래내역서</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="btn_bottom">
+                    <button type="button" class="btn_ecxel">선택한 내역 엑셀 다운로드</button>
+                    <button type="button" class="btn_ecxel">전체 내역 엑셀 다운로드</button>
+                </div>
+                <div class="page_wrap"><ul class="pagination"><li class="disabled"><span>«</span></li> <li class="active"><span>1</span></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=2">2</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=3">3</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=4">4</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=5">5</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=6">6</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=7">7</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=8">8</a></li><li class="disabled"><span>...</span></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=115">115</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=116">116</a></li> <li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=2" rel="next">»</a></li></ul></div>
+            </div>
+        </div>
+
+        <div id="withdraw_list" class="tab_content tab_type2" style="display:none">
+            <div class="section_g section_top">
+                <div class="section_g section_notice">
+                    <b>허브캐쉬 잔액 : <em class="fc_blue">99,999,999</em>원</b> (상품판매 금액 : <em class="fc_blue">99,999,999</em>원 / 허브캐쉬 충전금액 : <em class="fc_blue">99,999,999</em>원 )
+                    <em class="fc_red">※ 1허브캐쉬 = 1원</em>
+                    <div class="hubcash_btn">
+                        <button type="button" name="layer_charge" class="btn_h30 btn_layer_show">허브캐쉬 충전하기</button>
+                        <button type="button" name="layer_withdrawal" class="btn_h30 btn_layer_show">허브캐쉬 출금하기</button>
+                    </div>
+                </div>
+                <ul class="list_form mt15">
+                    <li>
+                        <strong class="tit_form">구분</strong>
+                        <div class="item_cate">
+                            <input type="checkbox" id="type_all" name="type"" value="">
+                            <label for="type_all" class="lab_em2">전체</label>
+                            <input type="checkbox" id="type_1" name="type"" value="">
+                            <label for="type_1" class="lab_em2">충전금액</label>
+                            <input type="checkbox" id="type_2" name="type"" value="">
+                            <label for="type_2" class="lab_em2">상품판매금액</label>
+                        </div>
+                    </li>
+                    <li>
+                        <strong class="tit_form">진행현황</strong>
+                        <div class="item_cate">
+                            <input type="checkbox" id="prograss_all" name="prograss"" value="">
+                            <label for="prograss_all" class="lab_em2">전체</label>
+                            <input type="checkbox" id="prograss_1" name="prograss"" value="">
+                            <label for="prograss_1" class="lab_em2">출금신청</label>
+                            <input type="checkbox" id="prograss_2" name="prograss"" value="">
+                            <label for="prograss_2" class="lab_em2">입금완료</label>
+                        </div>
+                    </li>
+                    <li>
+                        <strong class="tit_form">기간검색</strong>
+                        <div class="cell_period period_type1">
+                            <div class="cell_radio radio_custom">
+                                <input type="radio" id="datetype_1" name="datetype" value="" checked>
+                                <label for="datetype_1">월별</label>
+                            </div>
+                            <div class="cell_radio radio_custom">
+                                <input type="radio" id="datetype_2" name="datetype" value="">
+                                <label for="datetype_2">일자별</label>
+                            </div>
+                            <span class="inp_date">
+                                <label for="sdate" class="blind">시작날짜</label>
+                                <input type="text" name="regdt[]" id="sdate" value="20200924" autocomplete="off">
+                            </span>
+                            <span class="inp_date">
+                                <label for="edate" class="blind">끝날짜</label>
+                                <input type="text" id="edate" name="regdt[]" value="20200924" autocomplete="off">
+                            </span>
+                            <div class="date_qlist">
+                                <button type="button" onclick="setDate('regdt[]',20200924,20200924)" class="date-btn choice_date">오늘</button>
+                                <button type="button" onclick="setDate('regdt[]',20200917,20200924)" class="date-btn">일주일</button>
+                                <button type="button" onclick="setDate('regdt[]',20200909,20200924)" class="date-btn">15일</button>
+                                <button type="button" onclick="setDate('regdt[]',20200824,20200924)" class="date-btn">한 달</button>
+                                <button type="button" onclick="setDate('regdt[]',20200724,20200924)" class="date-btn">두 달</button>
+                                <button type="button" onclick="setDate('regdt[]')" class="date-btn">전체</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <strong class="tit_form">검색어</strong>
+                        <div class="unit_txt">
+                            <label for="sword1" class="blind">주문 검색 입력창</label>
+                            <input type="text" id="sword1" name="sword" placeholder="검색어를 입력해주세요" value="">
+                        </div>
+                    </li>
+                </ul>
+                <div class="wrap_button">
+                    <button type="button" class="btn_g">초기화</button>
+                    <button type="submit" class="btn_g active">검색</button>
+                </div>
+            </div>
+
+            <div class="section_g ">
+                <div class="section_info hubcash_notice">
+                    <span>* 출금 신청한 캐쉬는 [셀러어드민 > 기본관리 > 입점사 상세정보관리]의 "거래은행 정보"의 계좌로 입금이 됩니다.</span>
+                    <span>* 출금신청한 금액은 영업일 기준 익일 오후 2~4시 사이에 신청 계좌로 송금되며, 임의로 당일 출금은 절대 불가능하니 유의바랍니다</span>
+                    <span>* 출금수수료는 5.5%(VAT포함)</span>
+                </div>
+                <div class="tool_wrap">
+                    <div class="unit_select">
+                        <select name="page_num">
+                            <option value="100" selected="">100개씩 출력</option>
+                            <option value="80">80개씩 출력</option>
+                            <option value="60">60개씩 출력</option>
+                            <option value="40">40개씩 출력</option>
+                            <option value="20">20개씩 출력</option>
+                        </select>
+                    </div>
+                </div>
+                <p class="cell_total">[TOTAL: <span class="total_1">2</span> 개 / 검색 <span class="total_1">2</span> 개]</p>
+                <div class="box_tbl scroll_x">
+                    <table class="tbl_comm tbl_cash">
+                        <caption class="blind">배송준비중 주문목록표</caption>
+                        <colgroup>
+                            <col class="col_03"> <!-- 체크박스 -->
+                            <col class="col_03"> <!-- 번호 -->
+                            <col class="col_07">  <!-- 구분 -->
+                            <col class="col_07">  <!-- 출금신청금액 -->
+                            <col class="col_06"> <!-- 출금요율 -->
+                            <col class="col_08"> <!-- 실출금가능금액 -->
+                            <col class="col_08"> <!-- 출금수수료 -->
+                            <col class="col_08"> <!-- 실입금금액 -->
+                            <col class="col_08"> <!-- 거래은행 -->
+                            <col class="col_08"> <!-- 계좌번호 -->
+                            <col class="col_08"> <!-- 예금주 -->
+                            <col class="col_10"> <!-- 출금신청일자 -->
+                            <col class="col_10"> <!-- 입금일자 -->
+                            <col class="col_06"> <!-- 진행현황 -->
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="chkAll" class="frm_approve">
+                                    <label for="chkAll"></label>
+                                </th>
+                                <th>번호</th>
+                                <th>구분</th>
+                                <th>출금신청금액</th>
+                                <th>출금요율</th>
+                                <th>실 출금 가능금액<br/>①</th>
+                                <th>출금수수료<br/>②</th>
+                                <th>실입금액<br/>(① - ②)</th>
+                                <th>거래은행</th>
+                                <th>계좌번호</th>
+                                <th>예금주</th>
+                                <th>출금신청일자</th>
+                                <th>입금일자</th>
+                                <th>진행현황</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" id="withdraw_1" name="goodsno[]" value="" class="frm_approve">
+                                    <label for="withdraw_1"></label>
+                                </td>
+                                <td>999</td>
+                                <td>충전금액</td>
+                                <td>99,999,999,999</td>
+                                <td>-</td>
+                                <td>99,999,999,999</td>
+                                <td>99,999,999,999</td>
+                                <td>99,999,999,999</td>
+                                <td>우리은행</td>
+                                <td>123-4667-25-258</td>
+                                <td>홍길동</td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td>-</td>
+                                <td><span class="fc_red">출금신청</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" id="withdraw_2" name="goodsno[]" value="" class="frm_approve">
+                                    <label for="withdraw_2"></label>
+                                </td>
+                                <td>999</td>
+                                <td>상품판매금액</td>
+                                <td>99,999,999,999</td>
+                                <td>99%</td>
+                                <td>99,999,999,999</td>
+                                <td>99,999,999,999</td>
+                                <td>99,999,999,999</td>
+                                <td>우리은행</td>
+                                <td>123-4667-25-258</td>
+                                <td>홍길동</td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td><span class="fc_blue">입금완료</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" id="withdraw_3" name="goodsno[]" value="" class="frm_approve">
+                                    <label for="withdraw_3"></label>
+                                </td>
+                                <td>999</td>
+                                <td>상품판매금액</td>
+                                <td>99,999,999,999</td>
+                                <td>99%</td>
+                                <td>99,999,999,999</td>
+                                <td>99,999,999,999</td>
+                                <td>99,999,999,999</td>
+                                <td>우리은행</td>
+                                <td>123-4667-25-258</td>
+                                <td>홍길동</td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td><span class="fc_blue">입금완료</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" id="withdraw_4" name="goodsno[]" value="" class="frm_approve">
+                                    <label for="withdraw_4"></label>
+                                </td>
+                                <td>999</td>
+                                <td>상품판매금액</td>
+                                <td>99,999,999,999</td>
+                                <td>99%</td>
+                                <td>99,999,999,999</td>
+                                <td>99,999,999,999</td>
+                                <td>99,999,999,999</td>
+                                <td>우리은행</td>
+                                <td>123-4667-25-258</td>
+                                <td>홍길동</td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td><span class="fc_blue">입금완료</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" id="withdraw_5" name="goodsno[]" value="" class="frm_approve">
+                                    <label for="withdraw_5"></label>
+                                </td>
+                                <td>999</td>
+                                <td>상품판매금액</td>
+                                <td>99,999,999,999</td>
+                                <td>99%</td>
+                                <td>99,999,999,999</td>
+                                <td>99,999,999,999</td>
+                                <td>99,999,999,999</td>
+                                <td>우리은행</td>
+                                <td>123-4667-25-258</td>
+                                <td>홍길동</td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td><span class="fc_blue">입금완료</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" id="withdraw_6" name="goodsno[]" value="" class="frm_approve">
+                                    <label for="withdraw_6"></label>
+                                </td>
+                                <td>999</td>
+                                <td>상품판매금액</td>
+                                <td>99,999,999,999</td>
+                                <td>99%</td>
+                                <td>99,999,999,999</td>
+                                <td>99,999,999,999</td>
+                                <td>99,999,999,999</td>
+                                <td>우리은행</td>
+                                <td>123-4667-25-258</td>
+                                <td>홍길동</td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td>2020-02-21 16:14:09</td>
+                                <td><span class="fc_blue">입금완료</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="btn_bottom">
+                    <button type="button" class="btn_ecxel">선택한 내역 엑셀 다운로드</button>
+                    <button type="button" class="btn_ecxel">전체 내역 엑셀 다운로드</button>
+                </div>
+                <div class="page_wrap"><ul class="pagination"><li class="disabled"><span>«</span></li> <li class="active"><span>1</span></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=2">2</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=3">3</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=4">4</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=5">5</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=6">6</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=7">7</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=8">8</a></li><li class="disabled"><span>...</span></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=115">115</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=116">116</a></li> <li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=2" rel="next">»</a></li></ul></div>
+            </div>
+        </div>
+
+        <!-- // 도매허브 본문 끝 -->
+    </div>
+</div> <!-- // #wrap -->
+
+<div class="layer_wrap layer_charge">
+    <div class="layer_box type_2">
+        <strong class="title_layer">허브캐쉬 충전하기</strong>
+
+        <div class="layer_comment">
+            <div class="section_notice">
+                <b>허브캐쉬 잔액 : <em class="fc_blue">99,999,999</em>원</b> (상품판매 금액 : <em class="fc_blue">99,999,999</em>원 / 허브캐쉬 충전금액 : <em class="fc_blue">99,999,999</em>원 )
+            </div>
+            
+            <h4>충전</h4>
+            <ul class="tb_charge">
+                <li>
+                    <strong>허브캐쉬 충전</strong>
+                    <div>
+                        <input type="text" />
+                        <em>※ 충전금액은 1회 충전시 최소 10,000원에서 최대 1,000,000,000원까지 충전가능합니다.</em>
+                        <em>※ 1캐쉬 = 1원</em>
+                    </div>
+                </li>
+            </ul>
+
+            <h4>충전방식</h4>
+            <ul class="tb_charge">
+                <li>
+                    <strong>결제금액</strong>
+                    <div>
+                        99,999,999,999
+                    </div>
+                </li>
+                <li>
+                    <strong>결제수단</strong>
+                    <div>
+                        <input type="radio" id="hubcash_charge1" name="hubcash_charge" value="1" checked>
+                        <label for="hubcash_charge1">실시간 계좌이체</label>
+                        <input type="radio" id="hubcash_charge2" name="hubcash_charge" value="2">
+                        <label for="hubcash_charge2">가상계좌</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="wrap_button">
+            <button type="button" class="btn_closed btn_h35 line_b">닫기</button>
+            <button type="button" name="layer_charge2" class="btn_h35 btn_layer_show">결제하기</button>
+        </div>
+        <button type="button" class="btn_closed close_type2"><span class="icon_g icon_close">레이어 닫기</span></button>
+    </div>
+</div>
+
+<div class="layer_wrap layer_charge2">
+    <div class="layer_box type_2">
+        <strong class="title_layer">허브캐쉬 충전하기</strong>
+
+        <div class="layer_comment">
+            <b class="charge_title">결제가 완료되었습니다.</b>
+            <span class="charge_sub">[허브캐쉬충전내역]에서 충전내역을 확인하실 수 있습니다.</span>
+            
+            <ul class="tb_charge mt24">
+                <li>
+                    <strong>결제금액</strong>
+                    <div>
+                        99,999,999,999원
+                    </div>
+                </li>
+                <li>
+                    <strong>결제수단</strong>
+                    <div>
+                        가상계좌
+                    </div>
+                </li>
+                <li>
+                    <strong>입금자</strong>
+                    <div>
+                        홍길동
+                    </div>
+                </li>
+                <li>
+                    <strong>결제계좌</strong>
+                    <div>
+                        국민은행 / 121201210281021 / (주)셀러허브
+                    </div>
+                </li>
+                <li>
+                    <strong>결제예정일자</strong>
+                    <div>
+                        2020-02-21 16:14:09
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="wrap_button">
+            <button type="button" class="btn_closed btn_h35 line_b">닫기</button>
+            <button type="button" class="btn_h35">확인</button>
+        </div>
+        <button type="button" class="btn_closed close_type2"><span class="icon_g icon_close">레이어 닫기</span></button>
+    </div>
+</div>
+
+<div class="layer_wrap layer_charge3">
+    <div class="layer_box type_2">
+        <strong class="title_layer">허브캐쉬 충전하기</strong>
+
+        <div class="layer_comment">
+            <b>결제가 완료되었습니다.</b>
+            <span>[허브캐쉬충전내역]에서 충전내역을 확인하실 수 있습니다.</span>
+            
+            <ul class="tb_charge">
+                <li>
+                    <strong>결제금액</strong>
+                    <div>
+                        99,999,999,999원
+                    </div>
+                </li>
+                <li>
+                    <strong>결제수단</strong>
+                    <div>
+                        실시간계좌이체
+                    </div>
+                </li>
+                <li>
+                    <strong>입금자</strong>
+                    <div>
+                        홍길동
+                    </div>
+                </li>
+                <li>
+                    <strong>결제계좌</strong>
+                    <div>
+                        국민은행 / 121201210281021 / (주)셀러허브
+                    </div>
+                </li>
+                <li>
+                    <strong>결제일자</strong>
+                    <div>
+                        2020-02-21 16:14:09
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="wrap_button">
+            <button type="button" class="btn_closed btn_h35 line_b">닫기</button>
+            <button type="button" class="btn_h35">확인</button>
+        </div>
+        <button type="button" class="btn_closed close_type2"><span class="icon_g icon_close">레이어 닫기</span></button>
+    </div>
+</div>
+
+<div class="layer_wrap layer_withdrawal">
+    <div class="layer_box type_2">
+        <strong class="title_layer">허브캐쉬 출금하기</strong>
+
+        <div class="layer_comment">
+            <div class="section_notice">
+                <b>허브캐쉬 잔액 : <em class="fc_blue">99,999,999</em>원</b> (상품판매 금액 : <em class="fc_blue">99,999,999</em>원 / 허브캐쉬 충전금액 : <em class="fc_blue">99,999,999</em>원 )
+            </div>
+            
+            <h4>출금신청</h4>
+            <ul class="tb_charge">
+                <li>
+                    <strong>출금구분</strong>
+                    <div>
+                        <input type="radio" id="withdraw_type1" name="withdraw_type" value="1" checked>
+                        <label for="withdraw_type1">상품판매금액</label>
+                        <input type="radio" id="withdraw_type2" name="withdraw_type" value="2">
+                        <label for="withdraw_type2">허브캐쉬 충전금액</label>
+                    </div>
+                </li>
+                <li>
+                    <strong>허브캐쉬출금</strong>
+                    <div>
+                        <input type="text" />
+                        <button type="button" class="btn_h30">상품판매 허브캐쉬 잔액</button>
+                    </div>
+                </li>
+                <li>
+                    <strong>출금요율</strong>
+                    <div>
+                        80%
+                    </div>
+                </li>
+                <li>
+                    <strong>실 출금 가능금액</strong>
+                    <div>
+                        99,999,999,999원
+                    </div>
+                </li>
+                <li>
+                    <strong>출금 수수료</strong>
+                    <div>
+                        44원(VAT포함)
+                    </div>
+                </li>
+                <li>
+                    <strong>실 입금액</strong>
+                    <div>
+                        <b class="fc_blue">1,000</b>원
+                    </div>
+                </li>
+                <li>
+                    <strong>출금 후 잔액</strong>
+                    <div>
+                        1,000원
+                    </div>
+                </li>
+            </ul>
+
+            <h4>출금계좌</h4>
+            <ul class="tb_charge">
+                <li>
+                    <strong>거래은행</strong>
+                    <div>
+                        우리은행
+                    </div>
+                </li>
+                <li>
+                    <strong>계좌번호</strong>
+                    <div>
+                        0232332322323
+                    </div>
+                </li>
+                <li>
+                    <strong>사업자 또는<br/>대표자 명의의 예금주</strong>
+                    <div class="lh37">
+                        마이컴
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="withdraw_notice">
+            <em>※ 출금 신청한 캐쉬는 [셀러어드민 > 기본관리 > 입점사 상세정보관리]의 "거래은행 정보"의 계좌로 입금이 됩니다.</em>
+            <em>※ 출금 신청한 금액은 영업일 기준 익일 오후 2~4시 사이에 신청 계좌로 송금되며, 임의로 당일 출금은 절대 불가능하니 유의바랍니다.</em>
+            <em>※ 출금수수료는 5.5%(VAT포함)</em>
+        </div>
+
+        <div class="wrap_button">
+            <button type="button" class="btn_closed btn_h35 line_b">닫기</button>
+            <button type="button" name="layer_withcom" class="btn_h35 btn_layer_show">출금신청하기</button>
+        </div>
+        <button type="button" class="btn_closed close_type2"><span class="icon_g icon_close">레이어 닫기</span></button>
+    </div>
+</div>
+
+<div class="layer_wrap layer_withcom">
+    <div class="layer_box type_2">
+        <strong class="title_layer">허브캐쉬 출금하기</strong>
+
+        <div class="layer_comment">
+            <b class="charge_title">허브캐쉬 출금신청이 완료되었습니다.</b>
+            <span class="charge_sub">[허브캐쉬 - 전체내역]에서 출금내역을 확인하실 수 있습니다.</span>
+            
+            <h4>출금신청</h4>
+            <ul class="tb_charge">
+                <li>
+                    <strong>출금 신청 금액</strong>
+                    <div>
+                        1,000원
+                    </div>
+                </li>
+                <li>
+                    <strong>출금 요율</strong>
+                    <div>
+                        80%
+                    </div>
+                </li>
+                <li>
+                    <strong>실 출금 가능금액</strong>
+                    <div>
+                        1,000원
+                    </div>
+                </li>
+                <li>
+                    <strong>출금 수수료</strong>
+                    <div>
+                        44원(VAT포함)
+                    </div>
+                </li>
+                <li>
+                    <strong>실 입금액</strong>
+                    <div>
+                        <b class="fc_blue">1,000</b>원
+                    </div>
+                </li>
+                <li>
+                    <strong>신청 일자</strong>
+                    <div>
+                        2020-02-21 16:14:09
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="wrap_button">
+            <button type="button" class="btn_closed btn_h35 line_b">닫기</button>
+            <button type="button" class="btn_h35">출금내역확인</button>
+        </div>
+        <button type="button" class="btn_closed close_type2"><span class="icon_g icon_close">레이어 닫기</span></button>
+    </div>
+</div>
+
+<script type="text/javascript">
+function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tab_content");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName(".btn_tab");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" on", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    $(".btn_tab").removeClass('on');
+    evt.currentTarget.className += " on";
+}
+
+$(document).ready(function(){
+    // 날짜선택버튼 제어 
+    $(".date-btn").on("click",function(){
+        $(".date-btn").removeClass("choice_date");
+        $(this).addClass("choice_date");
+    });
+
+    //테이블 백그라운드컬러 제어(background-color-control)
+    $(".la_click").click(function(){
+        $(this).parents("tr").toggleClass("bg_check");
+    });
+    
+});
+</script>
+</body>
+</html>

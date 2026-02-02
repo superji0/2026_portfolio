@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+.type_sub .polish_wrap{padding-bottom:100px;font-size:0;}
+
+.polish_wrap .btn_tab{width:25%}
+.tab_content{padding-top:50px}
+.tab_content h3{padding-bottom:10px;border-bottom:2px solid #242424;line-height:59px;font-size:40px;font-weight:bold}
+.tab_content h4{margin-top:30px;line-height:24px;font-size:16px;font-weight:bold}
+.tab_content span{display:block;margin-top:20px;font-size:14px}
+.tab_content li{padding-left:20px;font-size:12px}
+.tab_content li li li{color:#555;}
+.policy_list{margin-top:15px}
+.policy_list > li{padding-left:0 !important}

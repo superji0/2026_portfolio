@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>도매허브</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="./css/common.css" />
+    
+    <link rel="stylesheet" href="/shop/admin_provider/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <script type="text/javascript" src="./js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
+
+    <script src="/shop/admin_provider/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("#header").load("_header.html");
+        $("#asideTool").load("_aside.html");
+        $("#footer").load("_footer.html");
+    });
+    </script>
+</head>
+<body>
+<div id="domeWrap" class="type_sub">
+    <Header id="header"></Header>
+
+    <div class="polish_wrap">
+        <div id="container" style="min-height: 600px;">
+            <h2 id="domeBody" class="screen_out">도매허브 본문</h2>
+
+            <div class="tab_list">
+                <button type="button" class="btn_tab on" onclick="openTab(event, 'tab_01')">이용약관</button>
+                <button type="button" class="btn_tab" onclick="openTab(event, 'tab_02')">개인정보취급방침</button>
+                <button type="button" class="btn_tab" onclick="openTab(event, 'tab_03')">청소년보호방침</button>
+                <button type="button" class="btn_tab" onclick="openTab(event, 'tab_04')">전자금융거래 이용약관</button>
+            </div>
+            <div id="tab_01" class="tab_content on">
+                <h3>이용약관</h3>
+                <span>
+                    내용내용<br/>
+                    내용내용이 나와요.
+                </span>
+                <h4>제1조</h4>
+                <ul class="policy_list">
+                    <li>
+                        ① 하나둘셋넷
+                    </li>
+                    <li>
+                        <ul>
+                            <li>
+                                1. 둘둘셋넷
+                            </li>
+                            <li>
+                                <ul>
+                                    <li>
+                                        가. 셋둘셋넷
+                                    </li>
+                                    <li>
+                                        니. 셋둘셋넷
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        ② 하나둘셋넷
+                    </li>
+                </ul>
+            </div>
+            <div id="tab_02" class="tab_content">
+                <h3>개인정보취급방침</h3>
+                <span>
+                    내용내용<br/>
+                    내용내용이 나와요.
+                </span>
+                <h4>제1조</h4>
+                <ul class="policy_list">
+                    <li>
+                        ① 하나둘셋넷
+                    </li>
+                    <li>
+                        <ul>
+                            <li>
+                                1. 둘둘셋넷
+                            </li>
+                            <li>
+                                <ul>
+                                    <li>
+                                        가. 셋둘셋넷
+                                    </li>
+                                    <li>
+                                        니. 셋둘셋넷
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        ② 하나둘셋넷
+                    </li>
+                </ul>
+            </div>
+            <div id="tab_03" class="tab_content">
+                <h3>청소년보호방침</h3>
+                <span>
+                    내용내용<br/>
+                    내용내용이 나와요.
+                </span>
+                <h4>제1조</h4>
+                <ul class="policy_list">
+                    <li>
+                        ① 하나둘셋넷
+                    </li>
+                    <li>
+                        <ul>
+                            <li>
+                                1. 둘둘셋넷
+                            </li>
+                            <li>
+                                <ul>
+                                    <li>
+                                        가. 셋둘셋넷
+                                    </li>
+                                    <li>
+                                        니. 셋둘셋넷
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        ② 하나둘셋넷
+                    </li>
+                </ul>
+            </div>
+            <div id="tab_04" class="tab_content">
+                <h3>전자금융거래 이용약관</h3>
+                <span>
+                    내용내용<br/>
+                    내용내용이 나와요.
+                </span>
+                <h4>제1조</h4>
+                <ul class="policy_list">
+                    <li>
+                        ① 하나둘셋넷
+                    </li>
+                    <li>
+                        <ul>
+                            <li>
+                                1. 둘둘셋넷
+                            </li>
+                            <li>
+                                <ul>
+                                    <li>
+                                        가. 셋둘셋넷
+                                    </li>
+                                    <li>
+                                        니. 셋둘셋넷
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        ② 하나둘셋넷
+                    </li>
+                </ul>
+            </div>
+
+        </div> <!-- // container -->
+    </div>
+
+    <div id="asideTool"></div>
+    <footer id="footer"></footer>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab_content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("btn_tab");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" on", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " on";
+    }
+</script>
+
+</body>
+</html>

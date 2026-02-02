@@ -1,0 +1,78 @@
+@charset "utf-8";
+
+/* notice */
+.cs_wrap{float:right;width:1005px;margin-top:20px;}
+.cs_wrap .title_client{font-size:28px;font-weight:bold}
+.cs_wrap .cslist_util{margin-top:39px}
+.faq_search .cslist_util{margin-top:15px}
+.notice_search{padding-top:15px;padding-bottom:6px;border-top:1px solid #242424;border-bottom:1px solid #c4c4c4}
+.notice_search li{position:relative;min-height:40px;margin-bottom:15px;font-size:0}
+.notice_search li:after{content:'';display:block;clear:both}
+.notice_search li:last-child{text-align:center}
+.search_title{position:absolute;top:50%;transform:translate(0, -50%);color:#3b4460;font-size:16px;font-weight:500;letter-spacing:-0.5px}
+.search_option{padding-left:160px;font-size:0}
+.input_regisday{position:relative;line-height:40px}
+.input_regisday input[type="text"]{display:inline-block;width:137px;height:40px;padding:8px 44px 9px 10px;border:1px solid #ddd;border-radius:8px;color:#3b4460;font-size:16px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='none' viewBox='0 0 18 18'%3E%3Cpath fill='%239A9A9A' fill-rule='evenodd' d='M5.5 1.5c0-.276.224-.5.5-.5s.5.224.5.5V3h5V1.5c0-.276.224-.5.5-.5s.5.224.5.5V3h3c.552 0 1 .448 1 1v12c0 .552-.448 1-1 1h-13c-.552 0-1-.448-1-1V4c0-.552.448-1 1-1h3V1.5zM2.5 7v9h13V7h-13zm13-1V4h-3v.5c0 .276-.224.5-.5.5s-.5-.224-.5-.5V4h-5v.5c0 .276-.224.5-.5.5s-.5-.224-.5-.5V4h-3v2h13zm-9 2v1h-1V8h1zm3 0h-1v1h1V8zm3 0v1h-1V8h1zm-6 4v-1h-1v1h1zm2-1h1v1h-1v-1zm4 1v-1h-1v1h1zm-6 2v1h-1v-1h1zm3 0h-1v1h1v-1zm3 0v1h-1v-1h1z' clip-rule='evenodd'/%3E%3C/svg%3E%0A") right 16px center no-repeat;vertical-align:top}
+.input_regisday + .input_regisday{margin-left:24px;margin-right:20px}
+.input_regisday + .input_regisday:before{content:'';position:absolute;top:50%;left:-17px;width:8px;height:1px;background-color:#ddd}
+.search_option .btn_h35{margin-top:0;min-width:72px;height:40px;padding:0 14px;border-radius:8px;font-size:16px;box-sizing:border-box}
+.search_option .btn_h35.line{color:#3b4460;border-color:#ddd}
+.search_option .select_box{display:inline-block;width:130px;height:40px;border-color:#ddd;border-radius:8px;vertical-align:top;box-sizing:border-box}
+.search_option .select_box:after{top:8px}
+.search_option select{color:#3b4460}
+.search_option .search_text{display:inline-block;width:710px;height:40px;margin-left:5px;padding:8px 10px 9px;border:1px solid #ddd;border-radius:8px;color:#3b4460;font-size:16px;vertical-align:top;box-sizing:border-box}
+.search_option .search_text:focus{border-color:#ddd !important}
+.btn_search{width:150px;height:54px;line-height:54px;font-size:16px}
+.btn_search + .btn_search{margin-left:8px}
+
+/* qa_seller */
+.qa_wrap{text-align:center}
+.qa_wrap button{width:308px;height:54px;margin:0 auto;margin-top:30px;line-height:24px;font-size:16px}
+.title_client{position:relative;margin-bottom:5px;padding-bottom:10px;text-align:left}
+.title_client span{position:absolute;right:0;bottom:0;line-height:20px;color:#8c8c8c;font-size:14px;font-weight:normal;text-align:right}
+
+.faq_g{margin-top:5px;padding:15px 0;border-top:1px solid #242424;border-bottom:1px solid #c4c4c4;background:#fff;text-align:left;box-sizing:border-box}
+.faq_g strong{margin:0}
+.faq_g li{position:relative;padding-left:100px;margin-bottom:10px;font-size:0}
+.faq_g li:nth-child(5){margin-bottom:17px}
+.faq_g li:after{content:'';display:block;clear:both}
+.faq_g .faq_title{position:absolute;left:0;top:50%;transform:translate(0, -50%);width:100px;min-height:19px;line-height:40px;color:#8c8c8c;font-size:14px}
+.faq_g div{float:left;position:relative;width:905px;box-sizing:border-box}
+.faq_product{height:80px;padding:10px 10px 10px 85px;background-color:#f9f9f9}
+.faq_product strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;word-wrap:normal;height:16px;margin-top:8px;line-height:16px;font-size:16px}
+.faq_product span{display:block;margin-top:7px;line-height:21px;color:#8c8c8c;font-size:14px;font-weight:500}
+.faq_g img{position:absolute;left:10px;width:60px;height:60px}
+.faq_g .select_box{width:360px;height:40px;border-color:#ddd;}
+.faq_g .select_box select{color:#9a9a9a}
+.faq_g .select_box:after{top:6px}
+.faq_g .select_box + .select_box{margin-left:5px}
+.select_box.select_type{width:130px}
+.faq_g textarea{float:left;width:905px;height:160px;padding:9px 10px;border-color:#ddd;border-radius:2px;color:#242424;box-sizing:border-box;resize:none}
+.faq_g .input_file{width:360px}
+.faq_g input[type="checkbox"] + label{margin-right:40px;font-size:13px}
+.faq_g input[type="checkbox"] + label:before{width:16px;height:16px;margin-right:5px}
+.faq_g input[type="checkbox"]:checked + label{color:#4e79ff}
+.faq_g .strong_type1{line-height:21px}
+.faq_g .strong_type2{line-height:80px}
+.faq_g .strong_type3{line-height:160px}
+.reply_text{margin-left:15px;padding:7px 10px 6px;border-radius:25px;color:#8c8c8c;background-color:#f9f9f9}
+
+/* faq_search */
+.cs_wrap.faq_search{color:#3b4460}
+
+/* datepicker css */
+.ui-widget.ui-widget-content{border-color:#242424;border-radius:0}
+.ui-datepicker{width:244px;box-sizing:border-box}
+.ui-datepicker th{font-size:13px}
+.ui-widget-header{background:none;border:none}
+.ui-datepicker .ui-datepicker-title{font-size:13px;font-weight:normal}
+.ui-datepicker .ui-datepicker-title .ui-datepicker-year{margin-right:-5px}
+.ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year{width:22%;color:#2e2e2e;font-size:13px;text-align-last:center }
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active{background:#fff;width:24px;height:24px;font-size:13px;text-align:center;border:#fff;border-radius:50%;box-sizing:border-box}
+.ui-widget-content .ui-state-active{background:#242424;color:#fff}
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight{background:#f0f0f0}
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus, .ui-button:hover, .ui-button:focus{border:none}
+.ui-datepicker .ui-datepicker-prev{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E%3Cpath fill='%23242424' fill-rule='evenodd' d='M11.854.646c.195.196.195.512 0 .708L5.207 8l6.647 6.646c.195.196.195.512 0 .708-.196.195-.512.195-.708 0l-7-7c-.195-.196-.195-.512 0-.708l7-7c.196-.195.512-.195.708 0z' clip-rule='evenodd'/%3E%3C/svg%3E%0A") center center no-repeat}
+.ui-datepicker .ui-datepicker-next{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E%3Cpath fill='%23242424' fill-rule='evenodd' d='M4.146.646c.196-.195.512-.195.708 0l7 7c.195.196.195.512 0 .708l-7 7c-.196.195-.512.195-.708 0-.195-.196-.195-.512 0-.708L10.793 8 4.146 1.354c-.195-.196-.195-.512 0-.708z' clip-rule='evenodd'/%3E%3C/svg%3E%0A") center center no-repeat}
+.ui-icon.ui-icon-circle-triangle-w, .ui-icon.ui-icon-circle-triangle-e{background:none}
+.ui-state-hover{background:none;border:none}

@@ -1,0 +1,201 @@
+/*
+	commonV1
+*/
+
+
+
+/*-----셀러허브 공통 css-----*/
+
+/*나눔바른고딕*/
+@import url(https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css);
+*{margin:0; padding:0;}
+table, tr, th, td{
+	margin:0; padding:0; border-spacing: 0; border-collapse:collapse; font-family:'Nanum Barun Gothic', sans-serif; 
+	word-wrap: break-word; box-sizing:border-box;
+	}
+ul, li, ol{list-style:none;}
+a{color:#000; text-decoration:none;}
+body{font-family:'Nanum Barun Gothic', sans-serif;}
+html,body{height:100%;}
+img{max-width:100%; border:none;}
+select{box-sizing:border-box;}
+input{box-sizing:border-box;}
+textarea{resize:none; box-sizing:border-box; overflow-x:hidden; overflow-y:auto;}
+button{cursor:pointer; border:none; background: none;}
+/*float 해제*/
+.clearfix:after{content:""; display:block; clear:both;}
+/*overflow 초기화*/
+.overflow_default{overflow:visible;}
+
+
+/*margin,padding 여백 초기화*/
+.margin_none{margin:0 !important; margin:none !important;}
+.mt_none{margin-top:0 !important; margin-top:none !important;}
+.mb_none{margin-bottom:0 !important; margin-bottom:none !important;}
+.md_none{margin-left:0 !important; margin-left:none !important;}
+.mr_none{margin-right:0 !important; margin-right:none !important;}
+
+.padding_none{padding:0 !important; padding:none !important;}
+.pt_none{padding-top:0 !important; padding-top:none !important;}
+.pb_none{padding-bottom:0 !important; padding-bottom:none !important;}
+.pd_none{padding-left:0 !important; padding-left:none !important;}
+.pr_none{padding-right:0 !important; padding-right:none !important;}
+
+
+/*margin-top*/
+.mt5{margin-top:5px;}
+.mt10{margin-top:10px;}
+.mt15{margin-top:15px;}
+.mt20{margin-top:20px;}
+.mt25{margin-top:25px;}
+.mt30{margin-top:30px;}
+.mt35{margin-top:35px;}
+.mt40{margin-top:40px;}
+.mt45{margin-top:45px;}
+.mt50{margin-top:50px;}
+.mt55{margin-top:55px;}
+
+/*margin-bottom*/
+.mb5{margin-bottom:5px;}
+.mb10{margin-bottom:10px;}
+.mb15{margin-bottom:15px;}
+.mb20{margin-bottom:20px;}
+.mb25{margin-bottom:25px;}
+.mb30{margin-bottom:30px;}
+.mb35{margin-bottom:35px;}
+.mb40{margin-bottom:40px;}
+.mb45{margin-bottom:45px;}
+.mb50{margin-bottom:50px;}
+.mb55{margin-bottom:55px;}
+
+/*margin-left*/
+.md5{margin-left:5px;}
+.md10{margin-left:10px;}
+.md15{margin-left:15px;}
+.md20{margin-left:20px;}
+.md25{margin-left:25px;}
+.md30{margin-left:30px;}
+.md35{margin-left:35px;}
+.md40{margin-left:40px;}
+.md45{margin-left:45px;}
+.md50{margin-left:50px;}
+.md55{margin-left:55px;}
+
+/*margin-right*/
+.mr5{margin-right:5px;}
+.mr10{margin-right:10px;}
+.mr15{margin-right:15px;}
+.mr20{margin-right:20px;}
+.mr25{margin-right:25px;}
+.mr30{margin-right:30px;}
+.mr35{margin-right:35px;}
+.mr40{margin-right:40px;}
+.mr45{margin-right:45px;}
+.mr50{margin-right:50px;}
+.mr55{margin-right:55px;}
+
+
+/*padding-top*/
+.pt5{padding-top:5px;}
+.pt10{padding-top:10px;}
+.pt15{padding-top:15px;}
+.pt20{padding-top:20px;}
+.pt25{padding-top:25px;}
+.pt30{padding-top:30px;}
+.pt35{padding-top:35px;}
+.pt40{padding-top:40px;}
+.pt45{padding-top:45px;}
+.pt50{padding-top:50px;}
+.pt55{padding-top:55px;}
+
+/*padding-bottom*/
+.pb5{padding-bottom:5px;}
+.pb10{padding-bottom:10px;}
+.pb15{padding-bottom:15px;}
+.pb20{padding-bottom:20px;}
+.pb25{padding-bottom:25px;}
+.pb30{padding-bottom:30px;}
+.pb35{padding-bottom:35px;}
+.pb40{padding-bottom:40px;}
+.pb45{padding-bottom:45px;}
+.pb50{padding-bottom:50px;}
+.pb55{padding-bottom:55px;}
+
+/*padding-left*/
+.pd5{padding-left:5px;}
+.pd10{padding-left:10px;}
+.pd15{padding-left:15px;}
+.pd20{padding-left:20px;}
+.pd25{padding-left:25px;}
+.pd30{padding-left:30px;}
+.pd35{padding-left:35px;}
+.pd40{padding-left:40px;}
+.pd45{padding-left:45px;}
+.pd50{padding-left:50px;}
+.pd55{padding-left:55px;}
+
+/*padding-right*/
+.pr5{padding-right:5px;}
+.pr10{padding-right:10px;}
+.pr15{padding-right:15px;}
+.pr20{padding-right:20px;}
+.pr25{padding-right:25px;}
+.pr30{padding-right:30px;}
+.pr35{padding-right:35px;}
+.pr40{padding-right:40px;}
+.pr45{padding-right:45px;}
+.pr50{padding-right:50px;}
+.pr55{padding-right:55px;}
+
+/*position*/
+.po_none{position:static;}
+.po_relative{position:relative;}
+.po_absolute{position:absolute;}
+.po_fixed{position:fixed;}
+
+/*float 구문*/
+.float_none{float:none;}
+.float_left{float:left;}
+.float_right{float:right;}
+
+/*text 구문*/
+.f_normal{font-weight:normal !important;}
+.f_bold{font-weight:bold !important;}
+.ta_center{text-align:center !important;}
+.ta_left{text-align:left !important;}
+.ta_right{text-align:right !important;}
+.f_red{color:#ff0000 !important;}
+.f_blue{color:#3d3ddf !important;}
+.f_12{font-size:12px;}
+.f_it{font-style:italic;}
+.f_nm{font-style:normal;}
+
+/*display 구문*/
+.show{display:block !important;}
+.hide{display:none !important;}
+.show_table{display:table !important;}
+.show_inline{display:inline !important;}
+
+/*요소 숨기기*/
+.blind{position:absolute; overflow:hidden; clip:rect(0 0 0 0); margin:-1px; width:1px; height:1px; z-index:-1;}
+/*.blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;font-size:0;line-height:0}*/
+
+/*----------------------------------------------셀러허브 공통 css----------------------------------------------*/
+.border0{border:none !important; border:0 !important;}
+.bor_1{border:1px solid #efefef;}
+.bt_1{border-top:1px solid #efefef;}
+.bb_1{border-bottom:1px solid #efefef;}
+.bd_1{border-left:1px solid #efefef;}
+.br_1{border-right:1px solid #efefef;}
+.bt_none{border-top:0;}
+.br_none{border-right:0;}
+.bb_none{border-bottom:0;}
+.bd_none{border-left:0;}
+.border_red{border:1px solid red !important;}
+
+/*---------------스킵네이게이션------------------*/
+.skip_navigation{}
+.skip_btn{position:absolute; top:-81px; z-index:990; width:100%; height:81px; background-color:#2f3236; text-align:center;}
+.skip_navigation a{line-height:81px; color:white; font-size:17px;}
+.skip_navigation a:active,.skip_navigation a:focus{top:0;}
+

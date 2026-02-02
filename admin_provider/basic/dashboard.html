@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes">
+        <meta name="naver-site-verification" content="c48015d1e12671a3f6b18c2fa440950534fcdb63">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="셀러허브|입점신청">
+        <meta property="og:description" content="셀러허브 입점신청하기">
+        <meta property="og:image" content="https://www.sellerhub.co.kr/img/icon-sellerhub-logo3.png?v=1.0">
+        <meta property="og:url" content="http://admin.sellerhub.co.kr/">
+        <title>셀러허브 관리자</title>
+        <!--<link rel="shortcut icon" href="/shop/admin_provider/img/favicon.ico">-->
+        <link rel="icon" href="https://admin.sellerhub.co.kr/shop/admin_provider/new_favicon2.ico">
+        <link href="https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&amp;display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/shop/admin_provider/common.css?version=1.08">
+        <link rel="styleSheet" href="/global/global_style.css">
+        <link rel="stylesheet" href="/shop/admin_provider/jquery-ui.css">
+        <script type="text/javascript" src="/shop/admin_provider/jquery-1.8.3.min.js"></script>
+        <!--[if lte IE 8]>
+        <script src="../poly-checked.min.js"></script> <![endif]-->
+        <script type="text/javascript" src="/shop/admin_provider/common.js?version=1592359184"></script>
+        <script type="text/javascript" src="/shop/admin_provider/custom.js?version=1.10"></script>
+        <script src="/shop/admin_provider/jquery-ui.js"></script>
+        <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+        <script>
+            var client_id = 1634;
+            function read_info(cate, idx, link) {
+                $.ajax({
+                    url: '/shop/admin_provider/noti.json.php'
+                    , type: 'post'
+                    , data: {'cate': cate, 'idx': idx}
+                    , success: function (data) {
+                        location.href = link;
+                    }
+                    , error: function (request, status, error) {
+                        console.log(request);
+                    }
+                });
+                return false;
+            }
+    
+            function init_info() {
+                $.ajax({
+                    url:'/shop/admin_provider/header_info.php'
+                    , type:'post'
+                    , dataType:'html'
+                    , success:function (data) {
+                        $(".news_list").append(data);
+                    }
+                    , error:function (request, status, error) {
+                        console.log(request);
+                    }
+                });
+            }
+    
+            $(function () {
+                $("#sdate, .ssdate").datepicker({
+                    numberOfMonths:1,
+                    dateFormat:'yymmdd',
+                    changeMonth:true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
+                    changeYear:true, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
+                    nextText:'다음 달', // next 아이콘의 툴팁.
+                    prevText:'이전 달', // prev 아이콘의 툴팁.
+                    numberOfMonths:[1, 1], // 한번에 얼마나 많은 월을 표시할것인가. [2,3] 일 경우, 2(행) x 3(열) = 6개의 월을 표시한다.
+                    showAnim:"slide", //애니메이션을 적용한다.
+                    showMonthAfterYear:true, // 월, 년순의 셀렉트 박스를 년,월 순으로 바꿔준다.
+                    dayNamesMin:['일', '월', '화', '수', '목', '금', '토'], // 요일의 한글 형식.
+                    monthNamesShort:['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'], // 월의 한글 형식.
+                    onClose:function (selectedDate) {
+                        $("#edate, .eedate").datepicker("option", "minDate", selectedDate);
+                    }
+                });
+    
+                $("#edate, .eedate").datepicker({
+                    numberOfMonths:1,
+                    dateFormat:'yymmdd',
+                    changeMonth:true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
+                    changeYear:true, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
+                    nextText:'다음 달', // next 아이콘의 툴팁.
+                    prevText:'이전 달', // prev 아이콘의 툴팁.
+                    numberOfMonths:[1, 1], // 한번에 얼마나 많은 월을 표시할것인가. [2,3] 일 경우, 2(행) x 3(열) = 6개의 월을 표시한다.
+                    showAnim:"slide", //애니메이션을 적용한다.
+                    showMonthAfterYear:true, // 월, 년순의 셀렉트 박스를 년,월 순으로 바꿔준다.
+                    dayNamesMin:['일', '월', '화', '수', '목', '금', '토'], // 요일의 한글 형식.
+                    monthNamesShort:['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'], // 월의 한글 형식.
+                    onClose:function (selectedDate) {
+                        $("#sdate, .ssdate").datepicker("option", "maxDate", selectedDate);
+                    }
+                });
+    
+                // 최초 실행 함수
+                init();
+            });
+    
+            function init(){
+                // init_cafe24_chk();
+                        }
+    
+            //카페24 연동 해제 체크
+            function init_cafe24_chk(){
+                $.ajax({
+                      url :'../chk.cafe24.php'
+                    , type :'post'
+                    , beforeSend :function() {
+                        $('body').css('cursor', 'wait');
+                    }
+                    , dataType:"json"
+                    , success :function(data) {
+                        if(data['bool'] == 'false'){
+                            location.replace('/shop/admin_provider/member/chk.cafe24.php');
+                        }
+                    }
+                    , error :function(request, status, error) {
+                        console.log("error forward :" + request);
+                    }
+                    , complete :function() {
+                        $('body').css('cursor', 'auto');
+                    }
+                });
+            }
+    
+            //서브어드민 계정상태 체크
+            function chk_subAdminStatus() {
+                $.ajax({
+                    url:'../chk_subAdminStatus.php'
+                    , type:'post'
+                    , beforeSend:function () {
+                        $('body').css('cursor', 'wait');
+                    }
+                    , dataType:"json"
+                    , success:function (data) {
+    
+                        if (data['status'] == 'P') {
+                            var pages = location.pathname.indexOf("/goods/");
+                            if (pages > -1) {
+                                window.alert(data['msg_goods']);
+                                location.replace('/shop/admin_provider/brandSet/brand_cfg_set_v2.php');
+                            } else {
+                                window.alert(data['msg_intro']);
+                            }
+                        }
+                    }
+                    , error:function (request, status, error) {
+                        console.log("error forward :" + request);
+                    }
+                    , complete:function () {
+                        $('body').css('cursor', 'auto');
+                    }
+                });
+            }
+    
+        </script>
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-5NZXJJ3');</script>
+        <!-- End Google Tag Manager -->
+    </head>     
+<body>
+    <div class="optimize_browser_inform">
+        <div class="browser_chrome">
+            <img src="https://admin.sellerhub.co.kr/shop/admin_provider/img/new_front/chrome.png" alt="크롬브라우저 로고">
+            <span>셀러허브 셀러 어드민은 크롬 브라우저에 최적화되어 있습니다.</span>
+            <a href="https://www.google.com/intl/ko_ALL/chrome" class="chrome_download" target="_blank">크롬 다운로드</a>
+        </div>
+        <button type="button" class="optimize_browser_inform_close"><img src="https://admin.sellerhub.co.kr/shop/admin_provider/img/new_front/invalid-x.png" alt="크롬브라우저 다운로드 요소 닫기" title="닫기"></button>
+    </div>
+    <div class="p_news_content">
+        <div class="p_news_inner" style="max-height:609px;">
+            <h2 class="news_content_title">셀러허브 운영정보 알림</h2>
+            <div class="news_bottom">
+                <!-- <ul class="news_list"></ul> -->
+                <table class="news_list" width="92.804428%" cellpadding="0" cellspacing="0" border="0">
+                    <caption>상품관련정보</caption>
+                    <colgroup>
+                        <col width="22.067594%">
+                        <col width="77.733598%">
+                    </colgroup>
+                    <tbody>
+                                <tr>
+                            <th>상품정보 수정</th>
+                            <td>
+                                            수정된 상품이 없습니다.
+                                        </td>
+                        </tr>
+                                <tr>
+                            <th>상품승인정보</th>
+                            <td>
+                                            승인요청하신 상품에 대한 안내입니다. 
+                                <a href="/shop/admin_provider/goods/approve_v2.php" target="_parent" class="news-link">자세히 보기 &gt;</a><br>
+                                승인요청 :, 승인 :2, 반려 :			</td>
+                        </tr>
+                                <tr>
+                            <th>기본정보수정</th>
+                            <td>
+                                            수정된 내역이 없습니다.
+                                        </td>
+                        </tr>
+                                <tr>
+                            <th>정산정보</th>
+                            <td>
+                                        정산요청한 내역에 대한 본사처리 내역입니다. 
+                            <a href="/shop/admin_provider/calc/calculate_list_v2.php" target="_parent" class="news-link">자세히 보기 &gt;</a><br>
+                            정산요청:0건
+                                        정산취소:0건
+                                        정산완료:0건
+                                        </td>
+                        </tr>
+                        <tr>
+                            <th>상품전송여부</th>
+                            <td>
+                                        상품전송을 진행한 처리내역입니다. 
+                            <a href="/shop/admin_provider/linkage/linkage_state2.php" target="_parent" class="news-link">자세히 보기 &gt;</a><br>
+                            전송대기:<span style="color:#0000FF;">0</span>건, 
+                            전송완료:<span style="color:#FF0000;">0</span>건, 
+                            전송실패:<span style="color:#641fcb;">0</span>건
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="news_button">
+                    <!-- <label for="ch_today">
+                        <input type="checkbox" id="ch_today">
+                        <span></span><b>오늘 하루 알림을 보지 않음</b>
+                    </label> -->
+                    <span class="news_close">닫기</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .nicebp-wrap {width:187px; height:90px; margin:0 auto; margin-top:40px;}
+        .nicebp-wrap img{width:100%;}
+    </style>
+    <script type="text/javascript">$(document).ready(function(){$("#header").load("../../common_unit/pravs_header.html");});</script>
+    <header id="header" class="header type_selleradmin"></header> <!-- // header -->
+
+    <!-- 20200921 penalty popup -->
+    <div class="inform_penalty">
+        <button type="button" class="btn_penalty"><b>9월달</b> 내 패널티 확인</button>
+        <div class="info_box">
+            <em>2020년 9월</em>
+            <strong>내 패널티 총 금액</strong>
+            <div class="box_status">총 <b>99</b>건 / <b>999,000</b>원</div>
+            <button type="button" id="penalty_status">자세히 보기</button>
+            <button type="button" class="btn_close"><span class="icon_g">닫기</span></button>
+        </div>
+    </div>
+    <div class="type_popup popup_penalty show" style="border:1px solid #ddd">
+        <strong class="title_layer">패널티 상세내역</strong>
+        <div class="inner_p16">
+            <p class="tit_g">안녕하세요.  <b>마이컴</b>님. <br/><b>2020년 9월</b> 패널티 내역을 안내드립니다.</p>
+            <p><b>9월</b> 판매분 패널티는 <b>10월</b> 정산에 반영 예정입니다.</p>
+            <ul>
+                <li>
+                    <strong>1. 패널티 누적기간 : </strong><b>2020.09</b> (1개월간)
+                </li>
+                <li>
+                    <strong class="t_block">2. 패널티 내역</strong>
+                    <table class="tbl_basic">
+                        <caption class="blind">패널티 내역표</caption>
+                        <colgroup><col class="col_40"><col class="col_auto"><col class="col_40"></colgroup>
+                        <thead><th>패널티사유</th><th>건수</th><th>패널티금액</th></thead>
+                        <tbody>
+                            <tr><td>배송지연</td><td>1</td><td>10,000</td><tr>
+                            <tr><td>품절취소</td><td>1</td><td>10,000</td><tr>
+                            <tr><td>가송장</td><td>1</td><td>10,000</td><tr>
+                        </tbody>
+                    </table>
+                </li>
+                <li>
+                    <strong class="t_block">3. 안내</strong>
+                    <p class="txt_info">소명할 내용이 있으시면 셀러어드민 내 "정산 ->패널티리스트"에서 내역확인 후 소명요청바랍니다.</p>
+                    <p class="txt_info f_red">소명은 패널티 발생 후 10일이내 가능 / 10일 이후 요청시 소명 불가능</p>
+                </li>
+            </ul>
+            <a href="#" class="btn_detail">내 패널티 상세내역 확인하러 가기</a>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $('.btn_penalty').click(function(){
+                $('.btn_penalty').hide();
+                $('.info_box').show();
+                $('.inform_penalty .btn_close').click(function(){
+                    $('.info_box').hide();
+                    $('.btn_penalty').show();
+                });
+            });
+        });
+    </script>
+    <!-- // 20200921 penalty popup -->
+
+    <div id="wrap" class="clearfix">
+        <div class="container_wrap">
+            <div></div>
+            <script type="text/javascript">
+
+                $(document).ready(function(){
+                    $(".support_button").children('button').click(function(){
+                        var tabIndex = $(this).index();
+                        switch(tabIndex){
+                            case 0:
+                                $('.support_1, .support_none').fadeIn(3).addClass('s_on');
+                                $('.support_more1').fadeIn(3).addClass('on');
+                                $('.con_title_tab1').addClass('tabon');
+                                $('.support_2').fadeOut(3).removeClass('s_on');
+                                $('.support_more2').fadeOut(3).removeClass('on');
+                                $('.con_title_tab2').removeClass('tabon');
+                                break;
+                            case 1:
+                                $('.support_2').fadeIn(3).addClass('s_on');
+                                $('.support_more2').fadeIn(3).addClass('on');
+                                $('.con_title_tab2').addClass('tabon');
+                                $('.support_1, .support_none').fadeOut(3).removeClass('s_on');
+                                $('.support_more1').fadeOut(3).removeClass('on');
+                                $('.con_title_tab1').removeClass('tabon');
+                                break;
+                        }
+                    });
+                
+                    //help
+                    $(".help img").mouseenter(function(){
+                        $(this).siblings("span").show();
+                    });
+                
+                    $(".help img").mouseleave(function(){
+                        $(".help span").hide();
+                    });
+                
+                    d_init();
+                
+                    // 새로고침-캐시 삭제(2019.01.02, 김기완)
+                    $(".reload_btn").click(function() {
+                        location.replace("/shop/admin_provider/basic/dashboard.php?cache=delete");
+                    });
+                
+                    // 계정 일시정지 팝업 닫기
+                    $(".temporary_pause_pop_close_btn").on("click", function(){
+                        $(".temporary_pause_wrapper").hide();
+                    });
+                });
+                
+                function d_init() {
+                
+                    $.ajax({
+                        url:'/shop/admin_provider/basic/dashboard.info.php'
+                        , type:'post'
+                        , dataType:'json'
+                        , success:function (data) {
+                            $.each(data, function (key, value) {
+                                $("#" + key).text("[" + value[0]["title"] + "] " + value[0]["contents"]);
+                            });
+                        }
+                        , error:function (request, status, error) {
+                            console.log(request);
+                        }
+                    });
+                }
+            </script>
+            <link rel="stylesheet" type="text/css" href="/shop/admin_provider/style_new.css?version=1.01">
+            <div class="cafe24_welcome ">
+                <div class="welcome_inner">
+                    <h2 class="w_title"><img src="/shop/admin_provider/img/cate24_hub.png" alt="셀러허브"></h2>
+                    <p class="w_1">
+                        안녕하세요 <span class="f_bold">[셀러허브]MD팀</span> 님!<br>
+                        셀러허브에 가입하신 것을 환영합니다. 현재 회원님은 <span class="f_blue">‘가입점’</span> 상태입니다.<br>
+                        <span class="f_bold">최종 입점 후 사이트 이용이 가능합니다.</span><br>
+                        계약이 완료되면 지마켓, 11번가, 신세계 등 국내 20여개 쇼핑몰을 통해<br>
+                        CAFE24에 등록한 모든 상품들을 자동으로 연동하여 판매하실 수 있습니다.
+                    </p>
+                    <p class="w_2">※ 최종 입점 관련해서 셀러허브 팀에서 1-2일내로 연락을 드리겠습니다.</p>
+                    <p class="w_3">
+                        <span class="f_blue f_bold">[임점 관련 문의]</span><br>
+                        카카오톡 플러스친구 "셀러허브"<br>
+                        <span class="f_bold">E-mail.</span> support@sellerhub.co.kr<br>
+                        Tel. 1522-9843 / FAX. 070-8622-6020<br>
+                        고객센터 운영시간 10:00 ~ 17:00 (월~금 / 주말.공휴일 휴무)
+                    </p>
+                    <p class="w_4">
+                        ※ 미리 상품을 연동하시면 최종 입점 후 판매 개시까지의 시간을 크게 줄일 수 있습니다.<br>
+                        하단의 [상품 DB 전송하러 가기]를 통해 셀러허브에 상품을 등록하실 수 있습니다.
+                    </p>
+                    <a href="../basic/getgoods.php" class="w_link">상품 DB 전송하러 가기</a>
+                </div>
+            </div> <!-- // cafe24_welcome -->
+
+            <div class="con_top">
+				<div class="order">
+					<h2 class="con_title2"><a href="/shop/admin_provider/order/list_v2.php?mode=group&amp;first=1">주문 전체보기</a></h2>
+					<dl class="ct_list">
+						<dt>입금대기
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_1">[입금대기] 주문한 상태이나 실결제가 이루어지지 않은상태 (예. 무통장결제 후 아직 미입금인 상태)</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/order/list_v2.php?mode=group&amp;step%5B%5D=0&amp;dtkind=orddt&amp;inflow=All&amp;step2false=Y">0 건</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>입금확인
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_2">[입금확인] 실결제가 이루어지고/무통장입금 또는 가상계좌 결제의 입금이 확인된 주문완료 상태 (입금확인 후 반드시 당일 '배송 준비 중'으로 상태 변경하거나 '상품품절/매장준비-배송약정일 입력' 으로 변경해야함)</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/order/list_v2.php?mode=group&amp;step%5B%5D=1&amp;dtkind=orddt&amp;inflow=All&amp;step2false=Y">0 건</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>배송 준비 중
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_3">[배송 준비 중] 입금확인이 된 주문건 관련 입점사에서 발송가능한 상품을 주문 확인한 상태 (배송 준비 중으로 변경 후에는 당일 또는 최대 익일 배송 중으로 변경해야 배송지연 패널티가 발생하지 않음)</span>
+							</span>
+						</dt>
+						<dd class="con_arrow">
+                            <a href="/shop/admin_provider/order/list_v2.php?mode=group&amp;step%5B%5D=2&amp;dtkind=orddt&amp;regdt%5B%5D=20200517&amp;regdt%5B%5D=20200617&amp;inflow=All">0 건</a>
+						</dd>
+					</dl>
+					<ul class="sub_0">
+						<li>배송 지연 (1일째)
+							<div class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_4">[배송 지연 (1일째)] 입금확인이 된 날부터 출고일까지 1일째</span>
+							</div>
+							<span><a href="/shop/admin_provider/order/list_v2.php?mode=group&amp;step%5B%5D=2&amp;dtkind=orddt&amp;inflow=All&amp;step2false=Y">0 건</a></span>
+						</li>
+						<li>배송 지연 (2일째)
+							<div class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_5">[배송 지연 (2일째)] 입금확인이 된 날부터 출고일까지 2일째</span>
+							</div>
+							<span><a href="/shop/admin_provider/order/list_v2.php?mode=group&amp;step%5B%5D=2&amp;dtkind=orddt&amp;inflow=All&amp;step2false=Y">0 건</a></span>
+						</li>
+						<li class="red">배송 지연 (3일 이상)
+							<div class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_6">[배송 지연 (3일 이상)] 입금확인이 된 날부터 출고일까지 3일째 또는 그 이상</span>
+							</div>
+							<span><a href="/shop/admin_provider/order/list_v2.php?mode=group&amp;step%5B%5D=2&amp;dtkind=orddt&amp;inflow=All&amp;step2false=Y">0 건</a></span>
+						</li>
+					</ul>
+					<dl class="ct_list">
+						<dt>배송 중
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_7">[배송 중] 택배사 송장이 등록되어 상품이 배송 중인 상태 </span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/order/list_v2.php?mode=group&amp;step%5B%5D=3&amp;dtkind=orddt&amp;inflow=All&amp;step2false=Y">0 건</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>배송완료
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_8">[배송완료] 배송된 상품을 고객이 인수완료 한 상태</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/order/list_v2.php?mode=group&amp;step%5B%5D=4&amp;dtkind=orddt&amp;inflow=All&amp;step2false=Y">0 건</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>구매확정 (최근 30일)
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_9">[구매확정 (최근 30일)] 배송완료후 7일이내 고객변심 또는 판매자귀책 사유로 반품또는 교환의 내역없이 해당 주문건의 구매을 확정한 상태 (예. 주문의 배송완료일이 해당월 28일, 구매확정은 익월 5일 인 경우 익월 정산에 포함됨.)</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/order/list_v2.php?mode=group&amp;step%5B%5D=5&amp;dtkind=bcdt&amp;regdt%5B%5D=20200517&amp;regdt%5B%5D=20200617&amp;inflow=All&amp;step2false=Y">0 건</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>누적 구매확정 총 건수
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_10">[누적 구매확정 총 건수] 업체 출고건 중 판매이후 고객이 구매확정한 누적 주문건 수 </span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/order/list_v2.php?mode=group&amp;step%5B%5D=5&amp;dtkind=orddt&amp;inflow=All">1 건</a></dd>
+					</dl>
+					<span class="reload_btn"><a href="javascript:void(0);" onclick="window.location.reload()">새로고침</a></span>
+				</div> <!-- // order -->
+				<div class="refund ">
+					<h2 class="con_title2"><a href="/shop/admin_provider/order/regoods_v2.php">취소/반품/환불 전체보기</a></h2>
+					<dl class="ct_list">
+						<dt>반품요청
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_11">[반품요청] 상품 수령후 7일이내 고객변심 또는 판매자귀책 사유로 반품요청 한 상태</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/order/regoods_v2.php?mode=&amp;skey=all&amp;sword=&amp;cancelkey=all&amp;regdt%5B%5D=20181130&amp;regdt%5B%5D=20200617&amp;claimkey=return">1건</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>환불접수
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_13">[환불접수] 반품요청건의 상품 입점사로 입고 확인된 상태 </span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/order/cs_v2.php?skey=all&amp;type%5B%5D=3&amp;regdt%5B%5D=20181130&amp;regdt%5B%5D=20200617">0건</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>환불완료 (최근 30일)
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_14">[환불완료 (최근 30일)] 반품요청건의 상품이 입점사로 입고 확인된 상태에서 판매자 또는 고객의 귀책사유에 의한 배송비 확인 후 고객에게 실제 환불까지 완료 된 최근 30일간 공제정산주문건</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/order/cs_v2.php?skey=all&amp;type%5B%5D=4&amp;regdt%5B%5D=20200517&amp;regdt%5B%5D=20200617">0건</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>누적 환불완료 총 건수
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_15">[누적 환불완료 총 건수] 입금확인 --&gt;배송--&gt;반품--&gt;환불완료  상태의  공제주문 누적 총 건수</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/order/cs_v2.php?skey=all&amp;type%5B%5D=4&amp;regdt%5B%5D=20181130&amp;regdt%5B%5D=20200617">0건</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>취소완료(최근 3일)
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_38">[취소완료] 입점사에서 신규 주문 확인 후 '입금확인' 또는 '배송 준비 중' 상태에서 송장 등록을 하기에 앞서 고객의 요청/품절 등의 사유로 인해 취소처리 완료 된 최근 3일 주문 건의 총합</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/order/cs_v2.php?skey=all&amp;type%5B%5D=2&amp;regdt%5B%5D=20200614&amp;regdt%5B%5D=20200617"><font color="red">0건</font></a></dd>
+					</dl>
+					<span class="reload_btn"><a href="javascript:void(0);" onclick="window.location.reload()">새로고침</a></span>
+				</div> <!-- // refund -->
+				<div class="exchange">
+					<h2 class="con_title2"><a href="/shop/admin_provider/order/regoods_v2.php">교환 전체보기</a></h2>
+					<dl class="ct_list">
+						<dt>교환 요청
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_16">[교환 요청] 상품 수령후 7일이내 고객변심 또는 판매자귀책 사유로 교환요청 한 상태</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/order/exgoods_v2.php?mode=&amp;skey=all&amp;sword=&amp;cancelkey=all&amp;regdt%5B%5D=20181130&amp;regdt%5B%5D=20200617&amp;claimkey=exchange">1건</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>수거 완료
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_22">[입고 확인] 교환을 위한 반품상품 입고 확인</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/order/re_exgoods_v2.php?skey=all&amp;type%5B%5D=7&amp;regdt%5B%5D=20181130&amp;regdt%5B%5D=20200617">0건</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>재배송준비
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_19">[재배송 준비] 교환을 위한 반품상품 입고후 교환상품을 출고하기 까지의 시간 </span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/order/exgoods_v2.php?skey=all&amp;type%5B%5D=8&amp;regdt%5B%5D=20181130&amp;regdt%5B%5D=20200617">0건</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>재배송중
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_24">[교환 재발송 처리] 교환배송비의 선결제 또는 차감 확인후 재고가 있을 경우 교환 재발송 송장 등록으로 교환 재발송 처리 함</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/order/list_v2.php?mode=group&amp;step2%5B%5D=60">0건</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>교환 완료
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_25">[교환 완료] 교환재발송한 송장의 흐름이 고객 인수 완료가 되는 시점</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/order/re_exgoods_v2.php?skey=all&amp;type%5B%5D=10&amp;regdt%5B%5D=20181130&amp;regdt%5B%5D=20200617">0건</a></dd>
+					</dl>
+					<span class="reload_btn"><a href="javascript:void(0);" onclick="window.location.reload()">새로고침</a></span>
+				</div> <!-- // exchange -->
+            </div> <!-- // con_top -->
+            
+            <div class="con_middle">
+				<!--weekly_hot_item 시작-->
+				<div class="weekly_hot_item">
+					<h2 class="con_title2"><a href="/shop/admin_provider/log/popu.goods_v2.php">주간 인기상품 전체보기</a></h2>
+										<span class="reload_btn"><a href="javascript:void(0);" onclick="window.location.reload()">새로고침</a></span>
+					<!--<span class="more"><a href="/shop/admin_provider/log/popu.goods_v2.php">전체보기</a></span>-->
+				</div> <!-- // weekly_hot_item -->
+				<div class="product">
+					<h2 class="con_title2"><a href="/shop/admin_provider/goods/list_v2.php">상품관리 전체보기</a></h2>
+					<dl class="ct_list">
+						<dt>
+							총 등록된 상품
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_26" style="display:none;">[총 등록된 상품] 입점사가 판매를 위하여 등록한 모든 상품. (판매중 / 품절 / 승인 전 상품 / 완료 상품 / 반려 상품 모두 포함)</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/goods/list_v2.php">2 개</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>
+							승인 전 상품
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_27" style="display:none;">[승인 전 상품] 입점사가 신규 등록한 상품. (이전에 등록한 상품 중 승인요청을 하지 않은 상품 포함)</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/goods/approve_v2.php?approve0=Y">0건</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>승인 요청 상품
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_28" style="display:none;">[승인 요청 상품] 입점사가 등록한 상품 중 판매(전시)를 위하여 담당자에게 승인을 요청한 상품.</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/goods/approve_v2.php?approve1=Y">0건</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>승인 완료 상품
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_29" style="display:none;">[승인 완료 상품] 입점사가 등록한 상품 중 판매(전시)를 위하여 승인을 요청한 상품 중 등록된 내용에 이상이 없어 당담자가 정상적으로 승인한 상품. (재고 수량 10개 이상 유지. 미만일 경우 품절 처리 권장함)</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/goods/list_v2.php">2건</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>반려된 상품
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_30" style="display:none;">[반려된 상품] 입점사가 등록한 상품 중 판매(전시)를 위하여 승인을 요청한 상품 중 등록된 내용에 하자가 발견되어 반려처리된 상품</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/goods/approve_v2.php?approve-1=Y">0건</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>품절된 상품
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_31" style="display:none;">[품절된 상품] 재고수량 0으로 더 이상 배송이 불가능한 상품 (특정 쇼핑몰들의 재고연동 지연으로 인한 불필요한 패널티 및 고객 서비스 이슈를 최소화하기 위해 재고 수량이 10개 미만일 경우 품절 처리하도록 적극 권장함)</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/goods/list_v2.php?status=hide">0건</a></dd>
+					</dl>
+					<ul class="sub_0">
+						<li>비노출 품절 상품
+							<div class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_32" style="display:none;">[비노출 품절 상품] 재고수량 0으로 배송이 불가능한 상품으로 전시해제(진열해제, 또는 미전시) 처리된 상품</span>
+							</div>
+							<span><a href="/shop/admin_provider/goods/list_v2.php?status=hide&amp;open=10">0건</a></span>
+						</li>
+						<li>노출 품절 상품
+							<div class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_33" style="display:none;">[노출 품절 상품] 재고수량 0으로 배송이 어려운 상품이나 전시, 진열되어 있는 상품 (특정 쇼핑몰의 경우 품절된 상태로 노출이 가능한 경우에 사용. 일반적으로는 비노출 품절 상태 변경 추천)</span>
+							</div>
+							<span><a href="/shop/admin_provider/goods/list_v2.php?status=hide&amp;open=11">0건</a></span>
+						</li>
+					</ul>
+					<dl class="ct_list">
+						<dt>
+							판매중인 상품
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_34" style="display:none;">[판매중인 상품] 등록되어 노출 되어 있는 재고가 있는 전 상품</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/goods/list_v2.php?status=display">2건</a></dd>
+					</dl>
+					<span class="reload_btn"><a href="javascript:void(0);" onclick="window.location.reload()">새로고침</a></span>
+					<!-- <span class="more"><a href="/shop/admin_provider/goods/list_v2.php">전체보기</a></span> -->
+					<div class="button"><a href="/shop/admin_provider/goods/register_v2.php">상품 등록하기<span class="ico_arr"></span></a></div>
+				</div> <!-- // product -->
+				<div class="sales">
+					<h2 class="con_title2"><a href="/shop/admin_provider/calc/list.done_v2.php">정산 전체보기</a></h2>
+					<dl class="ct_list sales_top" style="line-height:1.2;">
+						<dt>
+						    ■ 2020년 06월 정산 예정 금액 <span style="width:100%; text-align:right; font-weight:normal; font-size:12px;">(최종 업데이트 :)</span><br>
+						    <span style="font-weight:normal;font-size:13px;">기간 :2020.06.01 ~ 2020.06.30</span>
+						</dt>
+					</dl>
+					<dl class="ct_list">
+						<dt>
+							구매확정금액
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_36" style="display:none;">[구매 확정 금액] 고객이(구매자) 상품 구매 결제를 확정하여 당월 발생된 입점사의 상품 총 판매금액( 매출의 총 합계금액 또는 구매확정 주문의 총 합계금액)</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/calc/list.done_v2.php">0 원</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>
+							판매정산금액
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_35" style="display:none;">[판매정산금액] 구매 확정이 완료되어 입점사가 셀러허브 수수료를 차감하고 익월 정산받을 예정금액</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/calc/list.done_v2.php">0 원</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>
+							선불배송비
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_39" style="display:none;">[선불배송비] 입점사가 책정한 기본 배송 정책에 따라 고객이 주문시 선결제한 배송비 금액</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/calc/list.done_v2.php">0 원</a></dd>
+					</dl>
+					<hr>
+					<dl class="ct_list">
+						<dt>
+							공제확정금액
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_40" style="display:none;">[공제확정금액] 공제정산금액이 확정되어 익월 정산금액에서 차감이 확정된 금액</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/calc/list.done_v2.php">0 원</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>
+							공제정산금액
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_41" style="display:none;">[공제정산금액] 주문이 취소되어 환불이 확정된 금액으로 정산금액에서 차감될 예정금액</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/calc/list.done_v2.php">0 원</a></dd>
+					</dl>
+					<dl class="ct_list">
+						<dt>
+							공제배송비
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_42" style="display:none;">[공제배송비] 무료배송 진행 중 고객이 단순변심으로 주문을 취소하는 경우 고객에게 환불 시 차감하는 왕복 배송비로 입점사에 정산될 배송비 금액</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/calc/list.done_v2.php">0 원</a></dd>
+					</dl>
+					<hr>
+					<dl class="ct_list">
+						<dt>
+							총 정산 예정금액
+							<span class="help">
+								<img src="/shop/admin_provider/img/help.png" alt="도움말" class="help_img">
+								<span id="info_43" style="display:none;">[총 정산 예정금액] 구매확정금액에서 공제확정금액을 차감한 후 입점사에서 정산받을 예정금액의 총 합계 금액</span>
+							</span>
+						</dt>
+						<dd class="con_arrow"><a href="/shop/admin_provider/calc/list.done_v2.php">0 원</a></dd>
+					</dl>
+					<dl class="ct_list" style="margin-top:25px;">
+						<dt>■ 2020년 05월 정산대금 확정일(세금 계산서 발행일)</dt>
+						<dd>2020.06.10</dd>
+					</dl>
+					<dl class="ct_list">
+						<dt style="width:100%; text-align:right; font-weight:normal; font-size:12px;">(정산확정일이 금융회사 휴무일인 경우 그 다음 영업일)</dt>
+					</dl>
+					<span class="reload_btn"><a href="javascript:void(0);" onclick="window.location.reload()">새로고침</a></span>
+					<div class="button"><a href="/shop/admin_provider/calc/calculate_done_list_v2.php">전월 정산 확정 내역 확인하기<span class="ico_arr"></span></a></div>
+				</div> <!-- // sales -->
+			</div> <!-- // con_middle -->
+            <div class="con_bottom">
+				<div class="notice">
+					<h2 class="con_title">운영공지사항</h2>
+					<div class="notice_list_wrap">
+			            <ul class="notice_list1">
+							<li><span class="core">공지</span><a href="/shop/admin_provider/board/provider_bbs_list_v2.php?bid=notice&amp;opencont=100"> 안녕하세요 셀러허브 운영팀입니다</a><span class="date">2019-12-28 00:13:54</span></li>
+							<li><span class="core">공지</span><a href="/shop/admin_provider/board/provider_bbs_list_v2.php?bid=notice&amp;opencont=99"> [이벤트 안내]  동의항목 테스트</a><span class="date">2019-12-28 00:13:54</span></li>
+							<li><span class="core">공지</span><a href="/shop/admin_provider/board/provider_bbs_list_v2.php?bid=notice&amp;opencont=98"> 팝업 공지 테스트</a><span class="date">2019-12-27 23:39:58</span></li>
+							<li><span class="core">공지</span><a href="/shop/admin_provider/board/provider_bbs_list_v2.php?bid=notice&amp;opencont=97"> 일반공지 테스트</a><span class="date">2019-12-27 23:21:38</span></li>
+							<li><span class="core">공지</span><a href="/shop/admin_provider/board/provider_bbs_list_v2.php?bid=notice&amp;opencont=91"> 테스트</a><span class="date">2019-11-21 11:33:22</span></li>
+							<li><span class="core">공지</span><a href="/shop/admin_provider/board/provider_bbs_list_v2.php?bid=notice&amp;opencont=89"> 셀러허브 입점계약 및 셀러어드민 이용약관 변경 사전안내</a><span class="date">2019-08-28 11:06:26</span></li>
+							<li><span class="core">공지</span><a href="/shop/admin_provider/board/provider_bbs_list_v2.php?bid=notice&amp;opencont=88"> [공지]창립기념일에 따른 운영시간 변경 및 휴무 안내</a><span class="date">2019-07-26 17:46:05</span></li>
+							<li><span class="core">공지</span><a href="/shop/admin_provider/board/provider_bbs_list_v2.php?bid=notice&amp;opencont=87"> 셀러허브 상품 콘테스트! 입점사 대상 이벤트!</a><span class="date">2019-07-22 10:06:18</span></li>
+						</ul>
+                        <ul class="notice_list2">
+                            <li></li>
+                        </ul>
+		            </div>
+					<span class="notice_more"><a href="/shop/admin_provider/board/provider_bbs_list_v2.php?bid=notice">공지사항 전체보기</a></span>
+				</div> <!-- // notice -->
+				<div class="support">
+					<div class="support_button">
+						<button type="button" class="con_title_tab1 tabon" tabindex="0">판매자지원</button>
+						<button type="button" class="con_title_tab2" tabindex="0">자주 찾는 FAQ</button>
+					</div>
+					<div class="support_list">
+								<div class="support_1 s_on">
+                        <ul class="list_support">
+                            <li>
+                                <a href="/shop/admin_provider/board/provider_bbs_list_v2.php?bid=bbs&amp;opencont=772">
+                                    <div class="s_left">
+                                        <h3>이 공지는 미답변 글에 올라가면 안됩니다.</h3>
+                                        <p>안돼요....</p>
+                                    </div>
+                                    <div class="s_right">
+                                        <p class="date2">2018-11-07 10:02:36</p>
+                                        <span class="cmt_complete">답변완료</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/shop/admin_provider/board/provider_bbs_list_v2.php?bid=bbs&amp;opencont=728">
+                                    <div class="s_left">
+                                        <h3>[마케팅/광고] [이베이코리아 2018 Big Smile Day] G마켓, 옥션 최고의 쇼핑축제 프로모션 신청사 접수</h3>
+                                        <p>안녕하세요, 셀러허브 운영팀입니다.&nbsp;G마켓, 옥......</p>
+                                    </div>
+                                    <div class="s_right">
+                                        <p class="date2">2018-09-28 18:14:29</p>
+                                        <span class="cmt_complete">답변완료</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/shop/admin_provider/board/provider_bbs_list_v2.php?bid=bbs&amp;opencont=627">
+                                    <div class="s_left">
+                                        <h3>[9월 프로모션] 추석맞이 기획전 및 딜 프로모션</h3>
+                                        <p>안녕하세요, 9월 추석맞이 기획전 및 딜 프로모션 관......</p>
+                                    </div>
+                                    <div class="s_right">
+                                        <p class="date2">2018-09-03 18:10:09</p>
+                                        <span class="cmt_complete">답변완료</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        </div>
+                        <div class="support_2">
+                            <ul class="list_support">
+                                <li>
+                                    <span class="support_2_title">&nbsp;</span><span class="support_2_q"><a href="/shop/admin_provider/board/provider_bbs_list_v2.php?bid=faq&amp;opencont=11">Q. [상품 연동] 자주 묻는 질문들2</a></span>
+                                </li>
+                                <li>
+                                    <span class="support_2_title">&nbsp;</span><span class="support_2_q"><a href="/shop/admin_provider/board/provider_bbs_list_v2.php?bid=faq&amp;opencont=10">Q. [카페24] 연결이 끊어졌습니다. 문제 해결</a></span>
+                                </li>
+                                <li>
+                                    <span class="support_2_title">&nbsp;</span><span class="support_2_q"><a href="/shop/admin_provider/board/provider_bbs_list_v2.php?bid=faq&amp;opencont=9">Q. [상품 등록] 옵션값 등록 가이드</a></span>
+                                </li>
+                                <li>
+                                    <span class="support_2_title">&nbsp;</span><span class="support_2_q"><a href="/shop/admin_provider/board/provider_bbs_list_v2.php?bid=faq&amp;opencont=6">Q. [무료][주문 시 문자 발송]CS 담당자 핸드폰 번호를 반드시 등록해 주세요.</a></span>
+                                </li>
+                                <li>
+                                    <span class="support_2_title">&nbsp;</span><span class="support_2_q"><a href="/shop/admin_provider/board/provider_bbs_list_v2.php?bid=faq&amp;opencont=5">Q. [상품명 작성 가이드] 가장 검색/노출이 잘되는 상품명 작성법</a></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <span class="support_more1 on"><a href="/shop/admin_provider/board/provider_bbs_list_v2.php?bid=bbs">판매자 지원 전체보기</a></span>
+                    <span class="support_more2"><a href="/shop/admin_provider/board/provider_bbs_list_v2.php?bid=faq">FAQ 전체보기</a></span>
+                </div> <!-- // support -->
+            </div> <!-- // con_bottom -->
+
+            <div class="btn-helpseller">
+                <div class="open-buttons" style="display:none;">
+                    
+                            <button type="button" class="kakaotalk" onclick="popup_layer11('/shop/admin_provider/board/provider_bbs_category.php?mode=regist&amp;bid=bid',690,600)">
+                        <img src="https://admin.sellerhub.co.kr/shop/admin_provider/img/new_front/btn-helfseller.png" alt="카카오톡 플러스친구 연결하기">
+                    </button>
+                    
+                    <button type="button" class="seller-talk">
+                        <img src="https://admin.sellerhub.co.kr/shop/admin_provider/img/new_front/icbtn_sellertalk.png" alt="셀러톡 문의하기">
+                    </button>
+                    
+                    <button type="button" class="side-close">
+                        <img src="https://admin.sellerhub.co.kr/shop/admin_provider/img/new_front/icbtn_close.png" alt="닫기">
+                    </button>
+                </div>
+            
+                <div class="close-buttons">
+                    <button type="button" class="chk-icon">
+                        <img src="https://admin.sellerhub.co.kr/shop/admin_provider/img/new_front/icbtn_inquiry.png" alt="열기">
+                    </button>
+                </div>
+            </div>
+            <style>
+                /* common */
+                .btn-helpseller {
+                    position:fixed;
+                    right:10px;
+                    bottom:10px;
+                    z-index:900;
+                }
+                .btn-helpseller button {
+                    background-color:transparent;
+                }
+                .side-close {
+                    display:inline;
+                    position:absolute;
+                    bottom:145px;
+                    right:-5px;
+                    outline:none;
+                    border:none;
+                    padding:0;
+                }
+                .chk-icon {
+                    width:90px;
+                            outline:none;
+                    position:absolute;
+                    right:-6px;
+                    bottom:0;
+                    border:none;
+                    padding:0;
+                }
+                .chk-icon img {
+                    width:90px;
+                }
+            
+                    /* admin provider */
+                .seller-talk {
+                    display:inline;
+                    position:absolute;
+                    bottom:85px;
+                    right:0;
+                    outline:none;
+                }
+                .seller-talk img {
+                    width:187px;
+                    max-width:187px;
+                    min-width:187px;
+                }
+                .top-btn {
+                    outline:none;
+                    display:block;
+                    width:78px;
+                    height:78px;
+                    border-radius:50%;
+                    background:url('https://admin.sellerhub.co.kr/shop/admin_provider/img/new_front/icbtn_top.png') no-repeat center;
+                    background-size:cover;
+                    margin-left:109px;
+                    margin-bottom:10px;
+                }
+                .top-btn:hover {
+                    background:url('https://admin.sellerhub.co.kr/shop/admin_provider/img/new_front/icbtn_top_press.png') no-repeat center;
+                    background-size:cover;
+                }
+            
+                    /* admin provider - popup */
+                #pop1 {
+                    position:fixed;
+                    top:0;
+                    left:0;
+                    z-index:9999;
+                    width:100%;
+                    height:100%;
+                    background:rgba(0,0,0,0.5);
+                    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#80000000, endColorstr=#80000000);
+                }
+                .pop1_inner {
+                    position:absolute;
+                    top:0;
+                    bottom:0;
+                    left:0;
+                    right:0;
+                    width:1000px;
+                    height:900px;
+                    margin:auto;
+                    padding:20px;
+                    background-color:#fff;
+                    box-sizing:border-box;
+                }
+                .pop1_inner {
+                    background:#f9f9f9;
+                }
+                .pop_close {
+                    position:absolute;
+                    bottom:0;
+                    left:0;
+                    width:100%;
+                    height:41px;
+                    padding-right:15px;
+                    background-color:#f9f9f9;
+                    line-height:41px;
+                    text-align:right;
+                    box-sizing:border-box;
+                }
+                .pop_x {
+                    cursor:pointer;
+                }
+                
+            </style>
+            <script type="text/javascript">
+                /* Channel Plugin Scripts */
+            var settings = {
+                "pluginKey":"3700bf60-cbd0-461f-ab2b-db5aff77d62f",
+                "customLauncherSelector":".seller-talk",
+                "memberId":'6666666666',
+                "hideDefaultLauncher":true
+            };
+
+                settings.profile = {
+                "name" :"[셀러허브]MD팀",
+                "email"             :"",
+                "sellerhubId"       :"6666666666",	// 셀러허브(로그인) 아이디
+                "company"           :"[셀러허브]MD팀",	// 업체명
+                "memo"              :"",	// 계약 특약 사항 메모
+                "category"          :"",	// 카테고리
+                "basesetup"         :"약관 동의완료\n담당자 정보완료\n입점사 상세정보완료\n배송정책 설정완료",	// 기본정보 설정여부
+                "sellerhubplan"     :"스타트",	// 셀러허브 플랜
+                "contract"          :"계약중",	// 계약상태
+                "mainmdname"        :"나은혜",	// 메인 담당MD
+                "salespersonhp"     :"010-00-00",	// 영업 담당자 휴대폰
+                "selleradminurl"    :"https://pravs.co.kr/shop/admin_provider/login/login.php?user_id=6666666666",	// 셀러어드민 URL
+                "subselleradminurl" :"https://subadmin.sellerhub.co.kr/r/shop/admin_provider/login/login.php?m_id=6666666666&m_key="	// 서브셀러어드민URL
+                // "mobileNumber":"",
+                // "zipCode":"",
+                // "address":"",
+                // "tel":""
+            };
+
+            function popup_layer11(src, w, h) {
+                var html = '';
+
+                html    += '<div id="pop1" class="show">';
+                html	+= '	<div id="pop1_inner" class="pop1_inner" style="width:690px; height:600px; padding:0px;">';
+                html	+= '		<iframe id="popframe" src="' + src + '" style="width:100%; height:100%; margin:0px; padding:0px; border:0px;"  ></iframe>';
+                html	+= '		<div class="pop_close">';
+                html	+= '			<span class="pop_x" onclick="jQuery(\'#pop1\').remove();">닫기 X</span>';
+                html	+= '		</div>';
+                html	+= '	</div>';
+                html	+= '</div>';
+
+                if (jQuery('.container_wrap').length) {
+                    jQuery('.container_wrap').append(html);
+                } else if (jQuery('.list-wrap').length) {
+                    jQuery('.list-wrap').append(html);
+                }
+            }
+
+            function popup_layer(src, w, h) {
+                var html = '';
+
+                html    += '<div id="pop1" class="show">';
+                html	+= '	<div id="pop1_inner" class="pop1_inner" style="width:1000px; height:900px; padding:20px;">';
+                html	+= '		<iframe id="popframe" src="' + src + '" style="width:100%; height:100%; margin:0px; padding:0px; border:0px;"  ></iframe>';
+                html	+= '		<div class="pop_close">';
+                html	+= '			<span class="pop_x" onclick="jQuery(\'#pop1\').remove();">닫기 X</span>';
+                html	+= '		</div>';
+                html	+= '	</div>';
+                html	+= '</div>';
+
+                if (jQuery('.container_wrap').length) {
+                    jQuery('.container_wrap').append(html);
+                } else if (jQuery('.list-wrap').length) {
+                    jQuery('.list-wrap').append(html);
+                }
+            }
+
+            function popup_layer2(src) {
+                var html = '';
+
+                html    += '<div id="pop2" class="show">';
+                html	+= '	<div class="pop2_inner">';
+                html	+= '		<iframe id="popframe2" src="' + src + '" style="width:100%; height:100%; margin:0px; padding:0px; border:0px;"  ></iframe>';
+                html	+= '	</div>';
+                html	+= '</div>';
+
+                jQuery(".section_con").append(html);
+            }
+
+            function loadSellerTalk () {
+                var w = window;
+                if (w.ChannelIO) {
+                    return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
+                }
+                var d = window.document;
+                var ch = function() {
+                    ch.c(arguments);
+                };
+                ch.q = [];
+                ch.c = function(args) {
+                    ch.q.push(args);
+                };
+                w.ChannelIO = ch;
+                function l() {
+                    if (w.ChannelIOInitialized) {
+                        return;
+                    }
+                    w.ChannelIOInitialized = true;
+                    var s = document.createElement('script');
+                    s.type = 'text/javascript';
+                    s.async = true;
+                    s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
+                    s.charset = 'UTF-8';
+                    var x = document.getElementsByTagName('script')[0];
+                    x.parentNode.insertBefore(s, x);
+                }
+                if (document.readyState === 'complete') {
+                    l();
+                } else if (window.attachEvent) {
+                    window.attachEvent('onload', l);
+                } else {
+                    window.addEventListener('DOMContentLoaded', l, false);
+                    window.addEventListener('load', l, false);
+                }
+            }
+
+            function bootSellerTalk (settings) {
+                window.ChannelIO('onBoot', function (user) {
+                    if (user.memberId != settings.memberId) {
+                        setCookie('ch-session-'+user.channelId);
+                    }
+                });
+
+                window.ChannelIO('boot', settings);
+            }
+
+            loadSellerTalk();
+            bootSellerTalk(settings);
+
+            jQuery(document).ready(function () {
+                if (sessionStorage.getItem('sellerhub_show_helper')*1) {
+                    jQuery(".open-buttons").show();
+                    jQuery(".close-buttons").hide();
+                } else {
+                    jQuery(".open-buttons").hide();
+                    jQuery(".close-buttons").show();
+                }
+            });
+
+            jQuery(".side-close").on("click", function () {
+                jQuery(".open-buttons").hide();
+                jQuery(".close-buttons").show();
+                sessionStorage.setItem('sellerhub_show_helper', 0);
+            });
+
+            jQuery(".chk-icon").on("click", function () {
+                jQuery(".open-buttons").show();
+                jQuery(".close-buttons").hide();
+                sessionStorage.setItem('sellerhub_show_helper', 1);
+            });
+            </script>
+        </div> <!-- // container_wrap -->
+    </div> <!-- // #wrap -->
+
+    <div class="pop_basic RealTimeNews_wrap" style="display:none">
+        <div class="pop_basic_inner RealTimeNews_inner">
+            <h2 class="RealTimeNews_title con_title">알림 메시지</h2>
+            <div class="RealTimeNews_list_wrap">
+                <ul id="RealTimeNews" class="RealTimeNews"></ul>
+            </div>
+            <button type="button" class="RealTimeNews_closeBtn">
+                <img src="/shop/admin_provider/img/new_front/invalid-x.png" alt="알림숨기기버튼">
+            </button>
+        </div>
+    </div> <!-- // popup -->
+
+    <!-- 20200622 알림센터 메뉴바 -->
+    <div class="area_inform open">
+        <button type="button" id="btnInform" class="btn_inform" onclick="informMenu();">닫기</button>
+        <div class="bar_inform">
+            <ul class="inform_list">
+                <li class="on"><a href="../inform.html" target="_blank"><span class="ico_menu ico_infom">알림센터</span></a></li>
+                <li><a href="#"><span class="ico_menu ico_notice"></span>공지<span class="count_num">99</span></a></li>
+                <li><a href="#"><span class="ico_menu ico_order"></span>주문<span class="count_num">2</span></a></li>
+                <li><a href="#"><span class="ico_menu ico_product"></span>상품<span class="count_num">888</span></a></li>
+                <li><a href="#"><span class="ico_menu ico_delivery"></span>배송<span class="count_num">1</span></a></li>
+                <li><a href="#"><span class="ico_menu ico_member"></span>회원<span class="count_num">3</span></a></li>
+                <li><a href="#"><span class="ico_menu ico_question"></span>문의<span class="count_num">4</span></a></li>
+                <li><a href="#"><span class="ico_menu ico_calculate"></span>정산<span class="count_num">8</span></a></li>
+                <li><a href="#"><span class="ico_menu ico_event"></span>행사신청<span class="count_num">33</span></a></li>
+                <li><a href="#"><span class="ico_menu ico_etc"></span>기타<span class="count_num">999</span></a></li>
+            </ul>
+            <div class="wrap_tool">
+                <button type="button" class="btn_round btn-freeperiod">셀러허브 무료이용남은기간 : <em>90</em>일 <span class="txt_arr">상세보기</span></button>
+                <button type="button" class="btn_round seller-talk"><span class="ico_g ico_sellertalk"></span><span class="txt_btn">셀러<em>TALK</em> 관리자</span></button>
+                <button type="button" class="btn_round kakaotalk"><span class="ico_g ico_contact"></span><span class="txt_btn">판매자지원</span></button>
+            </div>
+        </div>
+        <button type="button" class="btn_top"><span class="ico_top">TOP</span></button>
+
+        <div class="layer_freeperiod">
+            <strong class="title_layer">셀러허브 무료이용 기간이 끝나갑니다.</strong>
+            <dl class="noti_list">
+                <dt>무료이용 남은 기간</dt>
+                <dd>
+                    <p class="count_day">357712일</p>
+                    <em>(2018-11-30~2999-12-31 종료)</em>
+                </dd>
+                <dt>필독사항</dt>
+                <dd>
+                    무료이용 기간 <em>종료 3일 전까지 월 서비스 이용료 결제용 수단을 꼭 등록</em>해주세요.
+                    미등록 시 무료이용 기간 종료 후 계정 사용이 즉시 제한됩니다.
+                </dd>
+                <dt>셀러허브 무료이용 종료 관련 안내사항</dt>
+                <dd>
+                    <ul>
+                        <li>
+                            <em class="tit_g">1.결제수단 미등록 시</em>
+                            <p>-종료 3일 전부터 등록된 상품들 순차적 자동품절 처리.</p>
+                            <p>-종료 시 계약이 일시정지 처리되어 계정 사용 제한.</p>
+                        </li>
+                        <li>
+                            <em class="tit_g">2.결제수단 등록 시</em>
+                            <p>-계정 유지 및 월 서비스 이용료 자동 결제</p>
+                        </li>
+                    </ul>    
+                </dd>
+                <dd>※ 무료이용 기간에는 결제수단을 등록해도 결제가 되지 않습니다.</dd>
+            </dl>
+            <button type="button" class="btn_closed"><span class="icon_g icon_close_w">닫기</span></button>
+        </div> <!-- // 무료기간 종료 안내 팝업 -->
+    </div>
+    <style>
+        .area_inform{position:fixed;bottom:0;left:0;min-width:1200px;width:100%;height:40px;z-index:1000;letter-spacing:-1px}
+        .area_inform .btn_inform{position:absolute;left:180px;top:0;width:40px;height:40px;border:1px solid #d4d4d4;font-size:12px;line-height:15px;background-color:#fff;color:#2e2e2e}
+        .area_inform .btn_inform::before{content:'';display:block;width:20px;height:14px;margin:6px auto 1px;background:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='20' height='14'%3e%3cpath fill='%232E2E2E' d='M9.646 2.646a.501.501 0 01.638-.057l.07.057 8 8a.501.501 0 01-.638.765l-.07-.057L10 3.707l-7.646 7.647a.501.501 0 01-.638.057l-.07-.057a.501.501 0 01-.057-.638l.057-.07 8-8z'/%3e%3c/svg%3e") 0 0 no-repeat}
+        .bar_inform{display:none;position:relative;height:39px;margin-left:220px;margin-right:16px;border-top:1px solid #d4d4d4;background-color:#f1f2f7}
+        .inform_list{overflow:hidden;padding-top:3px;padding-left:10px}
+        .inform_list li{float:left;margin-left:39px}
+        .inform_list li:first-child{margin-left:0;}
+        .inform_list li:nth-child(2){margin-left:22px;}
+        .inform_list a{display:block;position:relative;font-weight:500;font-size:12px;line-height:15px;color:#2e2e2e;text-align:center;}
+        .inform_list .on a:after{content:'';position:absolute;top:0;left:16px;width:7px;height:7px;border-radius:9px;border:1px solid #f1f2f7;background-color:#2c9eff;}
+        .inform_list .count_num{position:absolute;top:0;left:50%;min-width:6px;margin-left:3px;padding:0 3px;border-radius:11px;font-size:10px;line-height:12px;background-color:#2c9eff;color:#fff}
+        .inform_list .ico_menu{display:block;width:20px;height:20px;margin:0 auto;font-size:1px;line-height:1px;background-repeat:no-repeat;color:transparent;}
+        .inform_list .ico_infom{width:28px;height:28px;margin:5px 0;background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3e%3cpath d='M17.463 21.012l-6.9.15a3.484 3.484 0 001.017 1.866c.628.602 1.48.972 2.42.972.966 0 1.841-.392 2.475-1.025.52-.52.876-1.202.988-1.963zM14 2.5c-.558 0-1.062.236-1.418.652-.36.421-.568 1.019-.919 2.22-1.756.51-3.085 1.622-3.993 3.329-.962 1.81-1.457 4.267-1.506 7.365L4.5 18.53 4.833 21l18.667-.348-.065-2.33-1.604-2.263c.049-3.178-.39-5.681-1.343-7.535-.908-1.768-2.287-2.926-4.488-3.98 0-.566-.225-1.078-.589-1.449A1.974 1.974 0 0014 2.5z' fill='none' stroke='%23828282'/%3e%3c/svg%3e")}
+        .inform_list .ico_notice{background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3e%3cpath d='M17.162 5.019l.564.826-1.69 1.154-.564-.825zm1.335 3.386v1h-2.152v-1zm-2.55 2.296l1.875 1.025-.48.878-1.874-1.025zM12.593 3.98a.5.5 0 01.685.464v2.117l.014-.035.466.181c.925.361 1.548 1.212 1.548 2.178 0 .918-.562 1.73-1.41 2.12l-.163.067-.455.171v2.09a.5.5 0 01-.603.49l-.082-.025-4.355-1.743h-3.46a.5.5 0 01-.492-.41l-.008-.09v-.227H2.5v-4.88h1.778v-.226a.5.5 0 01.41-.492l.09-.008h3.458zm-.315 1.202L8.833 6.56v4.657l3.445 1.378V5.182zm-4.445 5.873V6.722H5.278v4.333h2.555zM4.278 7.448H3.5v2.88h.778v-2.88zm9 .146v2.58l.101-.037c.561-.213.927-.706.927-1.252 0-.496-.301-.949-.777-1.187l-.134-.059-.117-.045z' fill='%23555'/%3e%3c/svg%3e");}
+        .inform_list .ico_order{background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3e%3cpath fill='%23555' d='M11.355 3L15.5 7.014V16a1 1 0 01-1 1h-9a1 1 0 01-1-1V4a1 1 0 011-1h5.855zm-.96 1H5.5v12h9V7.889h-4.104L10.395 4zm3.538 2.889l-2.538-2.458v2.458h2.538z'/%3e%3c/svg%3e");}
+        .inform_list .ico_product{background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3e%3cpath fill='%23555' d='M10 2.5l7 3.75v7.5l-7 3.75-7-3.75v-7.5l7-3.75zM4 7.504v5.647l5.5 2.946v-5.291L4 7.504zm12 .056l-5.5 3.258v5.278L16 13.15V7.56zM9.999 3.634L4.448 6.607l5.564 3.339L15.6 6.634l-5.601-3z'/%3e%3c/svg%3e");}
+        .inform_list .ico_delivery{background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3e%3cpath fill='%23555' d='M18 3.5v10h-.95a2 2 0 11-3.466 0H7.733a2 2 0 11-3.466 0H2V9.856L4.681 6.5H7v-3h11zm-12 10a1 1 0 100 2 1 1 0 000-2zm9.317 0a1 1 0 10-.002 1.998 1 1 0 00.002-1.998zM17 4.5H8v8h9v-8zm-10 3H5.162L3 10.205V12.5h4v-5z'/%3e%3c/svg%3e");}
+        .inform_list .ico_member{background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3e%3cpath d='M10 3a3.5 3.5 0 110 7 3.5 3.5 0 010-7zm0 1a2.5 2.5 0 000 5 2.5 2.5 0 000-5zm0 6.875c2.397 0 4.238.379 5.524 1.137a3.002 3.002 0 011.47 2.386l.006.198V17H3v-2.404c0-1.062.561-2.045 1.476-2.584 1.286-.758 3.127-1.137 5.524-1.137zm0 1c-2.234 0-3.907.344-5.016.998a1.999 1.999 0 00-.977 1.56L4 14.597V16h12v-1.404a2 2 0 00-.848-1.635l-.136-.088c-1.11-.654-2.782-.998-5.016-.998z' fill='%23555'/%3e%3c/svg%3e");}
+        .inform_list .ico_question{background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3e%3cpath fill='%23555' d='M16 3a1 1 0 011 1v8.406a1 1 0 01-1 1H6.364L3 17V4a1 1 0 011-1h12zm0 1H4v10.467l1.93-2.061H16V4z'/%3e%3c/svg%3e");}
+        .inform_list .ico_calculate{background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3e%3cg fill='none' fill-rule='evenodd' transform='translate(4 2.5)'%3e%3cpath fill='%23555' fill-rule='nonzero' d='M6.18 15H1a1 1 0 01-1-1V2a1 1 0 011-1h9a1 1 0 011 1v5.462l-1-.376V2H8v2H3V2H1v12h4.281l.9 1z'/%3e%3ccircle cx='5.5' cy='1.5' r='1' fill='%23FFF' stroke='%23555'/%3e%3ccircle cx='9' cy='11.5' r='3.5' fill='%23555'/%3e%3cpath fill='%23FFF' d='M9.85 12.326l.13-.717h-.3l.17.717zM8.893 11.3h.275l-.123-.577-.152.577zm-.695 1.002l.187-.692h-.33l.143.692zM7 11.299h.472L7.142 10h.566l.285 1.3h.468l.347-1.3h.494l.313 1.3h.427l.267-1.3h.557l-.325 1.3H11v.31h-.535l-.374 1.543h-.49l-.36-1.544h-.428l-.397 1.544h-.472l-.392-1.544H7v-.31z'/%3e%3c/g%3e%3c/svg%3e");}
+        .inform_list .ico_event{background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3e%3cg fill='%23555'%3e%3cpath d='M9.959 3.519l-1.932-.945-.082-.032a.5.5 0 00-.579.247L6.359 4.687l-2.116.373-.086.022a.502.502 0 00-.323.54l.299 2.128L2.64 9.296l-.061.077a.5.5 0 00.061.617l1.493 1.545-.299 2.13-.005.087a.503.503 0 00.414.475l2.116.37 1.007 1.9.048.074a.5.5 0 00.613.141l1.932-.946 1.931.946.083.032a.5.5 0 00.579-.247l1.006-1.899 2.117-.372.085-.022a.501.501 0 00.324-.54l-.3-2.128 1.494-1.546.061-.077a.5.5 0 00-.061-.617l-1.494-1.547.3-2.127.005-.088a.5.5 0 00-.414-.474l-2.117-.372-1.006-1.899a.502.502 0 00-.662-.215l-1.93.946zm-1.937.165l1.718.84.085.033a.5.5 0 00.354-.032l1.716-.84.895 1.688.05.077c.075.095.184.16.305.181l1.881.33-.265 1.891-.005.091a.501.501 0 00.14.326l1.326 1.373-1.326 1.375-.057.071a.495.495 0 00-.078.346l.265 1.891-1.882.33-.088.025a.494.494 0 00-.267.234l-.894 1.686-1.716-.838-.086-.033a.497.497 0 00-.353.032l-1.718.84-.893-1.688-.05-.076a.506.506 0 00-.306-.182l-1.882-.331.267-1.89.004-.091a.498.498 0 00-.14-.326L3.695 9.643l1.327-1.374.058-.071a.5.5 0 00.078-.346L4.891 5.96l1.882-.33a.5.5 0 00.356-.258l.893-1.688z'/%3e%3cpath d='M11.614 7.034l.707.707-4.329 4.33-.707-.707zM7.14 6.889a1.329 1.329 0 101.976.108l-.096-.108a1.33 1.33 0 00-1.88 0zm1.113.66l.06.047a.33.33 0 11-.06-.047zm2.332 2.787a1.329 1.329 0 101.881 1.88c.52-.519.52-1.36 0-1.88a1.328 1.328 0 00-1.88 0zm1.173.706c.13.13.13.338.001.466a.33.33 0 01-.513-.406l.047-.06a.33.33 0 01.465 0z'/%3e%3c/g%3e%3c/svg%3e");}
+        .inform_list .ico_etc{background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3e%3cg fill='%23555' fill-rule='evenodd'%3e%3cpath d='M9.3 10.7h1.4V6.5H9.3zm0 2.8h1.4v-1.4H9.3z'/%3e%3cpath fill-rule='nonzero' d='M10 3a7 7 0 110 14 7 7 0 010-14zm0 1a6 6 0 100 12 6 6 0 000-12z'/%3e%3c/g%3e%3c/svg%3e");}
+
+        .area_inform .btn_top{position:fixed;bottom:0;right:16px;width:40px;height:40px;border:1px solid #d4d4d4;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.15);text-align:center}
+        .area_inform .wrap_tool{position:absolute;right:55px;top:3px}
+        .area_inform .btn_round{display:inline-block;position:relative;bottom:auto;right:auto;height:32px;padding-left:32px;margin-left:10px;border-radius:32px;font-size:12px;line-height:32px;background-color:#fff;vertical-align:top;letter-spacing:-1px}
+        .area_inform .btn_round em{font-style:normal;color:#2c9eff}
+        .area_inform .btn_round .ico_g{position:absolute;top:0;left:0;width:32px;height:32px;background-repeat:no-repeat;background-size:100% 100%;vertical-align:top}
+        .area_inform .btn_round .txt_btn{display:inline-block;margin-left:5px;padding-right:6px;vertical-align:top}
+        .area_inform .btn-freeperiod{height:28px;margin-top:2px;padding-left:10px;padding-right:5px;line-height:28px}
+        .area_inform .btn-freeperiod em{font-weight:bold;font-size:16px}
+        .area_inform .btn-freeperiod .txt_arr{position:relative;padding-right:16px;margin-left:5px;font-size:10px;color:#6c6c6c;background:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3e%3cpath fill='%236C6C6C' d='M8.681 7.641a.5.5 0 01.058.64l-.058.069-2.836 2.821a.5.5 0 01-.763-.64l.058-.069 2.48-2.467-2.48-2.466a.501.501 0 01-.06-.638l.058-.07a.502.502 0 01.638-.059l.07.058L8.68 7.64z'/%3e%3c/svg%3e") 100% 50% no-repeat;background-size:16px 16px;vertical-align:top}
+        .area_inform .ico_top{display:inline-block;width:24px;height:24px;font-size:1px;line-height:1px;background:#fff url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3e%3cpath fill='%232E2E2E' d='M12.53 4.239l5.25 5.716a.869.869 0 010 1.155c-.146.16-.338.239-.53.239s-.384-.08-.53-.24l-3.917-4.265v11.725c0 .389-.366.703-.816.703-.452 0-.817-.314-.817-.703V6.874L7.28 11.11a.708.708 0 01-1.06 0 .869.869 0 010-1.155l5.25-5.716a.707.707 0 011.06 0z'/%3e%3c/svg%3e") 50% 50% no-repeat;background-size:100% 100%;color:transparent;vertical-align:top}
+        .area_inform .ico_sellertalk{background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3e%3cg fill='none' fill-rule='evenodd'%3e%3ccircle cx='16' cy='16' r='16' fill='%234E79FF'/%3e%3cpath fill='%23FFF' d='M18.905 15.727a1.103 1.103 0 00-1.548 0l-2.118 2.1-.055.055a2.714 2.714 0 01-3.81 0 2.658 2.658 0 010-3.777l.746-.739a1.08 1.08 0 000-1.534 1.093 1.093 0 00-.774-.318c-.292 0-.567.113-.774.318l-.745.738a4.818 4.818 0 000 6.846c.952.944 2.202 1.416 3.452 1.416s2.5-.472 3.452-1.416l2.174-2.155a1.08 1.08 0 000-1.534'/%3e%3cpath fill='%23FFF' d='M13.137 16.305a1.102 1.102 0 001.547 0l2.118-2.1.056-.055a2.713 2.713 0 013.809 0 2.658 2.658 0 010 3.777l-.745.739a1.079 1.079 0 000 1.534c.207.205.482.318.774.318.292 0 .567-.113.773-.318l.745-.738a4.818 4.818 0 000-6.847 4.89 4.89 0 00-3.452-1.415c-1.25 0-2.5.472-3.452 1.415l-2.173 2.156a1.079 1.079 0 000 1.534'/%3e%3c/g%3e%3c/svg%3e")}
+        .area_inform .ico_contact{background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3e%3cg fill='none' fill-rule='evenodd'%3e%3crect width='32' height='32' fill='%232E2E2E' fill-rule='nonzero' rx='16'/%3e%3cpath fill='%23FFF' d='M21.502 9.6H10.5c-.497 0-.899.39-.899.87v10.643c0 .48.402.87.899.87h7.045c4.707 0 4.856 2.337 4.856 2.337V10.467c-.002-.479-.403-.866-.898-.867'/%3e%3cpath fill='%23D4D4D4' d='M11.84 12.16h8.32a.32.32 0 01.32.32v.16a.32.32 0 01-.32.32h-8.32a.32.32 0 01-.32-.32v-.16a.32.32 0 01.32-.32zm0 3.2h8.32a.32.32 0 01.32.32v.16a.32.32 0 01-.32.32h-8.32a.32.32 0 01-.32-.32v-.16a.32.32 0 01.32-.32zm0 3.2h8.32a.32.32 0 01.32.32v.16a.32.32 0 01-.32.32h-8.32a.32.32 0 01-.32-.32v-.16a.32.32 0 01.32-.32z'/%3e%3c/g%3e%3c/svg%3e")}
+        .area_inform.open .btn_g::before{background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='20' height='14'%3e%3cpath fill='%232E2E2E' d='M9.646 11.354a.501.501 0 00.638.057l.07-.057 8-8a.501.501 0 00-.638-.765l-.07.057L10 10.293 2.354 2.646a.501.501 0 00-.638-.057l-.07.057a.501.501 0 00-.057.638l.057.07 8 8z'/%3e%3c/svg%3e")}
+        .area_inform.open .bar_inform{display:block}
+        .area_inform.open .btn_inform::before{background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='20' height='14'%3e%3cpath fill='%232E2E2E' d='M9.646 11.354a.501.501 0 00.638.057l.07-.057 8-8a.501.501 0 00-.638-.765l-.07.057L10 10.293 2.354 2.646a.501.501 0 00-.638-.057l-.07.057a.501.501 0 00-.057.638l.057.07 8 8z'/%3e%3c/svg%3e")}
+
+        .layer_freeperiod{display:none;overflow:hidden;position:fixed;bottom:40px;right:287px;width:310px;border-radius:5px;box-shadow:4px 4px 15px 0 rgba(0,0,0,0.25);background-color:#fff;/*     opacity:0; */}
+        .layer_freeperiod .title_layer{display:block;height:50px;font-weight:bold;font-size:15px;line-height:50px;background-color:#2c9eff;color:#fff;letter-spacing:-1px;text-indent:20px}
+        .layer_freeperiod .noti_list{padding:20px;font-size:12px;line-height:18px;letter-spacing:-1px;text-align:left;color:#2e2e2e}
+        .layer_freeperiod .noti_list dt{padding-top:10px;padding-left:8px;border-top:1px solid #d3d3d3;font-weight:bold;font-size:15px;line-height:20px;background:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3e%3cdefs%3e%3cimage width='4' height='4' id='img1' href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAEAQMAAACTPww9AAAAAXNSR0IB2cksfwAAAANQTFRFLJ7/VO3KRwAAAAtJREFUeJxjYIAAAAAIAAG3WHOVAAAAAElFTkSuQmCC'/%3e%3c/defs%3e%3cstyle%3e%3c/style%3e%3cuse id='Layer 1' href='%23img1' x='0' y='0'/%3e%3c/svg%3e") 0 18px no-repeat;background-size:4px 4px;}
+        .layer_freeperiod .noti_list dt:first-child{padding-top:0;border-top:0 none;background-position-y:8px}
+        .layer_freeperiod .noti_list dd{padding:10px 0}
+        .layer_freeperiod .noti_list dd:last-child{padding-bottom:0}
+        .layer_freeperiod .noti_list .count_day{padding-bottom:2px;font-weight:bold;font-size:15px;line-height:20px;letter-spacing:0;color:#2c9eff}
+        .layer_freeperiod .noti_list em{color:#2c9eff}
+        .layer_freeperiod .noti_list li+li{margin-top:10px}
+        .layer_freeperiod .noti_list .tit_g{display:block;font-size:14px}
+        .layer_freeperiod .btn_closed{position:absolute;top:15px;right:15px;cursor:pointer}
+
+        @media screen and (max-width:1440px){
+            .area_inform .btn-freeperiod .txt_arr{display:none}
+        }
+        @media screen and (max-width:1380px){
+            .area_inform .btn_round .txt_btn{display:none}
+            .layer_freeperiod{right:57px}
+        }
+    </style>
+    <script>
+        function informMenu(){
+            var btnInform = document.getElementById("btnInform");
+
+            if (btnInform.innerHTML == "닫기"){
+                btnInform.innerHTML = "펼치기";
+                btnInform.parentElement.classList.toggle('open');
+            } else {
+                btnInform.innerHTML = "닫기";
+                btnInform.parentElement.classList.toggle('open');
+            };
+        }
+        $(function() {
+            $(".btn_top").click(function() {
+                $('html, body').animate({
+                    scrollTop :0
+                }, 400);
+                return false;
+            });
+
+            // 무료이용기간
+            $(".btn-freeperiod").on("click", function () {
+                $(".layer_freeperiod").toggleClass("show");
+                
+            });
+            $(".layer_freeperiod .btn_closed").on("click", function () {
+                $(".layer_freeperiod").removeClass("show");
+            });
+        });
+    </script>
+    <!-- // 20200622 알림센터 메뉴바 -->
+    <style>
+        .foot_layer{overflow:hidden;position:relative;padding:0 12px}
+        .foot_layer .popup_info{margin-top:8px;font-weight:500;font-size:12px;line-height:15px;color:#ea2b2b}
+        .foot_layer .btn_g{display:inline-block;height:30px;margin-left:1px;padding:0 12px;border:0 none;font-size:13px;line-height:30px;vertical-align:top}
+        .foot_layer .btn_g:first-of-type{margin-left:0}
+        .foot_layer .foot_right{margin-top:8px;font-size:1px;text-align:right;}
+        .foot_layer .foot_ab_left{position:relative;top:0;left:0}
+        .foot_layer .foot_ab_left .btn_g{box-shadow:inset 0 0 0 1px #ea2b2b;color:#ea2b2b}
+        .foot_layer .foot_ab_left .close{background-color:#606060;color:#fff;text-align:right;box-shadow:inset 0 0 0 1px #606060;float:right;}
+        .foot_layer .foot_right .btn_g{background-color:#606060;color:#fff}
+    
+        .tab_layer{position:absolute;top:100px;left:50%;margin-left:-609px}
+        .tab_layer a{display:block;position:relative;width:196px;margin-top:4px;padding:12px;font-weight:500;font-size:13px;line-height:16px;background-color:#fff;color:#2c9eff}
+        .tab_layer a p{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+        .tab_layer a:first-of-type{margin-top:0}
+        .tab_layer a.on{background-color:#2c9eff;color:#fff}
+        .tab_layer a.on:after{content:'';position:absolute;top:50%;right:-4px;width:8px;height:8px;margin-top:-4px;background-color:#2c9eff;-webkit-transform:rotate(45deg);transform:rotate(45deg)}
+    
+        .popup_provider .showContentBtn{position:absolute;top:100px;left:50%;margin-left:-609px;width:196px;padding:12px;font-weight:500;font-size:13px;line-height:16px;background-color:#fff;color:#2c9eff}
+        .popup_provider .showContentBtn.on{background-color:#2c9eff;color:#fff}
+        .popup_provider .showContentBtn.on:after{content:'';position:absolute;top:50%;right:-4px;width:8px;height:8px;margin-top:-4px;background-color:#2c9eff;-webkit-transform:rotate(45deg);transform:rotate(45deg)}
+        .popup_provider:nth-of-type(2) .showContentBtn{top:144px}
+        .popup_provider:nth-of-type(3) .showContentBtn{top:188px}
+        .popup_provider:nth-of-type(4) .showContentBtn{top:232px}
+        .popup_provider:nth-of-type(5) .showContentBtn{top:276px}
+        .popup_provider:nth-of-type(6) .showContentBtn{top:320px}
+        .popup_provider:nth-of-type(7) .showContentBtn{top:364px}
+        .popup_provider:nth-of-type(8) .showContentBtn{top:408px}
+        .popup_provider:nth-of-type(9) .showContentBtn{top:452px}
+    
+        .layer_provider{z-index:1001}
+        .layer_provider .inner_layer{width:750px;height:620px;padding-bottom:73px}
+        .layer_provider .scroll_y{height:562px;margin:0 12px;font-size:14px;overflow-y:scroll;overflow-x:scroll;background-color:#f7f7f7;}
+        .layer_provider .popup_contents{padding:10px}
+        .layer_provider ul li{list-style:none;}
+        .layer_provider .cell_date{position:relative;height:38px;padding:0 12px;font-size:14px;line-height:38px}
+        .layer_provider .btn_detail{position:absolute;top:4px;right:12px;width:94px;height:30px;font-size:13px;line-height:30px;background-color:#606060;letter-spacing:-1px;color:#fff;text-align:center}
+        .layer_provider .btn_detail:after{content:'';display:inline-block;width:5px;height:8px;margin-top:11px;;margin-left:5px;background:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='5' height='8'%3e%3cpath fill='%23FFF' d='M4.01 3.474a.501.501 0 01.058.64l-.059.069-2.835 2.821a.5.5 0 01-.764-.64l.058-.069 2.48-2.467-2.48-2.466A.5.5 0 01.41.724l.058-.07a.5.5 0 01.636-.058l.07.058 2.835 2.821z'/%3e%3c/svg%3e") 0 0 no-repeat;color:#fff;vertical-align:top}
+    </style>
+    <div id="admin_agree_179" class="layer_comm layer_provider">
+        <div class="tab_layer">
+            <a href="javascript:void(0);" class="showContentBtn"><p>상세페이지제작!? 광고컨설팅!? 셀러허브 어쩌고 저쩌고</p></a>
+            <a href="javascript:void(0);" class="showContentBtn"><p>셀러허브 입점사 대상 풀필먼트(물류어쩌고 저쩌고)</p></a>
+            <a href="javascript:void(0);" class="showContentBtn on"><p>상세페이지제작!? 광고컨설팅!? 셀러허브 어쩌고 저쩌고</p></a>
+            <a href="javascript:void(0);" class="showContentBtn"><p>셀러허브 입점사 대상 풀필먼트(물류어쩌고 저쩌고)</p></a>
+            <a href="javascript:void(0);" class="showContentBtn"><p>상세페이지제작!? 광고컨설팅!? 셀러허브 어쩌고 저쩌고</p></a>
+            <a href="javascript:void(0);" class="showContentBtn"><p>셀러허브 입점사 대상 풀필먼트(물류어쩌고 저쩌고)</p></a>
+            <a href="javascript:void(0);" class="showContentBtn"><p>상세페이지제작!? 광고컨설팅!? 셀러허브 어쩌고 저쩌고</p></a>
+            <a href="javascript:void(0);" class="showContentBtn"><p>셀러허브 입점사 대상 풀필먼트(물류어쩌고 저쩌고)</p></a>
+        </div>
+        <div class="inner_layer">
+            <div class="title_layer"><strong class="txt_ellipsis">[코로나19 관련 국제우편물류센터 배포규정에 따른 해외배송불가품목 안내]</strong></div>
+            <div class="cell_date">게시일 :2020-06-30 ~ 2020-07-30 <a href="#" class="btn_detail">자세히 보기</a></div>
+            <div class="scroll_y">
+                <div class="popup_contents"><div><b>[코로나19 관련 국제우편물류센터 배포규정에 따른 해외배송불가품목 안내]</b></div><div><br></div><div><b><font color="#ff6160">* 에탄올, 알코올, 발효주정 첨가된 모든 물품 /</font></b><b><font color="#ff6160">&nbsp;의약외품관련&nbsp; 마스크&nbsp;&nbsp;</font></b></div><div><br></div><div>(ex. 손세정제, 물티슈 마스크 등...)</div><div><br></div><div>위의 상품 취급 공급사분들은 해외에서 주문이 들어올 경우, 송장등록을 진행하지 말아 주시기 바라며,</div><div>셀러허브 CS팀 측으로 주문취소 요청 부탁드립니다.</div><div><br></div><div><b><font color="#ff6160">주문취소를 하지 않으시고 무단으로 배송을 진행하실 경우, 국제우편물류센터에서 강제 반환처리 되실수 있으며 관련 책임은 공급사 측으로 부담되십니다.&nbsp;</font></b></div><div><br></div><div>감사합니다.</div><div><br></div><div><br></div><div>국제우편물류센터 해외배송불가품목 안내 URL</div><div>https://ems.epost.go.kr/front.Introduction04.postal</div></div>
+            </div>
+            <div class="foot_layer">
+                <div class="popup_info">위 내용을 확인 하시고 자세한 사항은 영업담당자에게 문의해 주시기 바랍니다.</div>
+                <div class="foot_ab_left">
+                    <input type="button" class="btn_g" value="참여합니다" data-id="agree_items" onclick="agree_notice(1634, 179, 'Y')">
+                    <input type="button" class="btn_g" value="참여하지 않습니다" data-id="agree_items" onclick="agree_notice(1634, 179, 'N')">
+                </div>
+                <div class="foot_right">
+                    <input type="button" class="btn_g" value="오늘 하루 열지 않기" onclick="notice_close(179)">
+                    <input type="button" class="btn_g" value="닫기" onclick="jQuery('#admin_agree_179').hide();">
+                </div>
+            </div>
+            <button type="button" class="btn_close" onclick="closePopup('sample_popup');"><span class="icon_g icon_close_w">닫기</span></button>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,72 @@
+@charset "utf-8";
+
+/* common */
+
+
+.tbl_subject{overflow:hidden;text-overflow:ellipsis;white-space:normal;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;max-height:57px;text-align:left;word-wrap:break-word;}
+.goods_item strong{overflow:hidden;text-overflow:ellipsis;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;height:34px;word-wrap:break-word;}
+.ask_detail{display:none}
+.ask_detail td{position:relative;padding:34px 16px 16px;background-color:#f9f9f9}
+.tbl_contact{position:absolute;right:16px;top:8px;color:#909090;font-size:13px}
+.tbl_contact em{color:#2e2e2e}
+.ask_detail div{padding:12px 10px;border:1px solid #d1d1d1;text-align:left}
+.content_title{line-height:17px;color:#909090;font-size:13px;letter-spacing:-0.93px}
+.content_detail{display:block;margin-top:6px;line-height:18px;color:#2e2e2e;font-size:14px;letter-spacing:-1px}
+.content_detail + .content_title{margin-top:20px}
+
+/* pick_company */
+.tbl_pick tbody tr:hover{background-color:#f4faff}
+.pick_category{display:inline-block;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;max-width:300px}
+.ipt_txt{font-size:0}
+.ipt_txt span{display:inline-block;position:relative;width:197px;height:38px;padding:6px 10px;border:1px solid #c3c3c3;line-height:22px;font-size:14px;background-color:#fafafa;vertical-align:top;box-sizing:border-box}
+.ipt_txt span + span{margin-left:21px}
+.ipt_txt span + span:before{content:'';position:absolute;top:19px;left:-14px;width:5px;height:1px;background-color:#c3c3c3;vertical-align:top}
+.ipt_txt input[type='text']{width:153px;padding-right:10px;border:none;background:transparent}
+
+/* pick_goods */
+.brand_box{overflow-y:scroll;width:100%;height:92px;padding:8px;border:1px solid #c3c3c3;box-sizing:border-box}
+.brand_box input[type="checkbox"] + label{margin-right:14px;line-height:18px}
+.brand_box input[type="checkbox"] + label:before{width:16px;height:16px;margin-top:2px}
+.brand_box li{float:left;margin-bottom:12px;padding:0;border:none}
+.brand_box li:after{content:'';display:block;clear:both}
+.tbl_detail th, .tbl_detail td{padding:11px 4px 9px}
+.tbl_detail tr:hover{background-color:#f4faff}
+.desc_td input[type="checkbox"] + label{font-size:14px}
+.desc_td input[type="checkbox"] + label{margin-right:28px}
+.shop_price{max-width:104px;padding:5px 5px 7px 4px;border:1px solid #c3c3c3;line-height:16px;font-size:14px;background-color:#fafafa;text-align:right;vertical-align:top;box-sizing:border-box}
+.tool_wrap{font-size:0}
+.tool_wrap button{float:left;width:187px;height:38px;margin-left:0 !important;margin-right:8px}
+.tit_detail{line-height:153px}
+.tit_detail.detail_type2{line-height:191px}
+input[type="text"] + .unit_select{margin-left:0}
+.desc_td.bd_bt{border-bottom:1px solid #d1d1d1}
+.area_box .desc_detail1{padding:15px 16px;line-height:25px;}
+.area_box input[type="radio"] + label{height:25px;line-height:26px;font-size:14px}
+.area_box input[type="radio"] + label:before{top:2px;margin-right:4px}
+
+.area_box input[type="radio"]:checked + label:after{top:13px}
+.area_box .desc_detail2{padding:8px 16px 15px;line-height:28px}
+.desc_detail2 .shop_price{background-color:#fff}
+.desc_detail2 .unit_select:after{right:5px}
+.desc_detail2 p{line-height:30px;margin-top:8px}
+.desc_detail2 select{height:30px;padding-left:5px;line-height:28px}
+.desc_detail2 span{line-height:18px}
+.unit_select.select_type1{width:56px;height:28px;background-color:#fafafa}
+.unit_select.select_type2{width:77px;height:28px;background-color:#fafafa}
+.unit_select.select_type3{width:116px;height:28px;background-color:#fafafa}
+
+/* hubcash */
+.cash_detail{position:relative;text-align:left}
+.cash_detail span{display:inline-block;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;width:100%;width:825px}
+.cash_detail .order_detail{position:absolute;right:41px;top:-5px}
+.tab_type2 input[type="radio"]:checked + label{font-weight:bold}
+.btn_bottom button{width:180px;height:38px;margin-top:8px;padding:0 6px;line-height:36px}
+.period_type1 .cell_radio{margin-top:6px}
+.period_type1 .cell_radio + .cell_radio{margin-right:28px}
+.hubcash_notice{padding:16px 15px}
+.hubcash_notice span{display:block;line-height:22px;color:#ea2b2b;font-size:13px}
+#withdraw_list .cell_total{margin-top:24px}
+#withdraw_list .tool_wrap{top:122px}
+
+/* dome_list */
+.bg_check{background-color:#f4faff}

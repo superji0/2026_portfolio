@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="robots" content="index,follow">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes">
+    <meta name="naver-site-verification" content="c48015d1e12671a3f6b18c2fa440950534fcdb63">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="셀러허브|입점신청">
+    <meta property="og:description" content="셀러허브 입점신청하기">
+    <meta property="og:image" content="https://www.sellerhub.co.kr/img/icon-sellerhub-logo3.png?v=1.0">
+    <meta property="og:url" content="http://admin.sellerhub.co.kr/">
+    <title>셀러허브 관리자</title>
+    <!--<link rel="shortcut icon" href="/shop/admin_provider/img/favicon.ico">-->
+    <link rel="icon" href="https://admin.sellerhub.co.kr/shop/admin_provider/new_favicon2.ico">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/shop/admin_provider/jquery-ui.css">
+    <link rel="stylesheet" href="./css/inform.css">
+
+    <script type="text/javascript" src="/shop/admin_provider/jquery-1.8.3.min.js"></script>
+    <script src="/shop/admin_provider/jquery-ui.js"></script>
+    <!--[if lte IE 8]>
+        <script src="../poly-checked.min.js"></script> <![endif]-->
+    <script type="text/javascript" src="https://pravs.co.kr/shop/admin_provider/common.js?version=1591235789"></script>
+    <script type="text/javascript" src="https://pravs.co.kr/shop/admin_provider/custom.js?version=1.10"></script>
+    <script>
+        var client_id = 1634;
+        function read_info(cate, idx, link) {
+            $.ajax({
+                url: '/shop/admin_provider/noti.json.php'
+                , type: 'post'
+                , data: {'cate': cate, 'idx': idx}
+                , success: function (data) {
+                    location.href = link;
+                }
+                , error: function (request, status, error) {
+                    console.log(request);
+                }
+            });
+            return false;
+        }
+
+        function init_info() {
+            $.ajax({
+                url: '/shop/admin_provider/header_info.php'
+                , type: 'post'
+                , dataType: 'html'
+                , success: function (data) {
+                    $(".news_list").append(data);
+                }
+                , error: function (request, status, error) {
+                    console.log(request);
+                }
+            });
+        }
+
+        $(function () {
+            $("#sdate, .ssdate").datepicker({
+                numberOfMonths: 1,
+                dateFormat: 'yymmdd',
+                changeMonth: true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
+                changeYear: true, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
+                nextText: '다음 달', // next 아이콘의 툴팁.
+                prevText: '이전 달', // prev 아이콘의 툴팁.
+                numberOfMonths: [1, 1], // 한번에 얼마나 많은 월을 표시할것인가. [2,3] 일 경우, 2(행) x 3(열) = 6개의 월을 표시한다.
+                showAnim: "slide", //애니메이션을 적용한다.
+                showMonthAfterYear: true, // 월, 년순의 셀렉트 박스를 년,월 순으로 바꿔준다.
+                dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], // 요일의 한글 형식.
+                monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'], // 월의 한글 형식.
+                onClose: function (selectedDate) {
+                    $("#edate, .eedate").datepicker("option", "minDate", selectedDate);
+                }
+            });
+
+            $("#edate, .eedate").datepicker({
+                numberOfMonths: 1,
+                dateFormat: 'yymmdd',
+                changeMonth: true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
+                changeYear: true, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
+                nextText: '다음 달', // next 아이콘의 툴팁.
+                prevText: '이전 달', // prev 아이콘의 툴팁.
+                numberOfMonths: [1, 1], // 한번에 얼마나 많은 월을 표시할것인가. [2,3] 일 경우, 2(행) x 3(열) = 6개의 월을 표시한다.
+                showAnim: "slide", //애니메이션을 적용한다.
+                showMonthAfterYear: true, // 월, 년순의 셀렉트 박스를 년,월 순으로 바꿔준다.
+                dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], // 요일의 한글 형식.
+                monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'], // 월의 한글 형식.
+                onClose: function (selectedDate) {
+                    $("#sdate, .ssdate").datepicker("option", "maxDate", selectedDate);
+                }
+            });
+
+            // 최초 실행 함수
+            init();
+        });
+
+        function init(){
+            // init_cafe24_chk();
+                    }
+
+        //카페24 연동 해제 체크
+        function init_cafe24_chk(){
+            $.ajax({
+                  url : '../chk.cafe24.php'
+                , type : 'post'
+                , beforeSend : function() {
+                    $('body').css('cursor', 'wait');
+                }
+                , dataType:"json"
+                , success : function(data) {
+                    if(data['bool'] == 'false'){
+                        location.replace('/shop/admin_provider/member/chk.cafe24.php');
+                    }
+                }
+                , error : function(request, status, error) {
+                    console.log("error forward : " + request);
+                }
+                , complete : function() {
+                    $('body').css('cursor', 'auto');
+                }
+            });
+        }
+
+        //서브어드민 계정상태 체크
+        function chk_subAdminStatus() {
+            $.ajax({
+                url: '../chk_subAdminStatus.php'
+                , type: 'post'
+                , beforeSend: function () {
+                    $('body').css('cursor', 'wait');
+                }
+                , dataType: "json"
+                , success: function (data) {
+
+                    if (data['status'] == 'P') {
+                        var pages = location.pathname.indexOf("/goods/");
+                        if (pages > -1) {
+                            window.alert(data['msg_goods']);
+                            location.replace('/shop/admin_provider/brandSet/brand_cfg_set_v2.php');
+                        } else {
+                            window.alert(data['msg_intro']);
+                        }
+                    }
+                }
+                , error: function (request, status, error) {
+                    console.log("error forward : " + request);
+                }
+                , complete: function () {
+                    $('body').css('cursor', 'auto');
+                }
+            });
+        }
+
+    </script>
+    <style>
+        .ui-datepicker {
+            font-size: 14px;
+        }
+        .container_wrap{margin-top: 20px; background-color: transparent;}
+    </style>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5NZXJJ3');</script>
+</head>
+<body>
+    <div id="sellerhubWrap" class="type_inform">
+        <div id="sellerhubHead" class="header">
+            <h1 id="logo"><a href="/"><img src="img/sh-logo-w.svg" class="img_block" alt="셀러허브"></a></h1>
+        </div>
+        <div id="sellerhubContent" class="cont_inform">
+            <h2 class="title_inform"><em class="emph_g">업체명은가변적입니다아아아아앙</em>님의 알림센터</h2>
+            <div class="menu_wrap">
+                <h3 class="screen_out">알람센터 메뉴</h3>
+                <div class="wrap_button">
+                    <button type="button" id="informAll" class="btn_sort active">전체 <span class="lab_count">999</span></button>
+                    <button type="button" id="informUncon" class="btn_sort">안읽음 <span class="lab_count">999</span></button>
+                </div>
+                <ul class="list_menu">
+                    <li><a href="#">공지 <span class="lab_count">8</span></a></li>
+                    <li><a href="#" class="on">주문 <span class="lab_count">999</span></a></li>
+                    <li><a href="#">상품</a></li>
+                    <li><a href="#">배송 <span class="lab_count">99</span></a></li>
+                    <li><a href="#">회원</a></li>
+                    <li><a href="#">문의</a></li>
+                    <li><a href="#">정산</a></li>
+                    <li><a href="#">행사신청</a></li>
+                    <li><a href="#">기타</a></li>
+                </ul>
+            </div>
+            <div class="content_wrap">
+                <div class="box_g box_search">
+                    <h3 class="screen_out">검색조건</h3>
+                    <div class="area_search">
+                        <strong class="tit_area">알람분류</strong>
+                        <div class="cell_form cell_select">
+                            <select name="cate" class="sel_inform _01">
+                                <option value="all"> 전체</option>
+                                <option value="member" selected>회원</option>
+                                <option value="order">주문</option>
+                                <option value="goods">상품</option>
+                            </select>
+                        </div>
+                        <div class="cell_form cell_select">
+                            <select name="cate" class="sel_inform _01">
+                                <option value="all"> 전체</option>
+                                <option value="member" selected>회원가입</option>
+                                <option value="order">주문</option>
+                                <option value="goods">상품</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="area_search">
+                        <strong class="tit_area ls_06">수신일</strong>
+                        <div class="cell_form cell_date"><input type="text" name="regdt[]" id="sdate" class="date-input" value="20200622" title="수신일 시작" autocomplete="off"></div>
+                        <div class="cell_form cell_date"><input type="text" name="regdt[]" id="edate" class="date-input" value="20200622" title="수신일 끝" autocomplete="off"></div>
+                        <span class="date_qlist">
+                            <button type="button" onclick="setDate('regdt[]',20200622,20200622)" class="date-btn click-style">오늘</button>
+                            <button type="button" onclick="setDate('regdt[]',20200616,20200622)" class="date-btn">일주일</button>
+                            <button type="button" onclick="setDate('regdt[]',20200609,20200622)" class="date-btn">15일</button>
+                            <button type="button" onclick="setDate('regdt[]',20200523,20200622)" class="date-btn">1개월</button>
+                            <button type="button" onclick="setDate('regdt[]',20200423,20200622)" class="date-btn">2개월</button>
+                            <button type="button" onclick="setDate('regdt[]','20181130','20200622')" class="date-btn">전체</button>
+                        </span>
+                    </div>
+                    <div class="area_search">
+                        <strong class="tit_area ls_26">검색</strong>
+                        <div class="cell_form cell_select">
+                            <select name="cate" class="sel_inform _01">
+                                <option value="all"> 전체</option>
+                                <option value="member" selected>알림제목</option>
+                                <option value="order">주문</option>
+                                <option value="goods">상품</option>
+                            </select>
+                        </div>
+                        <div class="cell_form cell_text"><input type="text" title="검색어 입력"></div>
+                    </div>
+                    <div class="wrap_button">
+                        <button type="button" class="btn_comm active">검색</button>
+                        <button type="button" class="btn_comm">초기화</button>
+                    </div>
+                </div>
+                <strong class="result_search">[TOTAL : 10개 / 검색 3개]</strong>
+                <div class="box_g box_timeline">
+                    <h3 class="screen_out">검색결과</h3>
+                    <ul class="list_timeline ">
+                        <li>
+                            <strong class="tit_date">2020-05-21</strong>
+                            <div class="item_inform">
+                                <p class="inform_state"><span class="txt_date">수신 : 11:15:10</span><button type="button" class="chk_confirm">읽음처리하기</button></p>
+                                <strong class="inform_cate"><span>상품</span><span>상품연동</span></strong>
+                                <p class="state_text">[공급사명][상품코드][브랜드명][상품명]의 승인을 [실행일]에 요청하였습니다.</p>
+                            </div>
+                            <div class="item_inform">
+                                <p class="inform_state done"><span class="txt_date">수신 : 11:15:10</span><span class="chk_confirm">읽음 : 11:30:10</span></p> <!-- 읽음처리하기 클릭시 inform_state 에 done 믈래스 추가되고 chk_confirm 버튼은 span으로 바뀜 -->
+                                <strong class="inform_cate"><span>상품</span><span>상품연동</span></strong>
+                                <p class="state_text">[공급사명][상품코드][브랜드명][상품명]의 승인을 [실행일]에 요청하였습니다.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <strong class="tit_date">2020-05-21</strong>
+                            <div class="item_inform">
+                                <p class="inform_state"><span class="txt_date">수신 : 11:15:10</span><button type="button" class="chk_confirm">읽음처리하기</button></p>
+                                <strong class="inform_cate"><span>상품</span><span>상품연동</span></strong>
+                                <p class="state_text">[공급사명][상품코드][브랜드명][상품명]의 승인을 [실행일]에 요청하였습니다.</p>
+                            </div>
+                            <div class="item_inform">
+                                <p class="inform_state done"><span class="txt_date">수신 : 11:15:10</span><span class="chk_confirm">읽음 : 11:30:10</span></p> <!-- 읽음처리하기 클릭시 inform_state 에 done 믈래스 추가되고 chk_confirm 버튼은 span으로 바뀜 -->
+                                <strong class="inform_cate"><span>상품</span><span>상품연동</span></strong>
+                                <p class="state_text">[공급사명][상품코드][브랜드명][상품명]의 승인을 [실행일]에 요청하였습니다.</p>
+                            </div>
+                            <div class="item_inform">
+                                <p class="inform_state done"><span class="txt_date">수신 : 11:15:10</span><span class="chk_confirm">읽음 : 11:30:10</span></p> <!-- 읽음처리하기 클릭시 inform_state 에 done 믈래스 추가되고 chk_confirm 버튼은 span으로 바뀜 -->
+                                <strong class="inform_cate"><span>상품</span><span>상품연동</span></strong>
+                                <p class="state_text">[공급사명][상품코드][브랜드명][상품명]의 승인을 [실행일]에 요청하였습니다.</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="wrap_tool">
+                        <button type="button" class="btn_read">모두 읽음 처리</button>
+                        <button type="button" class="btn_reload"><span class="icon_reload">새로고침</span></button>
+                    </div>
+                </div>
+
+                <div class="box_g box_timeline" style="margin-top:50px"> <!-- 임의 margin 값 : 개발시 삭제 필요-->
+                    <h3 class="screen_out">검색결과</h3>
+                    <div class="result_blank ">수신된 알림이 없습니다.</div> <!-- 수신된 알람 없을때 -->
+                    <div class="wrap_tool">
+                        <button type="button" class="btn_read disabled">모두 읽음 처리</button> <!-- 읽음 처리할게 없을때 -->
+                        <button type="button" class="btn_reload"><span class="icon_reload">새로고침</span></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="wrap_tool">
+            <button type="button" class="btn_oval seller-talk"><span class="ico_sellertalk">셀러TALK 관리자</span></button>
+            <button type="button" class="btn_oval kakaotalk"><span class="ico_contact">판매자지원</span></button>
+            <button type="button" class="btn_oval btn_top"><span class="ico_top">TOP</span></button>
+        </div>
+        <p class="txt_copyright">Copyright ⓒ 셀러허브. All rights reserved.</p>
+    </div>
+    <script>
+    $(function () {
+        $("#informAll").on("click", function(){
+            $(".btn_sort").removeClass("active");
+            $(this).addClass("active"); 
+        });
+        $("#informUncon").on("click", function(){
+            $(".btn_sort").removeClass("active");
+            $(this).addClass("active"); 
+        });
+
+        $(".btn_top").click(function() {
+            $('html, body').animate({
+                scrollTop : 0
+            }, 400);
+            return false;
+        });
+
+        $('#sdate, #edate').on('click', function(e) {
+            e.preventDefault();
+            $(this).attr("autocomplete", "off");  
+        });
+
+            //기간선택 버튼 스타일
+        $(".date-btn:first").addClass("click-style");
+        $(".date-btn").on("click",function(){
+            $(".date-btn").removeClass("click-style");
+            $(this).addClass("click-style");
+        });
+    });
+    </script>
+</body>
+</html>

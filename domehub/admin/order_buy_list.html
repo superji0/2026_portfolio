@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes">
+    <title>셀러허브 관리자</title>
+    <link rel="stylesheet" type="text/css" href="/shop/admin_provider/common.css">
+
+    <script src="/global/global_custom.js"></script>
+    <link rel="stylesheet" href="/shop/admin_provider/jquery-ui.css">
+    <script type="text/javascript" src="/shop/admin_provider/jquery-1.8.3.min.js"></script>
+    <!--[if lte IE 8]>
+    <script src="../poly-checked.min.js"></script> <![endif]-->
+    <script type="text/javascript" src="/shop/admin_provider/common.js"></script>
+    <script type="text/javascript" src="/shop/admin_provider/custom.js"></script>
+    <script src="/shop/admin_provider/jquery-ui.js"></script>
+    <script>
+        $( document ).ready(function() {
+            if (navigator.userAgent.indexOf('Mac OS X') != -1) {
+                $("body").addClass("mac");
+            } else {
+                $("body").addClass("pc");
+            }
+
+            $('.lnb-tab li a').click(function(){
+                var tab_id = $(this).attr('data-tab');
+
+                $('.lnb-tab li').removeClass('on');
+                $('.lnb_content').removeClass('on');
+
+                $(this).parent().addClass('on');
+                $("#"+tab_id).addClass('on');
+            });
+            $(".sub_arrow").click(function () {
+                $(this).toggleClass('on');
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="header" class="type_selleradmin">
+    <h1 class="logo"><a href="/shop/admin_provider/"><img src="/shop/admin_provider/img/common/logo.png" alt="로고"></a></h1>
+    <div id="gnb" class="gnb">
+        <ul class="gnb-list">
+            <li><a href="../basic/dashboard.php">기본관리</a></li>
+            <li><a href="../order/list_v2.php?mode=group&amp;first=1">주문</a></li>
+            <li><a href="../calc/list.done.php">정산</a></li>
+            <li><a href="../goods/list_v2.php">상품</a></li>
+            <li><a href="../board/provider_bbs_list_v2.php?bid=notice">게시판</a></li>
+            <li class=" additional_service_menu"><a href="/shop/admin_provider/linkage/linkage_state.php">연동현황</a></li>
+            <li><a href="../log/stat.sale_v2.php">통계데이타</a></li>
+            <li><a href="/shop/admin_provider/eventRequest/list.php">★ 행사신청</a></li>
+            <li><a href="#">서비스 이용료 결제관리</a></li>
+            <li><a href="#">개별연동</a></li>
+            <li><a href="#">부가서비스</a></li>
+            <li class="gnb_on"><a href="#">도매서비스</a></li>
+        </ul>
+        <ul class="side-list">
+            <li>
+                <button type="button" id="btnCollect" class="btn_collect ">상품<span class="txt_en">DB</span> 수집</button>
+                <div class="box_collect">
+                    <a href="<?= $gnb_link['6pm']?>" target="_blank">6PM 상품DB 수집</a>
+                    <a href="<?= $gnb_link['godo5'] ?>" target="_blank">고도몰5 상품DB 수집</a>
+                    <a href="<?= $gnb_link['enamoo'] ?>" target="_blank">이나무 상품DB 수집</a>
+                    <a href="<?= $gnb_link['sixshop'] ?>" target="_blank">SixShop 상품DB 수집</a>
+                    <a href="<?= $gnb_link['smartstore'] ?>" target="_blank">SmartStore 상품DB 수집</a>
+                    <a href="<?= $gnb_link['cafe24'] ?>" target="_blank">카페24 상품DB 수집</a>
+                    <a href="<?= $gnb_link['imweb'] ?>" target="_blank">아임웹 상품DB 수집</a>
+                </div>
+            </li>
+            <li><a href="https://www.sellerdeal.co.kr" class="shop_sellerdeal" target="_blank"><span class="icon_g icon_sellerdeal"></span></a></li>
+            <li><a href="https://<?=$_SERVER['HTTP_HOST']?>/shop/main/index.php" target="_blank"><span class="ls_2">셀러 전용 폐쇄형 복지몰</span><span class="shop_sellerhub">셀러허브샵</span></a></li>
+            <li><a href="javascript:void(0)" class="p_news on"><span class="icon_noti">알림보기</span><span class="news_count"></span></a></li>
+            <li>
+                <button type="button" class="sub_menu_btn"><span class="icon_profile">메뉴보기</span></button>
+                <div class="box_userinfo">
+                    <div class="frame_thumb">
+                        <span class="icon_profile"><img src="/shop/admin_provider/imgView.php?sno=22933&amp;type=3" alt="프로필사진"></span>
+                        <a href="/shop/admin_provider/basic/basic_set_2_v2.php" class="btn_revision">사진변경</a>
+                    </div>
+                    <strong class="id_wrap"><a href="#">올리고소프트</a></strong>
+                    <a href="../../member/logout.php?referer=../admin_provider/login/login.php" class="btn_logout">로그아웃</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="lnb">
+        <ul class="lnb-tab">
+            <li class="on" ><a href="#order" data-tab="lnb_dome_buy">구매</a></li>
+            <li><a href="#cancel" data-tab="lnb_dome_sale">판매</a></li>
+        </ul>
+        <ul id="lnb_dome_buy" class="lnb-list lnb_content on">
+            <li>
+                <a href="#" class="sub_arrow on">상품관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="dome_pool.html">도매상품 POOL</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">구매관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="order_buy_list.html" class="now_on">구매리스트</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">엑셀일괄주문</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="excel_order.html">엑셀 상품주문</a></li>
+                    <li><a href="excel_order_state.html">엑셀 상품주문현황</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">관심</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="pick_company.html">찜한 업체</a></li>
+                    <li><a href="pick_goods.html">찜한 상품</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">문의</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="ask_product.html">상품문의</a></li>
+                    <li><a href="ask_oto.html">1:1 문의</a></li>
+                    <li><a href="ask_seller.html">판매자에게 문의</a></li>
+                    <li><a href="??.html">자주하는 질문과 답변 (FAQ)</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul id="lnb_dome_sale" class="lnb-list lnb_content">
+            <li>
+                <a href="#" class="sub_arrow on">상품관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="dome_pool.html">도매상품 POOL</a></li>
+                    <li><a href="dome_list.html">도매 판매 상품리스트</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">판매관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="order__list.html">판매리스트</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">캐쉬</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="hubcash.html">허브캐쉬</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">문의</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="ask_product.html">상품문의</a></li>
+                    <li><a href="ask_oto.html">1:1 문의</a></li>
+                    <li><a href="ask_seller.html">판매자에게 문의</a></li>
+                    <li><a href="??.html">자주하는 질문과 답변 (FAQ)</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">내정보</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="manage.html">도매신청 관리</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div><!-- // header -->
+
+<div id="wrap">
+    <div class="container_wrap">
+        <!-- 도매허브 본문 시작 -->
+        <link rel="stylesheet" type="text/css" href="/shop/admin_provider/style.order.css">
+        <h2 class="screen_out">도매허브</h2>
+        <h3 class="title_section">구매 주문리스트</h3>
+        <ul class="middle-tab tab_rate">
+            <li class="on" ><a href="#order" data-tab="order_list">주문 리스트</a></li>
+            <li><a href="#cancel" data-tab="cancel_list">주문취소 리스트</a></li>
+            <li><a href="#regoods" data-tab="regoods_list">반품접수 리스트</a></li>
+            <li><a href="#exchange" data-tab="exchange_list">교환접수 리스트</a></li>
+            <li><a href="#exchangeDone" data-tab="exchangeDone_list">교환수거완료 리스트</a></li>
+        </ul>
+        <div id="order_list" class="tab_content tab_type2 on">
+            <div class="section_g section_top">
+                <ul class="list_form">
+                    <li>
+                        <strong class="tit_form">주문검색</strong>
+                        <div class="unit_select_txt">
+                            <label for="skey1" class="blind">주문 검색 옵션</label>
+                            <select name="skey" id="skey1">
+                                <option value="all">통합검색</option>
+                                <option value="goi.ordno">주문번호</option>
+                                <option value="goi.outapi_prodord_id">제휴몰주문번호</option>
+                                <option value="go.nameOrder">주문자명</option>
+                                <option value="gg.goodsnm">상품명</option>
+                            </select>
+                            <label for="sword1" class="blind">주문 검색 입력창</label>
+                            <input type="text" id="sword1" name="sword" placeholder="검색어를 입력해주세요" value="">
+                        </div>
+                    </li>
+                    <li>
+                        <strong class="tit_form">상품검색 (선택)</strong>
+                        <div class="cell_check">
+                            <input type="radio" name="bundle_deli_cnt" id="bundle_deli_cnt_0" value="0" checked="">
+                            <label for="bundle_deli_cnt_0">전체</label>
+                            <input type="radio" name="bundle_deli_cnt" id="bundle_deli_cnt_1" value="1">
+                            <label for="bundle_deli_cnt_1">합포배송 주문</label>
+                        </div>
+                        <div class="unit_select_txt">
+                            <label for="skey1" class="blind">주문 검색 옵션</label>
+                            <select name="skey" title="검색 옵션">
+                                <option value="goodsnm">상품명</option>
+                                <option value="optionnm">옵션명</option>
+                                <option value="goods_code">상품코드</option>
+                                <option value="option_code">옵션코드</option>
+                                <option value="goods_barcode">바코드번호</option>
+                            </select>
+                            <label for="sword2" class="blind">주문 검색 입력창</label>
+                            <input type="text" id="sword2" name="sword" placeholder="검색어를 입력해주세요" value="">
+                        </div>
+                    </li>
+                    <li>
+                        <strong class="tit_form">주문상태
+                            <div class="cell_check">
+                                <input type="checkbox" id="step2false" name="step2false" value="Y">
+                                <label for="step2false" class="lab_16">정상주문만 조회</label>
+                            </div>
+                        </strong>
+                        <div class="item_put">
+                            <input type="checkbox" name="step[]" value="1" id="ex_chk_0"><label for="ex_chk_0">입금확인</label>
+                            <input type="checkbox" name="step[]" value="2" id="ex_chk_1"><label for="ex_chk_1">배송준비중</label>
+                            <input type="checkbox" name="step[]" value="3" id="ex_chk_2"><label for="ex_chk_2">배송중</label>
+                            <input type="checkbox" name="step[]" value="4" id="ex_chk_3"><label for="ex_chk_3">배송완료</label>
+                            <input type="checkbox" name="step[]" value="5" id="ex_chk_4"><label for="ex_chk_4">구매확정</label>
+
+                            <input type="checkbox" name="step2[]" value="2" id="ex_chk_9" disabled><label for="ex_chk_9">환불관련</label>
+                            <input type="checkbox" name="step2[]" value="3" id="ex_chk_10" disabled><label for="ex_chk_10">반품관련</label>
+                            <input type="checkbox" name="step2[]" value="60" id="ex_chk_11" disabled><label for="ex_chk_11">교환관련</label> &nbsp;
+                        </div>
+                    </li>
+                    <li>
+                        <strong class="tit_form">처리일자</strong>
+                        <div class="cell_g">
+							<input type="radio" name="dtkind" value="bcdt" id="od_rd1">
+							<label for="od_rd1">구매확정일</label>
+							<input type="radio" name="dtkind" value="ccdt" id="od_rd2">
+							<label for="od_rd2">취소확정일</label>
+							<input type="radio" name="dtkind" value="orddt" checked="" id="od_rd3">
+							<label for="od_rd3">주문일</label>
+							<input type="radio" name="dtkind" value="cdt" id="od_rd4">
+							<label for="od_rd4">결제확인일</label>
+							<input type="radio" name="dtkind" value="ddt" id="od_rd5">
+							<label for="od_rd5">배송일</label>
+							<input type="radio" name="dtkind" value="dcdt" id="od_rd6">
+							<label for="od_rd6">배송완료일</label>
+						</div>
+                        <div class="cell_period mt15">
+                            <span class="inp_date">
+                                <label for="sdate" class="blind">시작날짜</label>
+                                <input type="text" name="regdt[]" id="sdate" value="20200924" autocomplete="off">
+                            </span>
+                            <span class="inp_date">
+                                <label for="edate" class="blind">끝날짜</label>
+                                <input type="text" id="edate" name="regdt[]" value="20200924" autocomplete="off">
+                            </span>
+                            <div class="date_qlist">
+                                <button type="button" onclick="setDate('regdt[]',20200924,20200924)" class="btn_date choice_date">오늘</button>
+                                <button type="button" onclick="setDate('regdt[]',20200917,20200924)" class="btn_date">일주일</button>
+                                <button type="button" onclick="setDate('regdt[]',20200909,20200924)" class="btn_date">15일</button>
+                                <button type="button" onclick="setDate('regdt[]',20200824,20200924)" class="btn_date">한 달</button>
+                                <button type="button" onclick="setDate('regdt[]',20200724,20200924)" class="btn_date">두 달</button>
+                                <button type="button" onclick="setDate('regdt[]')" class="btn_date">전체</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="wrap_button">
+                    <button type="button" class="btn_g">초기화</button>
+                    <button type="submit" class="btn_g active">검색</button>
+                </div>
+            </div>
+            <div class="section_g section_info">
+                <strong class="f_red">필독사항</strong>
+                <ul class="f_red mt10">
+                    <li>- ★2019년 9월 16일부터 발송예정일 입력이 의무화되었습니다.</li>
+                    <li>- 발송예정일을 입력 후 배송상태 변경을 클릭 후, 배송준비중으로 주문상태를 변경해주세요.</li>
+                    <li>- 주문일로부터 3영업일 이내 발송이 불가한 주문은 배송상태를 "발송지연 예고"로 선택 후 발송예정일을 입력해주세요.</li>
+                </ul>
+            </div>
+            <div class="section_g section_detail">
+                <h3 class="title_sub">배송준비중</h3>
+                <div class="box_tbl scroll_x">
+                    <table class="tbl_comm tbl_detail" style="min-width:1218px">
+                        <caption class="blind">배송준비중 주문목록표</caption>
+                        <colgroup>
+                            <col class="col_03">
+                            <col class="col_10"> <!-- 주문일시/주문번호 -->
+                            <col class="col_08">  <!-- 판매업체 -->
+                            <col class="col_05">  <!-- 주문자 -->
+                            <col class="col_05">  <!-- 받는분 -->
+                            <col class="col_07">  <!-- 결제방법 -->
+                            <col class="col_auto"> <!-- 주문상품 -->
+                            <col class="col_07"> <!-- 수량 -->
+                            <col class="col_07"> <!-- 도매가 -->
+                            <col class="col_07"> <!-- 배송비 -->
+                            <col class="col_08"> <!-- 답변여부 -->
+                            <col class="col_08"> <!-- 배송상태 -->
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="chkAll">
+                                    <label for="chkAll"></label>
+                                </th>
+                                <th>주문일시 / 주문번호</th>
+                                <th>판매업체</th>
+                                <th>주문자</th>
+                                <th>받는분</th>
+                                <th>결제방법</th>
+                                <th>주문상품</th>
+                                <th>수량</th>
+                                <th>도매가</th>
+                                <th>배송비</th>
+                                <th>답변여부</th>
+                                <th>배송상태</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" id="prd_01" name="goodsno[]" value="" />
+                                    <label for="prd_01" class="la_click "></label>
+                                </td>
+                                <td >
+                                    <span class="goods_infoNum">
+                                        <span>2020-07-24</span>
+                                        <span>1595568856421</span> 
+                                        <a href="#" class="btn_reference" target="_blank">새창</a>
+                                    </span>
+                                </td>
+                                <td>힘차고 단단한 아침</td>
+                                <td>홍길동</td>
+                                <td>홍길동</td>
+                                <td>허브캐쉬</td>
+                                <td>
+                                    <div class="goods_item">
+                                        <span class="img_item"><img src="http://i.lately.co.kr/8/2003/09/7712883_700_700.jpg" class="img_block" alt=""></span>
+                                        주문상품번호 : <span class="num_g">2016520</span>
+                                        <strong>[셀러허브가이드] [셀러허브가이드</strong>
+                                        <span>옵션 23호 수량 1개</span>
+                                    </div>
+                                </td>
+                                <td>99,999,999</td>
+                                <td>99,999,999</td>
+                                <td>99,999,999</td>
+                                <td>
+                                    <div class="mb4">입금확인</div>
+                                    <a href="#none" class="btn_h30 empty">주문 취소</a>
+                                </td>
+                                <td>
+                                    <div class="mb4">배송준비중</div>
+                                    <a href="#none" class="btn_h30">배송추적</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" id="prd_02" name="goodsno[]" value="" />
+                                    <label for="prd_02" class="la_click "></label>
+                                </td>
+                                <td >
+                                    <span class="goods_infoNum">
+                                        <span>2020-07-24</span>
+                                        <span>1595568856421</span> 
+                                        <a href="#" class="btn_reference" target="_blank">새창</a>
+                                    </span>
+                                </td>
+                                <td>힘차고 단단한 아침</td>
+                                <td>홍길동</td>
+                                <td>홍길동</td>
+                                <td>허브캐쉬</td>
+                                <td>
+                                    <div class="goods_item">
+                                        <span class="img_item"><img src="http://i.lately.co.kr/8/2003/09/7712883_700_700.jpg" class="img_block" alt=""></span>
+                                        주문상품번호 : <span class="num_g">2016520</span>
+                                        <strong>[셀러허브가이드] [셀러허브가이드</strong>
+                                        <span>옵션 23호 수량 1개</span>
+                                    </div>
+                                </td>
+                                <td>99,999,999</td>
+                                <td>99,999,999</td>
+                                <td>99,999,999</td>
+                                <td>
+                                    <div class="mb4">입금확인</div>
+                                    <a href="#none" class="btn_h30 empty">주문 취소</a>
+                                </td>
+                                <td>
+                                    <div class="mb4">배송준비중</div>
+                                    <a href="#none" class="btn_h30">배송추적</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> <!-- // #order_list 주문리스트 -->
+
+        <div id="cancel_list" class="tab_content tab_type2">
+            <div class="section_g section_top">
+                <ul class="list_form">
+                    <li>
+                        <strong class="tit_form">키워드 검색</strong>
+                        <div class="unit_select_txt">
+                            <label for="skey1" class="blind">키워드 검색</label>
+                            <select name="skey" id="skey1">
+                                <option value="all">통합검색</option>
+                                <option value="goi.ordno">주문번호</option>
+                                <option value="goi.outapi_prodord_id">제휴몰주문번호</option>
+                                <option value="go.nameOrder">주문자명</option>
+                                <option value="gg.goodsnm">상품명</option>
+                            </select>
+                            <label for="sword1" class="blind">주문 검색 입력창</label>
+                            <input type="text" id="sword1" name="sword" placeholder="검색어를 입력해주세요" value="">
+                        </div>
+                    </li>
+                    <li>
+                        <strong class="tit_form">주문상태</strong>
+                        <div class="item_put">
+                            <input type="checkbox" name="step[]" value="0" id="cancel_chk_0"><label for="cancel_chk_0">배송전취소</label>
+                            <input type="checkbox" name="step[]" value="1" id="cancel_chk_1"><label for="cancel_chk_1">취소완료</label>
+                            <input type="checkbox" name="step[]" value="2" id="cancel_chk_2"><label for="cancel_chk_2">환불접수</label>
+                            <input type="checkbox" name="step[]" value="3" id="cancel_chk_3"><label for="cancel_chk_3">환불완료</label>
+                            <input type="checkbox" name="step[]" value="4" id="cancel_chk_4"><label for="cancel_chk_4">반품접수</label>
+                            <input type="checkbox" name="step[]" value="5" id="cancel_chk_5"><label for="cancel_chk_5">반품완료</label>
+                            <input type="checkbox" name="step[]" value="6" id="cancel_chk_6"><label for="cancel_chk_6">수거완료</label>
+                            <input type="checkbox" name="step[]" value="7" id="cancel_chk_7"><label for="cancel_chk_7">재배송준비</label>
+                            <input type="checkbox" name="step[]" value="8" id="cancel_chk_8"><label for="cancel_chk_8">재배송중</label>
+                            <input type="checkbox" name="step[]" value="9" id="cancel_chk_9"><label for="cancel_chk_9">교환완료</label>
+                        </div>
+                    </li>
+                    <li>
+                        <strong class="tit_form">주문일</strong>
+                        <div class="cell_period">
+                            <span class="inp_date">
+                                <label for="sdate" class="blind">시작날짜</label>
+                                <input type="text" name="regdt[]" id="sdate" value="20200924" autocomplete="off">
+                            </span>
+                            <span class="inp_date">
+                                <label for="edate" class="blind">끝날짜</label>
+                                <input type="text" id="edate" name="regdt[]" value="20200924" autocomplete="off">
+                            </span>
+                            <div class="date_qlist">
+                                <button type="button" onclick="setDate('regdt[]',20200924,20200924)" class="btn_date choice_date">오늘</button>
+                                <button type="button" onclick="setDate('regdt[]',20200917,20200924)" class="btn_date">일주일</button>
+                                <button type="button" onclick="setDate('regdt[]',20200909,20200924)" class="btn_date">15일</button>
+                                <button type="button" onclick="setDate('regdt[]',20200824,20200924)" class="btn_date">한 달</button>
+                                <button type="button" onclick="setDate('regdt[]',20200724,20200924)" class="btn_date">두 달</button>
+                                <button type="button" onclick="setDate('regdt[]')" class="btn_date">전체</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="wrap_button">
+                    <button type="button" class="btn_g">초기화</button>
+                    <button type="submit" class="btn_g active">검색</button>
+                </div>
+            </div>
+            <div class="section_g section_detail">
+                <div class="tool_wrap">
+                    <div class="unit_select">
+                        <select name="page_num" onchange="this.form.submit()">
+                            <option value="10" selected="">10개 출력</option>
+                            <option value="20">20개 출력</option>
+                            <option value="40">40개 출력</option>
+                            <option value="60">60개 출력</option>
+                            <option value="100">100개 출력</option>
+                        </select>
+                    </div>
+                </div>
+                <p class="cell_total">[TOTAL: <span class="total_1">2</span> 개/ 검색 <span>2</span> 개]</p>
+                <div class="box_tbl scroll_x">
+                    <table class="tbl_comm tbl_detail">
+                        <caption class="blind">배송준비중 주문목록표</caption>
+                        <colgroup>
+                            <col class="col_03">
+                            <col class="col_10"> <!-- 주문일시/주문번호 -->
+                            <col class="col_07">  <!-- 취소일자 -->
+                            <col class="col_10">  <!-- 취소사유 -->
+                            <col class="col_07">  <!-- 주문업체 -->
+                            <col class="col_05">  <!-- 주문자 -->
+                            <col class="col_05"> <!-- 받는분 -->
+                            <col class="col_auto"> <!-- 주문상품 -->
+                            <col class="col_05"> <!-- 수량 -->
+                            <col class="col_05"> <!-- 도매가 -->
+                            <col class="col_05"> <!-- 배송비 -->
+                            <col class="col_08"> <!-- 처리상태 -->
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>번호</th>
+                                <th>주문일시 / 주문번호</th>
+                                <th>취소일자</th>
+                                <th>취소사유</th>
+                                <th>주문업체</th>
+                                <th>주문자</th>
+                                <th>받는분</th>
+                                <th>주문상품</th>
+                                <th>수량</th>
+                                <th>도매가</th>
+                                <th>배송비</th>
+                                <th>처리상태</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>999</td>
+                                <td >
+                                    <span class="goods_infoNum">
+                                        <span>2020-07-24</span>
+                                        <span>1595568856421</span> 
+                                        <a href="#" class="btn_reference" target="_blank">삭제</a>
+                                    </span>
+                                </td>
+                                <td>2020-07-08</td>
+                                <td>상품수량부족 자동취소</td>
+                                <td>힘차고 단단한 아침</td>
+                                <td>김언년</td>
+                                <td>김언년</td>
+                                <td>
+                                    <div class="goods_item">
+                                        <span class="img_item"><img src="http://i.lately.co.kr/8/2003/09/7712883_700_700.jpg" class="img_block" alt=""></span>
+                                        <strong>[셀러허브가이드] AFas상품등록테스트 테스트 입니다</strong>
+                                    </div>
+                                </td>
+                                <td>99,999,999</td>
+                                <td>99,999,999</td>
+                                <td>99,999,999</td>
+                                <td><a href="#none" class="">입금확인⇒ 환불완료</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> <!-- // #cancel_list 주문취소 -->
+
+        <div id="regoods_list" class="tab_content tab_type2">
+            <div class="section_g section_top">
+                <form method="post" name="">
+                    <fieldset>
+                        <legend class="screen_out">검색 폼</legend>
+                        <ul class="list_form">
+                            <li>
+                                <strong class="tit_form">반품요청일</strong>
+                                <div class="cell_period">
+                                    <span class="inp_date">
+                                        <label for="sdate" class="blind">시작날짜</label>
+                                        <input type="text" name="regdt[]" id="sdate" value="20200924" autocomplete="off">
+                                    </span>
+                                    <span class="inp_date">
+                                        <label for="edate" class="blind">끝날짜</label>
+                                        <input type="text" id="edate" name="regdt[]" value="20200924" autocomplete="off">
+                                    </span>
+                                    <div class="date_qlist">
+                                        <button type="button" onclick="setDate('regdt[]',20200924,20200924)" class="btn_date choice_date">오늘</button>
+                                        <button type="button" onclick="setDate('regdt[]',20200917,20200924)" class="btn_date">일주일</button>
+                                        <button type="button" onclick="setDate('regdt[]',20200909,20200924)" class="btn_date">15일</button>
+                                        <button type="button" onclick="setDate('regdt[]',20200824,20200924)" class="btn_date">한 달</button>
+                                        <button type="button" onclick="setDate('regdt[]',20200724,20200924)" class="btn_date">두 달</button>
+                                        <button type="button" onclick="setDate('regdt[]')" class="btn_date">전체</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <strong class="tit_form">사유</strong>
+                                <div class="unit_select">
+                                    <label for="cancelkey1" class="blind">사유 선택 옵션</label>
+                                    <select name="cancelkey" id="cancelkey1">
+                                        <option value="all"> 전체 </option>
+                                        <option value="1"> 고객변심취소</option>
+                                        <option value="2"> 품절취소</option>
+                                        <option value="3"> 배송지연취소</option>
+                                        <option value="4"> 이중주문취소</option>
+                                        <option value="5"> 시스템오류취소</option>
+                                        <option value="6"> 누락배송</option>
+                                        <option value="7"> 택배분실</option>
+                                        <option value="8"> 상품불량</option>
+                                        <option value="10"> 거래미성사</option>
+                                        <option value="9"> 기타</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li>
+                                <strong class="tit_form">키워드 검색</strong>
+                                <div class="unit_select_txt">
+                                    <label for="skey1" class="blind">키워드 검색 옵션</label>
+                                    <select name="skey" id="skey1" class="search-box">
+                                        <option value="all"> 통합검색 </option>
+                                        <option value="ordno"> 주문번호</option>
+                                        <option value="nameOrder"> 주문자명</option>
+                                        <option value="goodsnm"> 상품명</option>
+                                        <option value="name"> 이중주문취소</option>
+                                        <option value="nameReceiver"> 수령자명</option>
+                                    </select>
+                                    <label for="sword1" class="blind">키워드 검색 입력창</label>
+                                    <input type="text" name="sword" id="sword1" value="">
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="wrap_button">
+                            <button type="button" class="btn_g">초기화</button>
+                            <button type="submit" class="btn_g active">검색</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="section_g section_detail">
+                <form method="post" name="">
+                    <fieldset>
+                        <legend class="screen_out">검색 폼</legend>
+                        <div class="cell_tool">
+                            <div class="tool_wrap left">
+                                <button type="button" class="btn_midsub fst" onclick="window.location.href='/shop/proc/fdownload.php?newname=../data/bbs_provider/probbs1591936799_1.pdf&amp;tmpname=반품화면변경관련.pdf';">반품화면변경 가이드</button>
+                            </div>
+                            <div class="tool_wrap">
+                                <div class="unit_select">
+                                    <select name="page_num" onchange="this.form.submit()">
+                                        <option value="10" selected="">전체검색결과</option>
+                                        <option value="10">10개 출력</option>
+                                        <option value="20">20개 출력</option>
+                                        <option value="40">40개 출력</option>
+                                        <option value="60">60개 출력</option>
+                                        <option value="100">100개 출력</option>
+                                    </select>
+                                </div>
+                                <a href="javascript:void(0)" class="btn_ecxel">반품접수 주문 내역</a>
+                                <a href="javascript:void(0)" class="btn_ecxel">택배사 회수용 양식(CJ)</a>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+                <form method="post" action="" name="" >
+                    <fieldset>
+                        <legend class="screen_out">반품접수 검색 폼</legend>
+                        <div class="box_regoods">
+                            <div class="chk_box">
+                                <input type="checkbox" name="chk[]" id="chk<?=$data[sno]?>" value="<?=$data[sno]?>"><label for="chk<?=$data[sno]?>"></label>
+                            </div>
+                            <table class="tbl_basic">
+                                <caption class="screen_hide">반품 주문 접수표</caption>
+                                <colgroup>
+                                    <col class="col_10">
+                                    <col class="col_13">
+                                    <col class="col_13">
+                                    <col class="col_13">
+                                    <col class="col_12">
+                                    <col class="col_12">
+                                    <col class="col_12">
+                                    <col class="col_auto">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th>주문번호</th>
+                                        <td><a href="#none">202020002039487294604</a></td>
+                                        <th>주문자</th>
+                                        <td>주정미</td>
+                                        <th>주문일</th>
+                                        <td>2020-02-03</td>
+                                        <th>반품요청일</th>
+                                        <td>2020-02-03</td>
+                                    </tr>
+                                    <tr>
+                                        <th>배송비 결제 여부</th>
+                                        <td colspan="3" class="ta_left">
+                                            <div class="cell_check">
+                                                <input type="radio" name="regoods_calc_delivery" id="regoods_calc_delivery_0" value="0" checked="">
+                                                <label for="regoods_calc_delivery_0">착불</label>
+                                                <input type="radio" name="regoods_calc_delivery" id="regoods_calc_delivery_1" value="1">
+                                                <label for="regoods_calc_delivery_1">선불</label>
+                                                <input type="radio" name="regoods_calc_delivery" id="regoods_calc_delivery_2" value="2">
+                                                <label for="regoods_calc_delivery_2">동봉</label>
+                                            </div>
+                                        </td>
+                                        <th>반품택배사</th>
+                                        <td colspan="3">
+                                            <div class="select_inp">
+                                                <div class="unit_select">
+                                                    <select name="delivery[2081231]">
+                                                        <option disable hidden value="">선택</option>
+                                                        <option value="KGB택배" data-deliverycode="1">KGB택배</option>
+                                                        <option value="CJ대한통운(CU택배포함)" data-deliverycode="4">CJ대한통운(CU택배포함)</option>
+                                                        <option value="로젠택배" data-deliverycode="5">로젠택배</option>
+                                                        <option value="동원택배" data-deliverycode="7">동원택배</option>
+                                                        <option value="앨로우캡" data-deliverycode="8">앨로우캡</option>
+                                                        <option value="우체국택배" data-deliverycode="9">우체국택배</option>
+                                                        <option value="한진택배" data-deliverycode="12">한진택배</option>
+                                                        <option value="롯데택배" data-deliverycode="13">롯데택배</option>
+                                                        <option value="훼미리택배" data-deliverycode="14">훼미리택배</option>
+                                                        <option value="CJ GLS(HTH통합)" data-deliverycode="15">CJ GLS(HTH통합)</option>
+                                                        <option value="신세계(쎄덱스)" data-deliverycode="16">신세계(쎄덱스)</option>
+                                                        <option value="사가와 익스프레스" data-deliverycode="17">사가와 익스프레스</option>
+                                                        <option value="천일택배" data-deliverycode="19">천일택배</option>
+                                                        <option value="하나로택배" data-deliverycode="20">하나로택배</option>
+                                                        <option value="KG로지스(동부익스프레스)" data-deliverycode="21">KG로지스(동부익스프레스)</option>
+                                                        <option value="일양택배" data-deliverycode="22">일양택배</option>
+                                                        <option value="이노지스택배" data-deliverycode="32">이노지스택배</option>
+                                                        <option value="대신택배" data-deliverycode="33">대신택배</option>
+                                                        <option value="CVSnet(포스트박스)" data-deliverycode="36">CVSnet(포스트박스)</option>
+                                                        <option value="경동택배" data-deliverycode="39">경동택배</option>
+                                                        <option value="DHL" data-deliverycode="40">DHL</option>
+                                                        <option value="하루로지스" data-deliverycode="41">하루로지스</option>
+                                                        <option value="ACI Express" data-deliverycode="42">ACI Express</option>
+                                                        <option value="퀵서비스" data-deliverycode="100">퀵서비스</option>
+                                                        <option value="자체배송" data-deliverycode="101">자체배송</option>
+                                                        <option value="기타" data-deliverycode="102">기타</option>
+                                                        <option value="합동택배" data-deliverycode="104">합동택배</option>
+                                                    </select>
+                                                </div>
+                                                <input type="text" name="delivery_code[<?=$data[sno]?>]" id="delivery_code<?=$data[sno]?>" class="inp_txt" placeholder="운송장 번호를 입력해주세요">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>반품사유</th>
+                                        <td colspan="7" class="ta_left">
+                                            <p>기타 재인입 - 택제거, 외부착용 X 반품으로 요청하시는데 확인부탁드립니다. 반품비 안내완료 (문자달라고하심)</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>메모</th>
+                                        <td colspan="7">
+                                            <div class="unit_select fl_l mr8">
+                                                <select name="csType" class="memo-box">
+                                                    <option value="">선택</option>
+                                                    <option value="goods">상품관련</option>
+                                                    <option value="order">주문관련</option>
+                                                    <option value="cancel">반품/취소관련</option>
+                                                    <option value="exchange">교환관련</option>
+                                                    <option value="delivery">배송관련</option>
+                                                </select>
+                                            </div>
+                                            <div class="box_memo">
+                                                <input type="text" name="contents" id="contents_<?=$data['etc_info'][0]['ordno']?>" data-ordno="<?=$data['etc_info'][0]['ordno']?>" data-goodsno="<?=$data['etc_info'][0]['goodsno']?>" data-sno="<?=$data['itemSno']?>" placeholder="메모를 등록해 주세요." class="inp_txt input-memo">
+                                                <button type="button" class="btn_h30 sign-upbtn">등록</button>
+                                                <button type="button" class="btn_h30 empty memo-btn">지난 메모</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>최근메모</th>
+                                        <td colspan="7" class="ta_left">
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="tbl_basic">
+                                <colgroup>
+                                    <col class="col_10">
+                                    <col class="col_auto">
+                                    <col class="col_14">
+                                    <col class="col_10">
+                                    <col class="col_10">
+                                    <col class="col_14">
+                                    <col class="col_10">
+                                </colgroup>
+                                <tr>
+                                    <th>브랜드</th>
+                                    <th>상품명</th>
+                                    <th>상품가격</th>
+                                    <th>회원할인</th>
+                                    <th>쿠폰할인</th>
+                                    <th>상품결제단가</th>
+                                    <th>수량</th>
+                                </tr>
+                                <tr>
+                                    <td>desirerose</td>
+                                    <td>
+                                        <div class="goods_item">
+                                            <span class="img_item"><img src="http://i.lately.co.kr/8/2003/09/7712883_700_700.jpg" class="img_block" alt=""></span>
+                                            주문상품번호 : <span class="num_g">2016520</span>
+                                            <strong>[셀러허브가이드] [셀러허브가이드</strong>
+                                            <span>옵션 23호 수량 1개</span>
+                                        </div>
+                                    </td>
+                                    <td>99,999,999,999</td>
+                                    <td>99,999,999,999</td>
+                                    <td>99,999,999,999</td>
+                                    <td>99,999,999,999</td>
+                                    <td>99,999,999,999</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="box_regoods">
+                            <div class="chk_box">
+                                <input type="checkbox" name="chk[]" id="chk<?=$data[sno]?>" value="<?=$data[sno]?>"><label for="chk<?=$data[sno]?>"></label>
+                            </div>
+                            <table class="tbl_basic">
+                                <caption class="screen_hide">반품 주문 접수표</caption>
+                                <colgroup>
+                                    <col class="col_10">
+                                    <col class="col_13">
+                                    <col class="col_13">
+                                    <col class="col_13">
+                                    <col class="col_12">
+                                    <col class="col_12">
+                                    <col class="col_12">
+                                    <col class="col_auto">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th>주문번호</th>
+                                        <td><a href="#none">202020002039487294604</a></td>
+                                        <th>주문자</th>
+                                        <td>주정미</td>
+                                        <th>주문일</th>
+                                        <td>2020-02-03</td>
+                                        <th>반품요청일</th>
+                                        <td>2020-02-03</td>
+                                    </tr>
+                                    <tr>
+                                        <th>배송비 결제 여부</th>
+                                        <td colspan="3" class="ta_left">
+                                            <div class="cell_check">
+                                                <input type="radio" name="regoods_calc_delivery" id="regoods_calc_delivery_3" value="3" checked="">
+                                                <label for="regoods_calc_delivery_3">착불</label>
+                                                <input type="radio" name="regoods_calc_delivery" id="regoods_calc_delivery_4" value="4">
+                                                <label for="regoods_calc_delivery_4">선불</label>
+                                                <input type="radio" name="regoods_calc_delivery" id="regoods_calc_delivery_5" value="5">
+                                                <label for="regoods_calc_delivery_5">동봉</label>
+                                            </div>
+                                        </td>
+                                        <th>반품택배사</th>
+                                        <td colspan="3">
+                                            <div class="select_inp">
+                                                <div class="unit_select">
+                                                    <select name="delivery[2081231]">
+                                                        <option disable hidden value="">선택</option>
+                                                        <option value="KGB택배" data-deliverycode="1">KGB택배</option>
+                                                        <option value="CJ대한통운(CU택배포함)" data-deliverycode="4">CJ대한통운(CU택배포함)</option>
+                                                        <option value="로젠택배" data-deliverycode="5">로젠택배</option>
+                                                        <option value="동원택배" data-deliverycode="7">동원택배</option>
+                                                        <option value="앨로우캡" data-deliverycode="8">앨로우캡</option>
+                                                        <option value="우체국택배" data-deliverycode="9">우체국택배</option>
+                                                        <option value="한진택배" data-deliverycode="12">한진택배</option>
+                                                        <option value="롯데택배" data-deliverycode="13">롯데택배</option>
+                                                        <option value="훼미리택배" data-deliverycode="14">훼미리택배</option>
+                                                        <option value="CJ GLS(HTH통합)" data-deliverycode="15">CJ GLS(HTH통합)</option>
+                                                        <option value="신세계(쎄덱스)" data-deliverycode="16">신세계(쎄덱스)</option>
+                                                        <option value="사가와 익스프레스" data-deliverycode="17">사가와 익스프레스</option>
+                                                        <option value="천일택배" data-deliverycode="19">천일택배</option>
+                                                        <option value="하나로택배" data-deliverycode="20">하나로택배</option>
+                                                        <option value="KG로지스(동부익스프레스)" data-deliverycode="21">KG로지스(동부익스프레스)</option>
+                                                        <option value="일양택배" data-deliverycode="22">일양택배</option>
+                                                        <option value="이노지스택배" data-deliverycode="32">이노지스택배</option>
+                                                        <option value="대신택배" data-deliverycode="33">대신택배</option>
+                                                        <option value="CVSnet(포스트박스)" data-deliverycode="36">CVSnet(포스트박스)</option>
+                                                        <option value="경동택배" data-deliverycode="39">경동택배</option>
+                                                        <option value="DHL" data-deliverycode="40">DHL</option>
+                                                        <option value="하루로지스" data-deliverycode="41">하루로지스</option>
+                                                        <option value="ACI Express" data-deliverycode="42">ACI Express</option>
+                                                        <option value="퀵서비스" data-deliverycode="100">퀵서비스</option>
+                                                        <option value="자체배송" data-deliverycode="101">자체배송</option>
+                                                        <option value="기타" data-deliverycode="102">기타</option>
+                                                        <option value="합동택배" data-deliverycode="104">합동택배</option>
+                                                    </select>
+                                                </div>
+                                                <input type="text" name="delivery_code[<?=$data[sno]?>]" id="delivery_code<?=$data[sno]?>" class="inp_txt" placeholder="운송장 번호를 입력해주세요">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>반품사유</th>
+                                        <td colspan="7" class="ta_left">
+                                            <p>기타 재인입 - 택제거, 외부착용 X 반품으로 요청하시는데 확인부탁드립니다. 반품비 안내완료 (문자달라고하심)</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>메모</th>
+                                        <td colspan="7">
+                                            <div class="unit_select fl_l mr8">
+                                                <select name="csType" class="memo-box">
+                                                    <option value="">선택</option>
+                                                    <option value="goods">상품관련</option>
+                                                    <option value="order">주문관련</option>
+                                                    <option value="cancel">반품/취소관련</option>
+                                                    <option value="exchange">교환관련</option>
+                                                    <option value="delivery">배송관련</option>
+                                                </select>
+                                            </div>
+                                            <div class="box_memo">
+                                                <input type="text" name="contents" id="contents_<?=$data['etc_info'][0]['ordno']?>" data-ordno="<?=$data['etc_info'][0]['ordno']?>" data-goodsno="<?=$data['etc_info'][0]['goodsno']?>" data-sno="<?=$data['itemSno']?>" placeholder="메모를 등록해 주세요." class="inp_txt input-memo">
+                                                <button type="button" class="btn_h30 sign-upbtn">등록</button>
+                                                <button type="button" class="btn_h30 empty memo-btn">지난 메모</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>최근메모</th>
+                                        <td colspan="7" class="ta_left">
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="tbl_basic">
+                                <colgroup>
+                                    <col class="col_10">
+                                    <col class="col_auto">
+                                    <col class="col_14">
+                                    <col class="col_10">
+                                    <col class="col_10">
+                                    <col class="col_14">
+                                    <col class="col_10">
+                                </colgroup>
+                                <tr>
+                                    <th>브랜드</th>
+                                    <th>상품명</th>
+                                    <th>상품가격</th>
+                                    <th>회원할인</th>
+                                    <th>쿠폰할인</th>
+                                    <th>상품결제단가</th>
+                                    <th>수량</th>
+                                </tr>
+                                <tr>
+                                    <td>desirerose</td>
+                                    <td>
+                                        <div class="goods_item">
+                                            <span class="img_item"><img src="http://i.lately.co.kr/8/2003/09/7712883_700_700.jpg" class="img_block" alt=""></span>
+                                            주문상품번호 : <span class="num_g">2016520</span>
+                                            <strong>[셀러허브가이드] [셀러허브가이드]</strong>
+                                            <span>옵션 23호 수량 1개</span>
+                                        </div>
+                                    </td>
+                                    <td>99,999,999,999</td>
+                                    <td>99,999,999,999</td>
+                                    <td>99,999,999,999</td>
+                                    <td>99,999,999,999</td>
+                                    <td>99,999,999,999</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="wrap_button ta_left">
+                            <button type="button" onclick="indbReturn()" class="btn_g active">반품완료</button>
+                        </div>
+                    </fieldset>
+                </form>
+                <div class="page_wrap">
+                    <ul>
+                        <li class="click-page"><a href="#none">1</a></li>
+                        <li><a href="#none">2</a></li>
+                        <li><a href="#none">3</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div> <!-- // #regoods_list 반품접수 -->
+
+        <div id="exchange_list" class="tab_content tab_type2">
+            <div class="section_g section_top">
+                <form method="post" name="">
+                    <fieldset>
+                        <legend class="screen_out">검색 폼</legend>
+                        <ul class="list_form">
+                            <li>
+                                <strong class="tit_form">교환요청일</strong>
+                                <div class="cell_period">
+                                    <span class="inp_date">
+                                        <label for="sdate" class="blind">시작날짜</label>
+                                        <input type="text" name="regdt[]" id="sdate" value="20200924" autocomplete="off">
+                                    </span>
+                                    <span class="inp_date">
+                                        <label for="edate" class="blind">끝날짜</label>
+                                        <input type="text" id="edate" name="regdt[]" value="20200924" autocomplete="off">
+                                    </span>
+                                    <div class="date_qlist">
+                                        <button type="button" onclick="setDate('regdt[]',20200924,20200924)" class="btn_date choice_date">오늘</button>
+                                        <button type="button" onclick="setDate('regdt[]',20200917,20200924)" class="btn_date">일주일</button>
+                                        <button type="button" onclick="setDate('regdt[]',20200909,20200924)" class="btn_date">15일</button>
+                                        <button type="button" onclick="setDate('regdt[]',20200824,20200924)" class="btn_date">한 달</button>
+                                        <button type="button" onclick="setDate('regdt[]',20200724,20200924)" class="btn_date">두 달</button>
+                                        <button type="button" onclick="setDate('regdt[]')" class="btn_date">전체</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <strong class="tit_form">사유</strong>
+                                <div class="unit_select">
+                                    <label for="cancelkey1" class="blind">사유 선택 옵션</label>
+                                    <select name="cancelkey" id="cancelkey1">
+                                        <option value="all"> 전체 </option>
+                                        <option value="1"> 고객변심취소</option>
+                                        <option value="2"> 품절취소</option>
+                                        <option value="3"> 배송지연취소</option>
+                                        <option value="4"> 이중주문취소</option>
+                                        <option value="5"> 시스템오류취소</option>
+                                        <option value="6"> 누락배송</option>
+                                        <option value="7"> 택배분실</option>
+                                        <option value="8"> 상품불량</option>
+                                        <option value="10"> 거래미성사</option>
+                                        <option value="9"> 기타</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li>
+                                <strong class="tit_form">키워드 검색</strong>
+                                <div class="unit_select_txt">
+                                    <label for="skey1" class="blind">키워드 검색 옵션</label>
+                                    <select name="skey" id="skey1" class="search-box">
+                                        <option value="all"> 통합검색 </option>
+                                        <option value="ordno"> 주문번호</option>
+                                        <option value="nameOrder"> 주문자명</option>
+                                        <option value="goodsnm"> 상품명</option>
+                                        <option value="name"> 이중주문취소</option>
+                                        <option value="nameReceiver"> 수령자명</option>
+                                    </select>
+                                    <label for="sword1" class="blind">키워드 검색 입력창</label>
+                                    <input type="text" name="sword" id="sword1" value="">
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="wrap_button">
+                            <button type="button" class="btn_g">초기화</button>
+                            <button type="submit" class="btn_g active">검색</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="section_g section_detail">
+                <form method="post" name="">
+                    <fieldset>
+                        <legend class="screen_out">검색 폼</legend>
+                        <div class="cell_tool">
+                            <div class="tool_wrap left">
+                                <button type="button" class="btn_midsub fst" onclick="window.location.href='/shop/proc/fdownload.php?newname=../data/bbs_provider/probbs1591936799_1.pdf&amp;tmpname=반품화면변경관련.pdf';">반품화면변경 가이드</button>
+                            </div>
+                            <div class="tool_wrap">
+                                <div class="unit_select">
+                                    <select name="page_num" onchange="this.form.submit()">
+                                        <option value="10" selected="">전체검색결과</option>
+                                        <option value="10">10개 출력</option>
+                                        <option value="20">20개 출력</option>
+                                        <option value="40">40개 출력</option>
+                                        <option value="60">60개 출력</option>
+                                        <option value="100">100개 출력</option>
+                                    </select>
+                                </div>
+                                <a href="javascript:void(0)" class="btn_ecxel">반품접수 주문 내역</a>
+                                <a href="javascript:void(0)" class="btn_ecxel">택배사 회수용 양식(CJ)</a>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+                <form method="post" action="" name="" >
+                    <fieldset>
+                        <legend class="screen_out">교환접수 리스트 검색 폼</legend>
+                        <div class="box_regoods">
+                            <div class="chk_box">
+                                <input type="checkbox" name="chk[]" id="chk<?=$data[sno]?>" value="<?=$data[sno]?>"><label for="chk<?=$data[sno]?>"></label>
+                            </div>
+                            <table class="tbl_basic">
+                                <caption class="screen_hide">교환 주문 접수표</caption>
+                                <colgroup>
+                                    <col class="col_10">
+                                    <col class="col_13">
+                                    <col class="col_13">
+                                    <col class="col_13">
+                                    <col class="col_12">
+                                    <col class="col_12">
+                                    <col class="col_12">
+                                    <col class="col_auto">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th>주문번호</th>
+                                        <td><a href="#none">202020002039487294604</a></td>
+                                        <th>주문자</th>
+                                        <td>주정미</td>
+                                        <th>주문일</th>
+                                        <td>2020-02-03</td>
+                                        <th>교환요청일</th>
+                                        <td>2020-02-03</td>
+                                    </tr>
+                                    <tr>
+                                        <th>배송비 결제 여부</th>
+                                        <td colspan="3" class="ta_left">
+                                            <div class="cell_check">
+                                                <input type="radio" name="regoods_calc_delivery" id="regoods_calc_delivery_6" value="6" checked="">
+                                                <label for="regoods_calc_delivery_6">착불</label>
+                                                <input type="radio" name="regoods_calc_delivery" id="regoods_calc_delivery_7" value="7">
+                                                <label for="regoods_calc_delivery_7">선불</label>
+                                                <input type="radio" name="regoods_calc_delivery" id="regoods_calc_delivery_8" value="8">
+                                                <label for="regoods_calc_delivery_8">동봉</label>
+                                            </div>
+                                        </td>
+                                        <th>반품택배사</th>
+                                        <td colspan="3">
+                                            <div class="select_inp">
+                                                <div class="unit_select">
+                                                    <select name="delivery[2081231]">
+                                                        <option disable hidden value="">선택</option>
+                                                        <option value="KGB택배" data-deliverycode="1">KGB택배</option>
+                                                        <option value="CJ대한통운(CU택배포함)" data-deliverycode="4">CJ대한통운(CU택배포함)</option>
+                                                        <option value="로젠택배" data-deliverycode="5">로젠택배</option>
+                                                        <option value="동원택배" data-deliverycode="7">동원택배</option>
+                                                        <option value="앨로우캡" data-deliverycode="8">앨로우캡</option>
+                                                        <option value="우체국택배" data-deliverycode="9">우체국택배</option>
+                                                        <option value="한진택배" data-deliverycode="12">한진택배</option>
+                                                        <option value="롯데택배" data-deliverycode="13">롯데택배</option>
+                                                        <option value="훼미리택배" data-deliverycode="14">훼미리택배</option>
+                                                        <option value="CJ GLS(HTH통합)" data-deliverycode="15">CJ GLS(HTH통합)</option>
+                                                        <option value="신세계(쎄덱스)" data-deliverycode="16">신세계(쎄덱스)</option>
+                                                        <option value="사가와 익스프레스" data-deliverycode="17">사가와 익스프레스</option>
+                                                        <option value="천일택배" data-deliverycode="19">천일택배</option>
+                                                        <option value="하나로택배" data-deliverycode="20">하나로택배</option>
+                                                        <option value="KG로지스(동부익스프레스)" data-deliverycode="21">KG로지스(동부익스프레스)</option>
+                                                        <option value="일양택배" data-deliverycode="22">일양택배</option>
+                                                        <option value="이노지스택배" data-deliverycode="32">이노지스택배</option>
+                                                        <option value="대신택배" data-deliverycode="33">대신택배</option>
+                                                        <option value="CVSnet(포스트박스)" data-deliverycode="36">CVSnet(포스트박스)</option>
+                                                        <option value="경동택배" data-deliverycode="39">경동택배</option>
+                                                        <option value="DHL" data-deliverycode="40">DHL</option>
+                                                        <option value="하루로지스" data-deliverycode="41">하루로지스</option>
+                                                        <option value="ACI Express" data-deliverycode="42">ACI Express</option>
+                                                        <option value="퀵서비스" data-deliverycode="100">퀵서비스</option>
+                                                        <option value="자체배송" data-deliverycode="101">자체배송</option>
+                                                        <option value="기타" data-deliverycode="102">기타</option>
+                                                        <option value="합동택배" data-deliverycode="104">합동택배</option>
+                                                    </select>
+                                                </div>
+                                                <input type="text" name="delivery_code[<?=$data[sno]?>]" id="delivery_code<?=$data[sno]?>" class="inp_txt" placeholder="운송장 번호를 입력해주세요">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>교환사유</th>
+                                        <td colspan="7" class="ta_left">
+                                            <p>기타 재인입 - 택제거, 외부착용 X 교환으로 요청하시는데 확인부탁드립니다. 반품비 안내완료 (문자달라고하심)</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>메모</th>
+                                        <td colspan="7">
+                                            <div class="unit_select fl_l mr8">
+                                                <select name="csType" class="memo-box">
+                                                    <option value="">선택</option>
+                                                    <option value="goods">상품관련</option>
+                                                    <option value="order">주문관련</option>
+                                                    <option value="cancel">반품/취소관련</option>
+                                                    <option value="exchange">교환관련</option>
+                                                    <option value="delivery">배송관련</option>
+                                                </select>
+                                            </div>
+                                            <div class="box_memo">
+                                                <input type="text" name="contents" id="contents_<?=$data['etc_info'][0]['ordno']?>" data-ordno="<?=$data['etc_info'][0]['ordno']?>" data-goodsno="<?=$data['etc_info'][0]['goodsno']?>" data-sno="<?=$data['itemSno']?>" placeholder="메모를 등록해 주세요." class="inp_txt input-memo">
+                                                <button type="button" class="btn_h30 sign-upbtn">등록</button>
+                                                <button type="button" class="btn_h30 empty memo-btn">지난 메모</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>최근메모</th>
+                                        <td colspan="7" class="ta_left">
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="tbl_basic">
+                                <colgroup>
+                                    <col class="col_10">
+                                    <col class="col_auto">
+                                    <col class="col_14">
+                                    <col class="col_10">
+                                    <col class="col_10">
+                                    <col class="col_14">
+                                    <col class="col_10">
+                                </colgroup>
+                                <tr>
+                                    <th>브랜드</th>
+                                    <th>상품명</th>
+                                    <th>상품가격</th>
+                                    <th>회원할인</th>
+                                    <th>쿠폰할인</th>
+                                    <th>상품결제단가</th>
+                                    <th>수량</th>
+                                </tr>
+                                <tr>
+                                    <td>desirerose</td>
+                                    <td>
+                                        <div class="goods_item">
+                                            <span class="img_item"><img src="http://i.lately.co.kr/8/2003/09/7712883_700_700.jpg" class="img_block" alt=""></span>
+                                            주문상품번호 : <span class="num_g">2016520</span>
+                                            <strong>[셀러허브가이드] [셀러허브가이드</strong>
+                                            <span>옵션 23호 수량 1개</span>
+                                        </div>
+                                    </td>
+                                    <td>99,999,999,999</td>
+                                    <td>99,999,999,999</td>
+                                    <td>99,999,999,999</td>
+                                    <td>99,999,999,999</td>
+                                    <td>99,999,999,999</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="box_regoods">
+                            <div class="chk_box">
+                                <input type="checkbox" name="chk[]" id="chk<?=$data[sno]?>" value="<?=$data[sno]?>"><label for="chk<?=$data[sno]?>"></label>
+                            </div>
+                            <table class="tbl_basic">
+                                <caption class="screen_hide">교환 주문 접수표</caption>
+                                <colgroup>
+                                    <col class="col_10">
+                                    <col class="col_13">
+                                    <col class="col_13">
+                                    <col class="col_13">
+                                    <col class="col_12">
+                                    <col class="col_12">
+                                    <col class="col_12">
+                                    <col class="col_auto">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th>주문번호</th>
+                                        <td><a href="#none">202020002039487294604</a></td>
+                                        <th>주문자</th>
+                                        <td>주정미</td>
+                                        <th>주문일</th>
+                                        <td>2020-02-03</td>
+                                        <th>교환요청일</th>
+                                        <td>2020-02-03</td>
+                                    </tr>
+                                    <tr>
+                                        <th>배송비 결제 여부</th>
+                                        <td colspan="3" class="ta_left">
+                                            <div class="cell_check">
+                                                <input type="radio" name="regoods_calc_delivery" id="regoods_calc_delivery_9" value="9" checked="">
+                                                <label for="regoods_calc_delivery_9">착불</label>
+                                                <input type="radio" name="regoods_calc_delivery" id="regoods_calc_delivery_10" value="10">
+                                                <label for="regoods_calc_delivery_10">선불</label>
+                                                <input type="radio" name="regoods_calc_delivery" id="regoods_calc_delivery_11" value="11">
+                                                <label for="regoods_calc_delivery_11">동봉</label>
+                                            </div>
+                                        </td>
+                                        <th>반품택배사</th>
+                                        <td colspan="3">
+                                            <div class="select_inp">
+                                                <div class="unit_select">
+                                                    <select name="delivery[2081231]">
+                                                        <option disable hidden value="">선택</option>
+                                                        <option value="KGB택배" data-deliverycode="1">KGB택배</option>
+                                                        <option value="CJ대한통운(CU택배포함)" data-deliverycode="4">CJ대한통운(CU택배포함)</option>
+                                                        <option value="로젠택배" data-deliverycode="5">로젠택배</option>
+                                                        <option value="동원택배" data-deliverycode="7">동원택배</option>
+                                                        <option value="앨로우캡" data-deliverycode="8">앨로우캡</option>
+                                                        <option value="우체국택배" data-deliverycode="9">우체국택배</option>
+                                                        <option value="한진택배" data-deliverycode="12">한진택배</option>
+                                                        <option value="롯데택배" data-deliverycode="13">롯데택배</option>
+                                                        <option value="훼미리택배" data-deliverycode="14">훼미리택배</option>
+                                                        <option value="CJ GLS(HTH통합)" data-deliverycode="15">CJ GLS(HTH통합)</option>
+                                                        <option value="신세계(쎄덱스)" data-deliverycode="16">신세계(쎄덱스)</option>
+                                                        <option value="사가와 익스프레스" data-deliverycode="17">사가와 익스프레스</option>
+                                                        <option value="천일택배" data-deliverycode="19">천일택배</option>
+                                                        <option value="하나로택배" data-deliverycode="20">하나로택배</option>
+                                                        <option value="KG로지스(동부익스프레스)" data-deliverycode="21">KG로지스(동부익스프레스)</option>
+                                                        <option value="일양택배" data-deliverycode="22">일양택배</option>
+                                                        <option value="이노지스택배" data-deliverycode="32">이노지스택배</option>
+                                                        <option value="대신택배" data-deliverycode="33">대신택배</option>
+                                                        <option value="CVSnet(포스트박스)" data-deliverycode="36">CVSnet(포스트박스)</option>
+                                                        <option value="경동택배" data-deliverycode="39">경동택배</option>
+                                                        <option value="DHL" data-deliverycode="40">DHL</option>
+                                                        <option value="하루로지스" data-deliverycode="41">하루로지스</option>
+                                                        <option value="ACI Express" data-deliverycode="42">ACI Express</option>
+                                                        <option value="퀵서비스" data-deliverycode="100">퀵서비스</option>
+                                                        <option value="자체배송" data-deliverycode="101">자체배송</option>
+                                                        <option value="기타" data-deliverycode="102">기타</option>
+                                                        <option value="합동택배" data-deliverycode="104">합동택배</option>
+                                                    </select>
+                                                </div>
+                                                <input type="text" name="delivery_code[<?=$data[sno]?>]" id="delivery_code<?=$data[sno]?>" class="inp_txt" placeholder="운송장 번호를 입력해주세요">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>교환사유</th>
+                                        <td colspan="7" class="ta_left">
+                                            <p>기타 재인입 - 택제거, 외부착용 X 교환으로 요청하시는데 확인부탁드립니다. 반품비 안내완료 (문자달라고하심)</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>메모</th>
+                                        <td colspan="7">
+                                            <div class="unit_select fl_l mr8">
+                                                <select name="csType" class="memo-box">
+                                                    <option value="">선택</option>
+                                                    <option value="goods">상품관련</option>
+                                                    <option value="order">주문관련</option>
+                                                    <option value="cancel">반품/취소관련</option>
+                                                    <option value="exchange">교환관련</option>
+                                                    <option value="delivery">배송관련</option>
+                                                </select>
+                                            </div>
+                                            <div class="box_memo">
+                                                <input type="text" name="contents" id="contents_<?=$data['etc_info'][0]['ordno']?>" data-ordno="<?=$data['etc_info'][0]['ordno']?>" data-goodsno="<?=$data['etc_info'][0]['goodsno']?>" data-sno="<?=$data['itemSno']?>" placeholder="메모를 등록해 주세요." class="inp_txt input-memo">
+                                                <button type="button" class="btn_h30 sign-upbtn">등록</button>
+                                                <button type="button" class="btn_h30 empty memo-btn">지난 메모</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>최근메모</th>
+                                        <td colspan="7" class="ta_left">
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="tbl_basic">
+                                <colgroup>
+                                    <col class="col_10">
+                                    <col class="col_auto">
+                                    <col class="col_14">
+                                    <col class="col_10">
+                                    <col class="col_10">
+                                    <col class="col_14">
+                                    <col class="col_10">
+                                </colgroup>
+                                <tr>
+                                    <th>브랜드</th>
+                                    <th>상품명</th>
+                                    <th>상품가격</th>
+                                    <th>회원할인</th>
+                                    <th>쿠폰할인</th>
+                                    <th>상품결제단가</th>
+                                    <th>수량</th>
+                                </tr>
+                                <tr>
+                                    <td>desirerose</td>
+                                    <td>
+                                        <div class="goods_item">
+                                            <span class="img_item"><img src="http://i.lately.co.kr/8/2003/09/7712883_700_700.jpg" class="img_block" alt=""></span>
+                                            주문상품번호 : <span class="num_g">2016520</span>
+                                            <strong>[셀러허브가이드] [셀러허브가이드]</strong>
+                                            <span>옵션 23호 수량 1개</span>
+                                        </div>
+                                    </td>
+                                    <td>99,999,999,999</td>
+                                    <td>99,999,999,999</td>
+                                    <td>99,999,999,999</td>
+                                    <td>99,999,999,999</td>
+                                    <td>99,999,999,999</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="wrap_button ta_left">
+                            <button type="button" onclick="indbExchange()" class="btn_g active">교환수거완료</button>
+                        </div>
+                    </fieldset>
+                </form>
+                <div class="page_wrap">
+                    <ul>
+                        <li class="click-page"><a href="#none">1</a></li>
+                        <li><a href="#none">2</a></li>
+                        <li><a href="#none">3</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div> <!-- // #exchange_list 교환접수 -->
+
+        <div id="exchangeDone_list" class="tab_content tab_type2">
+            <div class="section_g section_top">
+                <form method="post" name="">
+                    <fieldset>
+                        <legend class="screen_out">검색 폼</legend>
+                        <ul class="list_form">
+                            <li>
+                                <strong class="tit_form">교환요청일</strong>
+                                <div class="cell_period">
+                                    <span class="inp_date">
+                                        <label for="sdate" class="blind">시작날짜</label>
+                                        <input type="text" name="regdt[]" id="sdate" value="20200924" autocomplete="off">
+                                    </span>
+                                    <span class="inp_date">
+                                        <label for="edate" class="blind">끝날짜</label>
+                                        <input type="text" id="edate" name="regdt[]" value="20200924" autocomplete="off">
+                                    </span>
+                                    <div class="date_qlist">
+                                        <button type="button" onclick="setDate('regdt[]',20200924,20200924)" class="btn_date choice_date">오늘</button>
+                                        <button type="button" onclick="setDate('regdt[]',20200917,20200924)" class="btn_date">일주일</button>
+                                        <button type="button" onclick="setDate('regdt[]',20200909,20200924)" class="btn_date">15일</button>
+                                        <button type="button" onclick="setDate('regdt[]',20200824,20200924)" class="btn_date">한 달</button>
+                                        <button type="button" onclick="setDate('regdt[]',20200724,20200924)" class="btn_date">두 달</button>
+                                        <button type="button" onclick="setDate('regdt[]')" class="btn_date">전체</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <strong class="tit_form">사유</strong>
+                                <div class="unit_select">
+                                    <label for="cancelkey1" class="blind">사유 선택 옵션</label>
+                                    <select name="cancelkey" id="cancelkey1">
+                                        <option value="all"> 전체 </option>
+                                        <option value="1"> 고객변심취소</option>
+                                        <option value="2"> 품절취소</option>
+                                        <option value="3"> 배송지연취소</option>
+                                        <option value="4"> 이중주문취소</option>
+                                        <option value="5"> 시스템오류취소</option>
+                                        <option value="6"> 누락배송</option>
+                                        <option value="7"> 택배분실</option>
+                                        <option value="8"> 상품불량</option>
+                                        <option value="10"> 거래미성사</option>
+                                        <option value="9"> 기타</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li>
+                                <strong class="tit_form">키워드 검색</strong>
+                                <div class="unit_select_txt">
+                                    <label for="skey1" class="blind">키워드 검색 옵션</label>
+                                    <select name="skey" id="skey1" class="search-box">
+                                        <option value="all"> 통합검색 </option>
+                                        <option value="ordno"> 주문번호</option>
+                                        <option value="nameOrder"> 주문자명</option>
+                                        <option value="goodsnm"> 상품명</option>
+                                        <option value="name"> 이중주문취소</option>
+                                        <option value="nameReceiver"> 수령자명</option>
+                                    </select>
+                                    <label for="sword1" class="blind">키워드 검색 입력창</label>
+                                    <input type="text" name="sword" id="sword1" value="">
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="wrap_button">
+                            <button type="button" class="btn_g">초기화</button>
+                            <button type="submit" class="btn_g active">검색</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="section_g section_detail">
+                <form method="post" name="">
+                    <fieldset>
+                        <legend class="screen_out">검색 폼</legend>
+                        <div class="cell_tool">
+                            <div class="tool_wrap left">
+                                <button type="button" class="btn_midsub fst" onclick="window.location.href='/shop/proc/fdownload.php?newname=../data/bbs_provider/probbs1591936799_1.pdf&amp;tmpname=반품화면변경관련.pdf';">반품화면변경 가이드</button>
+                            </div>
+                            <div class="tool_wrap">
+                                <div class="unit_select">
+                                    <select name="page_num" onchange="this.form.submit()">
+                                        <option value="10" selected="">전체검색결과</option>
+                                        <option value="10">10개 출력</option>
+                                        <option value="20">20개 출력</option>
+                                        <option value="40">40개 출력</option>
+                                        <option value="60">60개 출력</option>
+                                        <option value="100">100개 출력</option>
+                                    </select>
+                                </div>
+                                <a href="javascript:void(0)" class="btn_ecxel">반품접수 주문 내역</a>
+                                <a href="javascript:void(0)" class="btn_ecxel">택배사 회수용 양식(CJ)</a>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+                <form method="post" action="" name="" >
+                    <fieldset>
+                        <legend class="screen_out">교환수거완료 리스트 검색 폼</legend>
+                        <div class="box_regoods">
+                            <div class="chk_box">
+                                <input type="checkbox" name="chk[]" id="chk<?=$data[sno]?>" value="<?=$data[sno]?>"><label for="chk<?=$data[sno]?>"></label>
+                            </div>
+                            <table class="tbl_basic">
+                                <caption class="screen_hide">교환 주문 접수표</caption>
+                                <colgroup>
+                                    <col class="col_10">
+                                    <col class="col_13">
+                                    <col class="col_13">
+                                    <col class="col_13">
+                                    <col class="col_12">
+                                    <col class="col_12">
+                                    <col class="col_12">
+                                    <col class="col_auto">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th>주문번호</th>
+                                        <td><a href="#none">202020002039487294604</a></td>
+                                        <th>주문자</th>
+                                        <td>주정미</td>
+                                        <th>주문일</th>
+                                        <td>2020-02-03</td>
+                                        <th>교환요청일</th>
+                                        <td>2020-02-03</td>
+                                    </tr>
+                                    <tr>
+                                        <th>재배송 택배사</th>
+                                        <td colspan="7">
+                                            <div class="select_inp">
+                                                <div class="unit_select">
+                                                    <select name="delivery[2081231]">
+                                                        <option disable hidden value="">선택</option>
+                                                        <option value="KGB택배" data-deliverycode="1">KGB택배</option>
+                                                        <option value="CJ대한통운(CU택배포함)" data-deliverycode="4">CJ대한통운(CU택배포함)</option>
+                                                        <option value="로젠택배" data-deliverycode="5">로젠택배</option>
+                                                        <option value="동원택배" data-deliverycode="7">동원택배</option>
+                                                        <option value="앨로우캡" data-deliverycode="8">앨로우캡</option>
+                                                        <option value="우체국택배" data-deliverycode="9">우체국택배</option>
+                                                        <option value="한진택배" data-deliverycode="12">한진택배</option>
+                                                        <option value="롯데택배" data-deliverycode="13">롯데택배</option>
+                                                        <option value="훼미리택배" data-deliverycode="14">훼미리택배</option>
+                                                        <option value="CJ GLS(HTH통합)" data-deliverycode="15">CJ GLS(HTH통합)</option>
+                                                        <option value="신세계(쎄덱스)" data-deliverycode="16">신세계(쎄덱스)</option>
+                                                        <option value="사가와 익스프레스" data-deliverycode="17">사가와 익스프레스</option>
+                                                        <option value="천일택배" data-deliverycode="19">천일택배</option>
+                                                        <option value="하나로택배" data-deliverycode="20">하나로택배</option>
+                                                        <option value="KG로지스(동부익스프레스)" data-deliverycode="21">KG로지스(동부익스프레스)</option>
+                                                        <option value="일양택배" data-deliverycode="22">일양택배</option>
+                                                        <option value="이노지스택배" data-deliverycode="32">이노지스택배</option>
+                                                        <option value="대신택배" data-deliverycode="33">대신택배</option>
+                                                        <option value="CVSnet(포스트박스)" data-deliverycode="36">CVSnet(포스트박스)</option>
+                                                        <option value="경동택배" data-deliverycode="39">경동택배</option>
+                                                        <option value="DHL" data-deliverycode="40">DHL</option>
+                                                        <option value="하루로지스" data-deliverycode="41">하루로지스</option>
+                                                        <option value="ACI Express" data-deliverycode="42">ACI Express</option>
+                                                        <option value="퀵서비스" data-deliverycode="100">퀵서비스</option>
+                                                        <option value="자체배송" data-deliverycode="101">자체배송</option>
+                                                        <option value="기타" data-deliverycode="102">기타</option>
+                                                        <option value="합동택배" data-deliverycode="104">합동택배</option>
+                                                    </select>
+                                                </div>
+                                                <input type="text" name="delivery_code[<?=$data[sno]?>]" id="delivery_code<?=$data[sno]?>" class="inp_txt" placeholder="운송장 번호를 입력해주세요">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>교환사유</th>
+                                        <td colspan="7" class="ta_left">
+                                            <p>기타 재인입 - 택제거, 외부착용 X 교환으로 요청하시는데 확인부탁드립니다. 반품비 안내완료 (문자달라고하심)</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>메모</th>
+                                        <td colspan="7">
+                                            <div class="unit_select fl_l mr8">
+                                                <select name="csType" class="memo-box">
+                                                    <option value="">선택</option>
+                                                    <option value="goods">상품관련</option>
+                                                    <option value="order">주문관련</option>
+                                                    <option value="cancel">반품/취소관련</option>
+                                                    <option value="exchange">교환관련</option>
+                                                    <option value="delivery">배송관련</option>
+                                                </select>
+                                            </div>
+                                            <div class="box_memo">
+                                                <input type="text" name="contents" id="contents_<?=$data['etc_info'][0]['ordno']?>" data-ordno="<?=$data['etc_info'][0]['ordno']?>" data-goodsno="<?=$data['etc_info'][0]['goodsno']?>" data-sno="<?=$data['itemSno']?>" placeholder="메모를 등록해 주세요." class="inp_txt input-memo">
+                                                <button type="button" class="btn_h30 sign-upbtn">등록</button>
+                                                <button type="button" class="btn_h30 empty memo-btn">지난 메모</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="tbl_basic">
+                                <colgroup>
+                                    <col class="col_10">
+                                    <col class="col_auto">
+                                    <col class="col_14">
+                                    <col class="col_10">
+                                    <col class="col_10">
+                                    <col class="col_14">
+                                    <col class="col_10">
+                                </colgroup>
+                                <tr>
+                                    <th>브랜드</th>
+                                    <th>상품명</th>
+                                    <th>상품가격</th>
+                                    <th>회원할인</th>
+                                    <th>쿠폰할인</th>
+                                    <th>상품결제단가</th>
+                                    <th>수량</th>
+                                </tr>
+                                <tr>
+                                    <td>desirerose</td>
+                                    <td>
+                                        <div class="goods_item">
+                                            <span class="img_item"><img src="http://i.lately.co.kr/8/2003/09/7712883_700_700.jpg" class="img_block" alt=""></span>
+                                            주문상품번호 : <span class="num_g">2016520</span>
+                                            <strong>[셀러허브가이드] [셀러허브가이드</strong>
+                                            <span>옵션 23호 수량 1개</span>
+                                        </div>
+                                    </td>
+                                    <td>99,999,999,999</td>
+                                    <td>99,999,999,999</td>
+                                    <td>99,999,999,999</td>
+                                    <td>99,999,999,999</td>
+                                    <td>99,999,999,999</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="wrap_button ta_left">
+                            <button type="button" onclick="indbExchange()" class="btn_g active">재배송 처리</button>
+                        </div>
+                    </fieldset>
+                </form>
+                <div class="page_wrap">
+                    <ul>
+                        <li class="click-page"><a href="#none">1</a></li>
+                        <li><a href="#none">2</a></li>
+                        <li><a href="#none">3</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div> <!-- // #exchangeDone_list 교환접수 -->
+
+    </div>
+</div> <!-- // #wrap -->
+
+<script type="text/javascript">
+function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tab_content");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName(".btn_tab");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" on", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " on";
+}
+
+$(document).ready(function(){
+
+    $('.middle-tab li a').click(function(){
+		var tab_id = $(this).attr('data-tab');
+
+		$('.middle-tab li').removeClass('on');
+		$('.tab_content').removeClass('on');
+
+		$(this).parent().addClass('on');
+		$("#"+tab_id).addClass('on');
+    })
+    
+    // 날짜선택버튼 제어 
+    $(".btn_date").on("click",function(){
+        $(".btn_date").removeClass("choice_date");
+        $(this).addClass("choice_date");
+    });
+
+    //테이블 백그라운드컬러 제어(background-color-control)
+    $(".la_click").click(function(){
+        $(this).parents("tr").toggleClass("bg_check");
+    });
+
+    //전체선택
+    $("#chkAll").on("click", function() {
+        var inputCell = $("input[name='goodsno[]']");
+
+        $("input[name='goodsno[]']").prop("checked", $(this).prop("checked"));
+        inputCell.parents("tr").toggleClass("bg_check");
+    });
+
+   $("select").change(function(){
+        if ($(this).val()=="") {
+            $(this).css({color: "#909090"});
+        }else {
+            $(this).css({color: "#2e2e2e"});
+        }
+    });
+
+});
+</script>
+</body>
+</html>

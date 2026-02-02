@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes">
+    <title>도매허브 관리자</title>
+    <link rel="stylesheet" type="text/css" href="/shop/admin_provider/common.css">
+
+    <script src="/global/global_custom.js"></script>
+    <link rel="stylesheet" href="/shop/admin_provider/jquery-ui.css">
+    <script type="text/javascript" src="/shop/admin_provider/jquery-1.8.3.min.js"></script>
+    <!--[if lte IE 8]>
+    <script src="../poly-checked.min.js"></script> <![endif]-->
+    <script type="text/javascript" src="/shop/admin_provider/common.js"></script>
+    <script type="text/javascript" src="/shop/admin_provider/custom.js"></script>
+    <script src="/shop/admin_provider/jquery-ui.js"></script>
+    <script>
+        $( document ).ready(function() {
+            if (navigator.userAgent.indexOf('Mac OS X') != -1) {
+                $("body").addClass("mac");
+            } else {
+                $("body").addClass("pc");
+            }
+
+            $('.lnb-tab li a').click(function(){
+                var tab_id = $(this).attr('data-tab');
+
+                $('.lnb-tab li').removeClass('on');
+                $('.lnb_content').removeClass('on');
+
+                $(this).parent().addClass('on');
+                $("#"+tab_id).addClass('on');
+            });
+            $(".sub_arrow").click(function () {
+                $(this).toggleClass('on');
+            });
+        });
+    </script>
+</head>
+<body>
+
+<div id="header" class="type_selleradmin">
+    <h1 class="logo"><a href="/shop/admin_provider/"><img src="/shop/admin_provider/img/common/logo.png" alt="로고"></a></h1>
+    <div id="gnb" class="gnb">
+        <ul class="gnb-list">
+            <li><a href="../basic/dashboard.php">기본관리</a></li>
+            <li><a href="../order/list_v2.php?mode=group&amp;first=1">주문</a></li>
+            <li><a href="../calc/list.done.php">정산</a></li>
+            <li><a href="../goods/list_v2.php">상품</a></li>
+            <li><a href="../board/provider_bbs_list_v2.php?bid=notice">게시판</a></li>
+            <li class=" additional_service_menu"><a href="/shop/admin_provider/linkage/linkage_state.php">연동현황</a></li>
+            <li><a href="../log/stat.sale_v2.php">통계데이타</a></li>
+            <li><a href="/shop/admin_provider/eventRequest/list.php">★ 행사신청</a></li>
+            <li><a href="#">서비스 이용료 결제관리</a></li>
+            <li><a href="#">개별연동</a></li>
+            <li><a href="#">부가서비스</a></li>
+            <li class="gnb_on"><a href="#">도매서비스</a></li>
+        </ul>
+        <ul class="side-list">
+            <li>
+                <button type="button" id="btnCollect" class="btn_collect ">상품<span class="txt_en">DB</span> 수집</button>
+                <div class="box_collect">
+                    <a href="<?= $gnb_link['6pm']?>" target="_blank">6PM 상품DB 수집</a>
+                    <a href="<?= $gnb_link['godo5'] ?>" target="_blank">고도몰5 상품DB 수집</a>
+                    <a href="<?= $gnb_link['enamoo'] ?>" target="_blank">이나무 상품DB 수집</a>
+                    <a href="<?= $gnb_link['sixshop'] ?>" target="_blank">SixShop 상품DB 수집</a>
+                    <a href="<?= $gnb_link['smartstore'] ?>" target="_blank">SmartStore 상품DB 수집</a>
+                    <a href="<?= $gnb_link['cafe24'] ?>" target="_blank">카페24 상품DB 수집</a>
+                    <a href="<?= $gnb_link['imweb'] ?>" target="_blank">아임웹 상품DB 수집</a>
+                </div>
+            </li>
+            <li><a href="https://www.sellerdeal.co.kr" class="shop_sellerdeal" target="_blank"><span class="icon_g icon_sellerdeal"></span></a></li>
+            <li><a href="https://<?=$_SERVER['HTTP_HOST']?>/shop/main/index.php" target="_blank"><span class="ls_2">셀러 전용 폐쇄형 복지몰</span><span class="shop_sellerhub">셀러허브샵</span></a></li>
+            <li><a href="javascript:void(0)" class="p_news on"><span class="icon_noti">알림보기</span><span class="news_count"></span></a></li>
+            <li>
+                <button type="button" class="sub_menu_btn"><span class="icon_profile">메뉴보기</span></button>
+                <div class="box_userinfo">
+                    <div class="frame_thumb">
+                        <span class="icon_profile"><img src="/shop/admin_provider/imgView.php?sno=22933&amp;type=3" alt="프로필사진"></span>
+                        <a href="/shop/admin_provider/basic/basic_set_2_v2.php" class="btn_revision">사진변경</a>
+                    </div>
+                    <strong class="id_wrap"><a href="#">올리고소프트</a></strong>
+                    <a href="../../member/logout.php?referer=../admin_provider/login/login.php" class="btn_logout">로그아웃</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="lnb">
+        <ul class="lnb-tab">
+            <li class="on" ><a href="#order" data-tab="lnb_dome_buy">구매</a></li>
+            <li><a href="#cancel" data-tab="lnb_dome_sale">판매</a></li>
+        </ul>
+        <ul id="lnb_dome_buy" class="lnb-list lnb_content on">
+            <li>
+                <a href="#" class="sub_arrow on">상품관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="dome_pool.html">도매상품 POOL</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">구매관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="order_buy_list.html">구매리스트</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">엑셀일괄주문</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="excel_order.html">엑셀 상품주문</a></li>
+                    <li><a href="excel_order_state.html">엑셀 상품주문현황</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">관심</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="pick_company.html">찜한 업체</a></li>
+                    <li><a href="pick_goods.html" class="now_on">찜한 상품</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">문의</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="ask_product.html">상품문의</a></li>
+                    <li><a href="ask_oto.html">1:1 문의</a></li>
+                    <li><a href="ask_seller.html">판매자에게 문의</a></li>
+                    <li><a href="??.html">자주하는 질문과 답변 (FAQ)</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul id="lnb_dome_sale" class="lnb-list lnb_content">
+            <li>
+                <a href="#" class="sub_arrow on">상품관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="dome_pool.html">도매상품 POOL</a></li>
+                    <li><a href="dome_list.html">도매 판매 상품리스트</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">판매관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="order__list.html">판매리스트</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">캐쉬</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="hubcash.html">허브캐쉬</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">문의</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="ask_product.html">상품문의</a></li>
+                    <li><a href="ask_oto.html">1:1 문의</a></li>
+                    <li><a href="ask_seller.html">판매자에게 문의</a></li>
+                    <li><a href="??.html">자주하는 질문과 답변 (FAQ)</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">내정보</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="manage.html">도매신청 관리</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div><!-- // header -->
+
+<div id="wrap">
+    <div class="container_wrap">
+        <!-- 도매허브 본문 시작 -->
+        <link rel="stylesheet" type="text/css" href="/shop/admin_provider/style.order.css">
+        <link rel="stylesheet" type="text/css" href="../css/style.admin.css">
+        <h2 class="screen_out">도매허브</h2>
+        <h3 class="title_section">관심상품</h3>
+
+        <div class="section_g section_top">
+            <ul class="list_form">
+                <li>
+                    <strong class="tit_form">카테고리</strong>
+                    <div class="item_cate">
+                        <span class="unit_select">
+                            <label for="skey1" class="blind">카테고리 1차 검색 옵션</label>
+                            <select idx="0" name="cate[]" class="goods_category_1_list order_sel1  mr10">
+                                <option value="">1차 분류</option>
+                            </select>
+                        </span>
+                        <span class="unit_select">
+                            <label for="skey1" class="blind">카테고리 2차 검색 옵션</label>
+                            <select idx="0" name="cate[]" class="goods_category_2_list order_sel2  mr10">
+                                <option value="">2차 분류</option>
+                            </select>
+                        </span>
+                        <span class="unit_select">
+                            <label for="skey1" class="blind">카테고리 3차 검색 옵션</label>
+                            <select idx="0" name="cate[]" class="goods_category_3_list order_sel3  mr10">
+                                <option value="">3차 분류</option>
+                            </select>
+                        </span>
+                        <span class="unit_select">
+                            <label for="skey1" class="blind">카테고리 4차 검색 옵션</label>
+                            <select idx="0" name="cate[]" class="goods_category_4_list order_sel4">
+                                <option value="">4차 분류</option>
+                            </select>
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <strong class="tit_form">도매가 가격대</strong>
+                    <div class="ipt_txt">
+                        <span><input type="text" name="price[]" value="" onkeydown="onlynumber()" size="15" class="mr8">원</span>
+                        <span><input type="text" name="price[]" value="" onkeydown="onlynumber()" size="15" class="ml8 mr8">원</span>
+                    </div>
+                </li>
+                <li>
+                    <strong class="tit_form">브랜드</strong>
+                    <ul class="brand_box">
+                        <li>
+                            <input type="checkbox" id="brand_all" name="brand_all"" value="">
+                            <label for="brand_all" class="lab_em2">전체</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_01" name="brand"" value="">
+                            <label for="brand_01" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_02" name="brand"" value="">
+                            <label for="brand_02" class="lab_em2">브랜드브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_03" name="brand"" value="">
+                            <label for="brand_03" class="lab_em2">브랜드브랜드브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_04" name="brand"" value="">
+                            <label for="brand_04" class="lab_em2">브랜드브랜드브랜드브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_05" name="brand"" value="">
+                            <label for="brand_05" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_06" name="brand"" value="">
+                            <label for="brand_06" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_07" name="brand"" value="">
+                            <label for="brand_07" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_08" name="brand"" value="">
+                            <label for="brand_08" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_09" name="brand"" value="">
+                            <label for="brand_09" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_10" name="brand"" value="">
+                            <label for="brand_10" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_11" name="brand"" value="">
+                            <label for="brand_11" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_12" name="brand"" value="">
+                            <label for="brand_12" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_13" name="brand"" value="">
+                            <label for="brand_13" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_14" name="brand"" value="">
+                            <label for="brand_14" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_15" name="brand"" value="">
+                            <label for="brand_15" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_16" name="brand"" value="">
+                            <label for="brand_16" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_17" name="brand"" value="">
+                            <label for="brand_17" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_18" name="brand"" value="">
+                            <label for="brand_18" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_19" name="brand"" value="">
+                            <label for="brand_19" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_20" name="brand"" value="">
+                            <label for="brand_20" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_21" name="brand"" value="">
+                            <label for="brand_21" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_01" name="brand"" value="">
+                            <label for="brand_01" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_02" name="brand"" value="">
+                            <label for="brand_02" class="lab_em2">브랜드브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_03" name="brand"" value="">
+                            <label for="brand_03" class="lab_em2">브랜드브랜드브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_04" name="brand"" value="">
+                            <label for="brand_04" class="lab_em2">브랜드브랜드브랜드브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_05" name="brand"" value="">
+                            <label for="brand_05" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_06" name="brand"" value="">
+                            <label for="brand_06" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_07" name="brand"" value="">
+                            <label for="brand_07" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_08" name="brand"" value="">
+                            <label for="brand_08" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_09" name="brand"" value="">
+                            <label for="brand_09" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_10" name="brand"" value="">
+                            <label for="brand_10" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_11" name="brand"" value="">
+                            <label for="brand_11" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_12" name="brand"" value="">
+                            <label for="brand_12" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_13" name="brand"" value="">
+                            <label for="brand_13" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_14" name="brand"" value="">
+                            <label for="brand_14" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_15" name="brand"" value="">
+                            <label for="brand_15" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_16" name="brand"" value="">
+                            <label for="brand_16" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_17" name="brand"" value="">
+                            <label for="brand_17" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_18" name="brand"" value="">
+                            <label for="brand_18" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_19" name="brand"" value="">
+                            <label for="brand_19" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_20" name="brand"" value="">
+                            <label for="brand_20" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_21" name="brand"" value="">
+                            <label for="brand_21" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_01" name="brand"" value="">
+                            <label for="brand_01" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_02" name="brand"" value="">
+                            <label for="brand_02" class="lab_em2">브랜드브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_03" name="brand"" value="">
+                            <label for="brand_03" class="lab_em2">브랜드브랜드브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_04" name="brand"" value="">
+                            <label for="brand_04" class="lab_em2">브랜드브랜드브랜드브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_05" name="brand"" value="">
+                            <label for="brand_05" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_06" name="brand"" value="">
+                            <label for="brand_06" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_07" name="brand"" value="">
+                            <label for="brand_07" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_08" name="brand"" value="">
+                            <label for="brand_08" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_09" name="brand"" value="">
+                            <label for="brand_09" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_10" name="brand"" value="">
+                            <label for="brand_10" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_11" name="brand"" value="">
+                            <label for="brand_11" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_12" name="brand"" value="">
+                            <label for="brand_12" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_13" name="brand"" value="">
+                            <label for="brand_13" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_14" name="brand"" value="">
+                            <label for="brand_14" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_15" name="brand"" value="">
+                            <label for="brand_15" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_16" name="brand"" value="">
+                            <label for="brand_16" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_17" name="brand"" value="">
+                            <label for="brand_17" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_18" name="brand"" value="">
+                            <label for="brand_18" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_19" name="brand"" value="">
+                            <label for="brand_19" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_20" name="brand"" value="">
+                            <label for="brand_20" class="lab_em2">브랜드</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="brand_21" name="brand"" value="">
+                            <label for="brand_21" class="lab_em2">브랜드</label>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <strong class="tit_form">도매 판매여부</strong>
+                    <div class="cell_radio radio_custom">
+                        <input type="radio" id="wholesale_1" name="wholesale" value="" checked>
+                        <label for="wholesale_1">전체</label>
+                    </div>
+                    <div class="cell_radio radio_custom">
+                        <input type="radio" id="wholesale_2" name="wholesale" value="">
+                        <label for="wholesale_2">도매중</label>
+                    </div>
+                    <div class="cell_radio radio_custom">
+                        <input type="radio" id="wholesale_3" name="wholesale" value="">
+                        <label for="wholesale_3">도매종료</label>
+                    </div>
+                </li>
+                <li>
+                    <strong class="tit_form">품절여부</strong>
+                    <div class="cell_radio radio_custom">
+                        <input type="radio" id="soldout_1" name="soldout" value="" checked>
+                        <label for="soldout_1">전체</label>
+                    </div>
+                    <div class="cell_radio radio_custom">
+                        <input type="radio" id="soldout_2" name="soldout" value="">
+                        <label for="soldout_2">판매</label>
+                    </div>
+                    <div class="cell_radio radio_custom">
+                        <input type="radio" id="soldout_3" name="soldout" value="">
+                        <label for="soldout_3">품절</label>
+                    </div>
+                </li>
+                <li>
+                    <strong class="tit_form">과세여부</strong>
+                    <div class="cell_radio radio_custom">
+                        <input type="radio" id="tax_1" name="tax" value="" checked>
+                        <label for="tax_1">전체</label>
+                    </div>
+                    <div class="cell_radio radio_custom">
+                        <input type="radio" id="tax_2" name="tax" value="">
+                        <label for="tax_2">과세</label>
+                    </div>
+                    <div class="cell_radio radio_custom">
+                        <input type="radio" id="tax_3" name="tax" value="">
+                        <label for="tax_3">면세</label>
+                    </div>
+                    <div class="cell_radio radio_custom">
+                        <input type="radio" id="tax_4" name="tax" value="">
+                        <label for="tax_4">영세</label>
+                    </div>
+                </li>
+                <li>
+                    <strong class="tit_form">배송비</strong>
+                    <div class="cell_radio radio_custom">
+                        <input type="radio" id="fee_1" name="fee" value="" checked>
+                        <label for="fee_1">전체</label>
+                    </div>
+                    <div class="cell_radio radio_custom">
+                        <input type="radio" id="fee_2" name="fee" value="">
+                        <label for="fee_2">무료배송</label>
+                    </div>
+                    <div class="cell_radio radio_custom">
+                        <input type="radio" id="fee_3" name="fee" value="">
+                        <label for="fee_3">유료배송</label>
+                    </div>
+                    <input type="checkbox" id="fee_4" name="fee" value="">
+                    <label for="fee_4" class="lab_em2">조건부 무료배송 제외</label>
+                    <input type="checkbox" id="fee_5" name="fee" value="">
+                    <label for="fee_5" class="lab_em2">착불 배송상품 제외</label>
+                </li>
+                <li>
+                    <strong class="tit_form">준수판매가 여부</strong>
+                    <div class="cell_radio radio_custom">
+                        <input type="radio" id="sellingprice_1" name="sellingprice" value="" checked>
+                        <label for="sellingprice_1">전체</label>
+                    </div>
+                    <div class="cell_radio radio_custom">
+                        <input type="radio" id="sellingprice_2" name="sellingprice" value="">
+                        <label for="sellingprice_2">준수판매가 있음</label>
+                    </div>
+                    <div class="cell_radio radio_custom">
+                        <input type="radio" id="sellingprice_3" name="sellingprice" value="">
+                        <label for="sellingprice_3">준수판매가 없음</label>
+                    </div>
+                </li>
+                <li>
+                    <strong class="tit_form">원산지</strong>
+                    <div class="cell_radio radio_custom">
+                        <input type="radio" id="country_1" name="country" value="" checked>
+                        <label for="country_1">전체</label>
+                    </div>
+                    <div class="cell_radio radio_custom">
+                        <input type="radio" id="country_2" name="country" value="">
+                        <label for="country_2">국내산</label>
+                    </div>
+                    <div class="cell_radio radio_custom">
+                        <input type="radio" id="country_3" name="country" value="">
+                        <label for="country_3">국외산</label>
+                    </div>
+                </li>
+                <li>
+                    <strong class="tit_form">기간</strong>
+                    <div class="cell_period">
+                        <span class="unit_select">
+                            <label for="skey1" class="blind">일자 검색 옵션</label>
+                            <select idx="0" name="cate[]" class="mr10">
+                                <option value="">상품등록일</option>
+                            </select>
+                        </span>
+                        <span class="inp_date">
+                            <label for="sdate" class="blind">시작날짜</label>
+                            <input type="text" name="regdt[]" id="sdate" value="20200924" autocomplete="off">
+                        </span>
+                        <span class="inp_date">
+                            <label for="edate" class="blind">끝날짜</label>
+                            <input type="text" id="edate" name="regdt[]" value="20200924" autocomplete="off">
+                        </span>
+                        <div class="date_qlist">
+                            <button type="button" onclick="setDate('regdt[]',20200924,20200924)" class="date-btn choice_date">오늘</button>
+                            <button type="button" onclick="setDate('regdt[]',20200917,20200924)" class="date-btn">일주일</button>
+                            <button type="button" onclick="setDate('regdt[]',20200909,20200924)" class="date-btn">15일</button>
+                            <button type="button" onclick="setDate('regdt[]',20200824,20200924)" class="date-btn">한 달</button>
+                            <button type="button" onclick="setDate('regdt[]',20200724,20200924)" class="date-btn">두 달</button>
+                            <button type="button" onclick="setDate('regdt[]')" class="date-btn">전체</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <strong class="tit_form">검색어</strong>
+                    <div class="unit_select_txt">
+                        <label for="skey1" class="blind">검색 옵션</label>
+                        <select name="skey" id="skey1">
+                            <option value="all">상품명</option>
+                            <option value="goi.ordno">주문번호</option>
+                            <option value="goi.outapi_prodord_id">제휴몰주문번호</option>
+                            <option value="go.nameOrder">주문자명</option>
+                            <option value="gg.goodsnm">상품명</option>
+                        </select>
+                        <label for="sword1" class="blind">주문 검색 입력창</label>
+                        <input type="text" id="sword1" name="sword" placeholder="검색어를 입력해주세요" value="">
+                    </div>
+                </li>
+            </ul>
+            <div class="wrap_button">
+                <button type="button" class="btn_g">초기화</button>
+                <button type="submit" class="btn_g active">검색</button>
+            </div>
+        </div>
+        <div class="section_g ">
+            <div class="area_box">
+                <div class="cell_g">
+                    <strong class="tit_th align_l">전송할 솔루션 선택</strong>
+                    <div class="desc_td">
+                        <input type="checkbox" id="solution_1" name="solution" value="">
+                        <label for="solution_1" class="lab_em2">카카오톡 스토어</label>
+                        <input type="checkbox" id="solution_2" name="solution" value="">
+                        <label for="solution_2" class="lab_em2">스마트스토어</label>
+                        <input type="checkbox" id="solution_3" name="solution" value="">
+                        <label for="solution_3" class="lab_em2">쿠팡</label>
+                    </div>
+                </div>
+            </div>
+            <div class="wrap_button middle">
+                <button type="submit" class="btn_g active">연동 계정 등록</button>
+            </div>
+        </div>
+        <div class="section_g ">
+            <div class="tool_wrap">
+                <button type="button" class="btn_ecxel">선택한 내역 엑셀 다운로드</button>
+                <button type="button" class="btn_ecxel">전체 내역 엑셀 다운로드</button>
+                <div class="unit_select">
+                    <select name="page_num">
+                        <option value="100" selected="">도매가 낮은순</option>
+                        <option value="80">80개씩 출력</option>
+                        <option value="60">60개씩 출력</option>
+                        <option value="40">40개씩 출력</option>
+                        <option value="20">20개씩 출력</option>
+                    </select>
+                </div>
+                <div class="unit_select">
+                    <select name="page_num">
+                        <option value="100" selected="">100개씩 출력</option>
+                        <option value="80">80개씩 출력</option>
+                        <option value="60">60개씩 출력</option>
+                        <option value="40">40개씩 출력</option>
+                        <option value="20">20개씩 출력</option>
+                    </select>
+                </div>
+            </div>
+            <p class="cell_total">[TOTAL: <span class="total_1">2</span> 개 / 검색 <span class="total_1">2</span> 개]</p>
+            <div class="box_tbl scroll_x">
+                <table class="tbl_comm tbl_detail">
+                    <caption class="blind">배송준비중 주문목록표</caption>
+                    <colgroup>
+                        <col class="col_03"> <!-- 체크박스 -->
+                        <col class="col_03"> <!-- 번호 -->
+                        <col class="col_07">  <!-- 판매업체 -->
+                        <col class="col_06">  <!-- 상품고유코드 -->
+                        <col class="col_07">  <!-- 브랜드 -->
+                        <col class="col_auto">  <!-- 상품명 -->
+                        <col class="col_05"> <!-- 재고 -->
+                        <col class="col_07"> <!-- 도매가 -->
+                        <col class="col_07"> <!-- 준수판매가 -->
+                        <col class="col_07"> <!-- 소비자정상가 -->
+                        <col class="col_08"> <!-- 쇼핑몰판매가 -->
+                        <col class="col_06"> <!-- 상품등록일 -->
+                        <col class="col_05"> <!-- 품절여부 -->
+                        <col class="col_06"> <!-- 도매판매여부 -->
+                        <col class="col_06"> <!-- 주문 -->
+                        <col class="col_04"> <!-- 삭제 -->
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" id="chkAll" class="frm_approve">
+                                <label for="chkAll"></label>
+                            </th>
+                            <th>번호</th>
+                            <th>판매업체</th>
+                            <th>상품고유코드</th>
+                            <th>브랜드</th>
+                            <th>상품명</th>
+                            <th>재고</th>
+                            <th>도매가</th>
+                            <th>준수판매가</th>
+                            <th>소비자정상가</th>
+                            <th>쇼핑몰판매가</th>
+                            <th>상품등록일</th>
+                            <th>품절여부</th>
+                            <th>도매판매여부</th>
+                            <th>주문</th>
+                            <th>삭제</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="pickGoods_1" name="goodsno[]" value="" class="frm_approve la_click">
+                                <label for="pickGoods_1"></label>
+                            </td>
+                            <td>999</td>
+                            <td>힘차고 단단한 아침</td>
+                            <td>5499103</td>
+                            <td>셀러허브가이드</td>
+                            <td>
+                                <div class="goods_item">
+                                    <span class="img_item"><img src="http://i.lately.co.kr/8/2003/09/7712883_700_700.jpg" class="img_block" alt=""></span>
+                                    <strong>[셀러허브가이드]국산 볶은 귀리가루5000g[셀러허브가이드]국산 볶은 귀리가루5000g[셀러허브가이드]국산 볶은 귀리가루5000g</strong>
+                                </div>
+                            </td>
+                            <td>99999999</td>
+                            <td>99,999,999,999</td>
+                            <td>99,999,999,999</td>
+                            <td>99,999,999,999</td>
+                            <td><input type="text" class="shop_price" value="99,999,999,999" /></td>
+                            <td>2020-04-06 15:35:23</td>
+                            <td><span class="fc_blue">판매</span></td>
+                            <td><span class="fc_blue">도매중</span></td>
+                            <td><button type="button" class="btn_h30 active">주문하기</button></td>
+                            <td><button type="submit" class="btn_rd10">삭제</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="pickGoods_2" name="goodsno[]" value="" class="frm_approve la_click">
+                                <label for="pickGoods_2"></label>
+                            </td>
+                            <td>999</td>
+                            <td>힘차고 단단한 아침</td>
+                            <td>5499103</td>
+                            <td>셀러허브가이드</td>
+                            <td>
+                                <div class="goods_item">
+                                    <span class="img_item"><img src="http://i.lately.co.kr/8/2003/09/7712883_700_700.jpg" class="img_block" alt=""></span>
+                                    <strong>[셀러허브가이드]국산 볶은 귀리가루5000g[셀러허브가이드]국산 볶은 귀리가루5000g[셀러허브가이드]국산 볶은 귀리가루5000g</strong>
+                                </div>
+                            </td>
+                            <td>99999999</td>
+                            <td>99,999,999,999</td>
+                            <td>99,999,999,999</td>
+                            <td>99,999,999,999</td>
+                            <td><input type="text" class="shop_price" value="99,999,999,999" /></td>
+                            <td>2020-04-06 15:35:23</td>
+                            <td><span class="fc_red">품절</span></td>
+                            <td><span class="fc_blue">도매중</span></td>
+                            <td><button type="button" class="btn_h30 active">주문하기</button></td>
+                            <td><button type="submit" class="btn_rd10">삭제</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="pickGoods_3" name="goodsno[]" value="" class="frm_approve la_click">
+                                <label for="pickGoods_3"></label>
+                            </td>
+                            <td>999</td>
+                            <td>힘차고 단단한 아침</td>
+                            <td>5499103</td>
+                            <td>셀러허브가이드</td>
+                            <td>
+                                <div class="goods_item">
+                                    <span class="img_item"><img src="http://i.lately.co.kr/8/2003/09/7712883_700_700.jpg" class="img_block" alt=""></span>
+                                    <strong>[셀러허브가이드]국산 볶은 귀리가루5000g[셀러허브가이드]국산 볶은 귀리가루5000g[셀러허브가이드]국산 볶은 귀리가루5000g</strong>
+                                </div>
+                            </td>
+                            <td>99999999</td>
+                            <td>99,999,999,999</td>
+                            <td>99,999,999,999</td>
+                            <td>99,999,999,999</td>
+                            <td><input type="text" class="shop_price" value="99,999,999,999" /></td>
+                            <td>2020-04-06 15:35:23</td>
+                            <td><span class="fc_blue">판매</span></td>
+                            <td><span class="fc_red">도매종료</span></td>
+                            <td><button type="button" class="btn_h30 active">주문하기</button></td>
+                            <td><button type="submit" class="btn_rd10">삭제</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="pickGoods_4" name="goodsno[]" value="" class="frm_approve la_click">
+                                <label for="pickGoods_4"></label>
+                            </td>
+                            <td>999</td>
+                            <td>힘차고 단단한 아침</td>
+                            <td>5499103</td>
+                            <td>셀러허브가이드</td>
+                            <td>
+                                <div class="goods_item">
+                                    <span class="img_item"><img src="http://i.lately.co.kr/8/2003/09/7712883_700_700.jpg" class="img_block" alt=""></span>
+                                    <strong>[셀러허브가이드]국산 볶은 귀리가루5000g[셀러허브가이드]국산 볶은 귀리가루5000g[셀러허브가이드]국산 볶은 귀리가루5000g</strong>
+                                </div>
+                            </td>
+                            <td>99999999</td>
+                            <td>99,999,999,999</td>
+                            <td>99,999,999,999</td>
+                            <td>99,999,999,999</td>
+                            <td><input type="text" class="shop_price" value="99,999,999,999" /></td>
+                            <td>2020-04-06 15:35:23</td>
+                            <td><span class="fc_red">품절</span></td>
+                            <td><span class="fc_red">도매종료</span></td>
+                            <td><button type="button" class="btn_h30 active">주문하기</button></td>
+                            <td><button type="submit" class="btn_rd10">삭제</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button type="button" class="btn_h30 mt8">선택한 상품 스마트 전송</button>
+            <button type="button" class="btn_h30 empty mt8">선택한 상품 삭제</button>
+            <div class="page_wrap"><ul class="pagination"><li class="disabled"><span>«</span></li> <li class="active"><span>1</span></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=2">2</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=3">3</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=4">4</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=5">5</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=6">6</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=7">7</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=8">8</a></li><li class="disabled"><span>...</span></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=115">115</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=116">116</a></li> <li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=2" rel="next">»</a></li></ul></div>
+            <div class="wrap_button middle">
+                <button type="submit" class="btn_g active">저장</button>
+            </div>
+        </div>
+        <div class="section_g ">
+            <div class="area_box">
+                <div class="cell_g">
+                    <strong class="tit_th align_l tit_detail">도매가 / 재고 일괄적용</strong>
+                    <div class="desc_td desc_detail1 bd_bt">
+                        <div class="cell_radio radio_custom">
+                            <input type="radio" id="modify_1" name="modify" value="" checked>
+                            <label for="modify_1">선택한 상품 전체를 수정합니다.</label>
+                        </div>
+                        <div class="cell_radio radio_custom">
+                            <input type="radio" id="modify_2" name="modify" value="">
+                            <label for="modify_2">검색된 상품 전체를 수정합니다.</label>
+                        </div>
+                        <div class="cell_radio radio_custom">
+                            <input type="radio" id="modify_3" name="modify" value="">
+                            <label for="modify_3">도매상품 전체를 수정합니다.</label>
+                        </div>
+                    </div>
+                    <div class="desc_td desc_detail2">
+                        <p>
+                            <b class="fc_blue2">[쇼핑몰판매가]</b>에서 
+                            <input type="text" class="shop_price" value="99,999,999,999" />
+                            <span class="unit_select select_type1">
+                                <label for="skey1" class="blind">금액 옵션</label>
+                                <select idx="0" name="cate[]" class="mr10">
+                                    <option value="">원</option>
+                                </select>
+                            </span>
+                            을 
+                            <span class="unit_select select_type2">
+                                <label for="skey1" class="blind">금액 옵션</label>
+                                <select idx="0" name="cate[]" class="mr10">
+                                    <option value="">반올림</option>
+                                </select>
+                            </span>
+                            된 가격으로 <b class="fc_blue2">[쇼핑몰판매가]</b>를 일괄적으로 수정합니다.
+                        </p>
+                        <p>
+                            수정되는 가격의 단위는 
+                            <span class="unit_select select_type2">
+                                <label for="skey1" class="blind">금액 옵션</label>
+                                <select idx="0" name="cate[]" class="mr10">
+                                    <option value="">1000</option>
+                                </select>
+                            </span>
+                            원 단위로 
+                            <span class="unit_select select_type2">
+                                <label for="skey1" class="blind">금액 옵션</label>
+                                <select idx="0" name="cate[]" class="mr10">
+                                    <option value="">반올림</option>
+                                </select>
+                            </span>
+                            하여 수정합니다.
+                        </p>
+                        <span class="fc_red">* 최종적용하기 위해서는 반드시 [저장]버튼을 클릭 하셔야합니다.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="wrap_button middle">
+                <button type="submit" class="btn_g active">수정</button>
+            </div>
+        </div>
+        
+        <!-- // 도매허브 본문 끝 -->
+    </div>
+</div> <!-- // #wrap -->
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    // 날짜선택버튼 제어 
+    $(".date-btn").on("click",function(){
+        $(".date-btn").removeClass("choice_date");
+        $(this).addClass("choice_date");
+    });
+
+    //테이블 백그라운드컬러 제어(background-color-control)
+    $(".la_click").click(function(){
+        $(this).parents("tr").toggleClass("bg_check");
+    });
+    
+});
+</script>
+</body>
+</html>

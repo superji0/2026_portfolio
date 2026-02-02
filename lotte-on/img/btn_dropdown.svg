@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+    <defs>
+        <style>
+            .cls-1{fill:#fff}.cls-2{fill:#747474}.cls-3,.cls-4{stroke:none}.cls-4{fill:#c3c3c3}
+        </style>
+    </defs>
+    <g id="btn_dropdown" transform="translate(-323 -295)">
+        <g id="패스_1279" class="cls-1" data-name="패스 1279">
+            <path d="M29.5 19.5h-19V.5h19v19z" class="cls-3" transform="translate(313 295)"/>
+            <path d="M11 1v18h18V1H11m-1-1h20v20H10V0z" class="cls-4" transform="translate(313 295)"/>
+        </g>
+        <path id="다각형_5" d="M4 0l4 4.8H0z" class="cls-2" data-name="다각형 5" transform="rotate(180 168.5 154)"/>
+    </g>
+</svg>

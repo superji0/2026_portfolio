@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes">
+    <title>셀러허브 관리자</title>
+    <link rel="stylesheet" type="text/css" href="/shop/admin_provider/common.css">
+
+    <script src="/global/global_custom.js"></script>
+    <link rel="stylesheet" href="/shop/admin_provider/jquery-ui.css">
+    <script type="text/javascript" src="/shop/admin_provider/jquery-1.8.3.min.js"></script>
+    <!--[if lte IE 8]>
+    <script src="../poly-checked.min.js"></script> <![endif]-->
+    <script type="text/javascript" src="/shop/admin_provider/common.js"></script>
+    <script type="text/javascript" src="/shop/admin_provider/custom.js"></script>
+    <script src="/shop/admin_provider/jquery-ui.js"></script>
+    <script>
+        $( document ).ready(function() {
+            if (navigator.userAgent.indexOf('Mac OS X') != -1) {
+                $("body").addClass("mac");
+            } else {
+                $("body").addClass("pc");
+            }
+
+            $('.lnb-tab li a').click(function(){
+                var tab_id = $(this).attr('data-tab');
+
+                $('.lnb-tab li').removeClass('on');
+                $('.lnb_content').removeClass('on');
+
+                $(this).parent().addClass('on');
+                $("#"+tab_id).addClass('on');
+            });
+            $(".sub_arrow").click(function () {
+                $(this).toggleClass('on');
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="header" class="type_selleradmin">
+    <h1 class="logo"><a href="/shop/admin_provider/"><img src="/shop/admin_provider/img/common/logo.png" alt="로고"></a></h1>
+    <div id="gnb" class="gnb">
+        <ul class="gnb-list">
+            <li><a href="../basic/dashboard.php">기본관리</a></li>
+            <li><a href="../order/list_v2.php?mode=group&amp;first=1">주문</a></li>
+            <li><a href="../calc/list.done.php">정산</a></li>
+            <li><a href="../goods/list_v2.php">상품</a></li>
+            <li><a href="../board/provider_bbs_list_v2.php?bid=notice">게시판</a></li>
+            <li class=" additional_service_menu"><a href="/shop/admin_provider/linkage/linkage_state.php">연동현황</a></li>
+            <li><a href="../log/stat.sale_v2.php">통계데이타</a></li>
+            <li><a href="/shop/admin_provider/eventRequest/list.php">★ 행사신청</a></li>
+            <li><a href="#">서비스 이용료 결제관리</a></li>
+            <li><a href="#">개별연동</a></li>
+            <li><a href="#">부가서비스</a></li>
+            <li class="gnb_on"><a href="#">도매서비스</a></li>
+        </ul>
+        <ul class="side-list">
+            <li>
+                <button type="button" id="btnCollect" class="btn_collect ">상품<span class="txt_en">DB</span> 수집</button>
+                <div class="box_collect">
+                    <a href="<?= $gnb_link['6pm']?>" target="_blank">6PM 상품DB 수집</a>
+                    <a href="<?= $gnb_link['godo5'] ?>" target="_blank">고도몰5 상품DB 수집</a>
+                    <a href="<?= $gnb_link['enamoo'] ?>" target="_blank">이나무 상품DB 수집</a>
+                    <a href="<?= $gnb_link['sixshop'] ?>" target="_blank">SixShop 상품DB 수집</a>
+                    <a href="<?= $gnb_link['smartstore'] ?>" target="_blank">SmartStore 상품DB 수집</a>
+                    <a href="<?= $gnb_link['cafe24'] ?>" target="_blank">카페24 상품DB 수집</a>
+                    <a href="<?= $gnb_link['imweb'] ?>" target="_blank">아임웹 상품DB 수집</a>
+                </div>
+            </li>
+            <li><a href="https://www.sellerdeal.co.kr" class="shop_sellerdeal" target="_blank"><span class="icon_g icon_sellerdeal"></span></a></li>
+            <li><a href="https://<?=$_SERVER['HTTP_HOST']?>/shop/main/index.php" target="_blank"><span class="ls_2">셀러 전용 폐쇄형 복지몰</span><span class="shop_sellerhub">셀러허브샵</span></a></li>
+            <li><a href="javascript:void(0)" class="p_news on"><span class="icon_noti">알림보기</span><span class="news_count"></span></a></li>
+            <li>
+                <button type="button" class="sub_menu_btn"><span class="icon_profile">메뉴보기</span></button>
+                <div class="box_userinfo">
+                    <div class="frame_thumb">
+                        <span class="icon_profile"><img src="/shop/admin_provider/imgView.php?sno=22933&amp;type=3" alt="프로필사진"></span>
+                        <a href="/shop/admin_provider/basic/basic_set_2_v2.php" class="btn_revision">사진변경</a>
+                    </div>
+                    <strong class="id_wrap"><a href="#">올리고소프트</a></strong>
+                    <a href="../../member/logout.php?referer=../admin_provider/login/login.php" class="btn_logout">로그아웃</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="lnb">
+        <ul class="lnb-tab">
+            <li class="on" ><a href="#order" data-tab="lnb_dome_buy">구매</a></li>
+            <li><a href="#cancel" data-tab="lnb_dome_sale">판매</a></li>
+        </ul>
+        <ul id="lnb_dome_buy" class="lnb-list lnb_content on">
+            <li>
+                <a href="#" class="sub_arrow on">상품관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="dome_pool.html">도매상품 POOL</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">구매관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="order_buy_list.html">구매리스트</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">엑셀일괄주문</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="excel_order.html">엑셀 상품주문</a></li>
+                    <li><a href="excel_order_state.html" class="now_on">엑셀 상품주문현황</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">관심</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="pick_company.html">찜한 업체</a></li>
+                    <li><a href="pick_goods.html">찜한 상품</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">문의</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="ask_product.html">상품문의</a></li>
+                    <li><a href="ask_oto.html">1:1 문의</a></li>
+                    <li><a href="ask_seller.html">판매자에게 문의</a></li>
+                    <li><a href="??.html">자주하는 질문과 답변 (FAQ)</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul id="lnb_dome_sale" class="lnb-list lnb_content">
+            <li>
+                <a href="#" class="sub_arrow on">상품관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="dome_pool.html">도매상품 POOL</a></li>
+                    <li><a href="dome_list.html">도매 판매 상품리스트</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">판매관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="order__list.html">판매리스트</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">캐쉬</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="hubcash.html">허브캐쉬</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">문의</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="ask_product.html">상품문의</a></li>
+                    <li><a href="ask_oto.html">1:1 문의</a></li>
+                    <li><a href="ask_seller.html">판매자에게 문의</a></li>
+                    <li><a href="??.html">자주하는 질문과 답변 (FAQ)</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">내정보</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="manage.html">도매신청 관리</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div><!-- // header -->
+
+<div id="wrap">
+    <div class="container_wrap order_excel">
+        <!-- 도매허브 본문 시작 -->
+        <link rel="stylesheet" type="text/css" href="/shop/admin_provider/style.order.css">
+        <link rel="stylesheet" type="text/css" href="../css/style.admin.css">
+        <h2 class="screen_out">도매허브</h2>
+        <h3 class="title_section">엑셀 상품주문현황</h3>
+        <div class="section_g section_top">
+            <ul class="list_form">
+                <li>
+                    <strong class="tit_form">카테고리</strong>
+                    <span class="unit_select">
+                        <select name="">
+                            <option value="">1차분류</option>
+                        </select>
+                    </span>
+                    <span class="unit_select">
+                        <select name="">
+                            <option value="">2차분류</option>
+                        </select>
+                    </span>
+                    <span class="unit_select">
+                        <select name="">
+                            <option value="">3차분류</option>
+                        </select>
+                    </span>
+                    <span class="unit_select">
+                        <select name="">
+                            <option value="">4차분류</option>
+                        </select>
+                    </span>
+                </li>
+                <li>
+                    <strong class="tit_form">주문 일자</strong>
+                    <div class="cell_period"><span class="inp_date"><input type="text" name="regdt[]" id="sdate" value="" onkeydown="onlynumber()" autocomplete="off" class="hasDatepicker"></span>
+                        <span class="inp_date"><input type="text" name="regdt[]" id="edate" value="" onkeydown="onlynumber()" autocomplete="off" class="hasDatepicker"></span>
+                        <span class="date_qlist">
+                            <button type="button" onclick="setDate('regdt[]',20200925,20200925)" class="date-btn">오늘</button>
+                            <button type="button" onclick="setDate('regdt[]',20200918,20200925)" class="date-btn">일주일</button>
+                            <button type="button" onclick="setDate('regdt[]',20200910,20200925)" class="date-btn">15일</button>
+                            <button type="button" onclick="setDate('regdt[]',20200825,20200925)" class="date-btn">한 달</button>
+                            <button type="button" onclick="setDate('regdt[]',20200725,20200925)" class="date-btn">두 달</button>
+                            <button type="button" onclick="setDate('regdt[]')" class="date-btn">전체</button>
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <strong class="tit_form">검색어</strong>
+                    <div class="item_put unit_select_txt">
+                        <select name="skey">
+                            <option value="">상품명</option>
+                        </select>
+                        <input type="text" name="sword" value="">
+                    </div>
+                </li>
+            </ul>
+            <div class="wrap_button">
+                <button type="button" class="btn_g">초기화</button>
+                <button type="submit" class="btn_g active">검색</button>
+            </div>
+        </div>
+
+        <div class="section_g">
+            <div class="tool_wrap">
+                <a href="#" class="btn_ecxel">선택주문 엑셀다운로드</a>
+                <a href="#" class="btn_ecxel mr8">전체주문 엑셀다운로드</a>
+                <div class="unit_select">
+                    <select name="page_num" onchange="this.form.submit()">
+                        <option value="10" selected="">10개 출력</option>
+                        <option value="20">20개 출력</option>
+                        <option value="40">40개 출력</option>
+                        <option value="60">60개 출력</option>
+                        <option value="100">100개 출력</option>
+                    </select>
+                </div>
+            </div>
+            <div class="cell_total">[TOTAL: 5 개 / 검색 5 개]</div>
+            <div class="box_tbl box_excel">
+                <table class="tbl_comm tbl_excel">
+                    <caption class="blind">엑셀상품 현황 목록표</caption>
+                    <colgroup>
+                        <col class="col_02"> <!--  -->
+                        <col class="col_03"> <!-- 번호 -->
+                        <col class="col_06"> <!-- 주문일자 -->
+                        <col class="col_07"> <!-- 주문번호 -->
+                        <col class="col_05"> <!-- 주문자 -->
+                        <col class="col_06"> <!-- 받는분 -->
+                        <col class="col_05"> <!-- 도매허브 상품고유코드 -->
+                        <col class="col_auto"> <!-- 상품명/상품코드 -->
+                        <col class="col_11"> <!-- 옵션 -->
+                        <col class="col_03"> <!-- 수량 -->
+                        <col class="col_05"> <!-- 도매가 -->
+                        <col class="col_05"> <!-- 배송비 -->
+                        <col class="col_05"> <!-- 합계금액 -->
+                        <col class="col_09"> <!-- 배송정보 -->
+                        <col class="col_05"> <!-- 배송현황 -->
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" id="chkAll" class="frm_approve">
+                                <label for="chkAll"></label>
+                            </th>
+                            <th>번호</th>
+                            <th>주문일자</th>
+                            <th>주문번호</th>
+                            <th>주문자</th>
+                            <th>받는분</th>
+                            <th>도매허브<br/>상품고유코드</th>
+                            <th>상품명/상품코드</th>
+                            <th>옵션</th>
+                            <th>수량</th>
+                            <th>도매가</th>
+                            <th>배송비</th>
+                            <th>합계금액</th>
+                            <th>배송정보</th>
+                            <th>배송현황</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div>
+                                    <input type="checkbox" id="order_chk1" class="la_click" name="goodsno[]" value="8_13">
+                                    <label for="order_chk1"></label>
+                                </div>
+                            </td>
+                            <td>5</td>
+                            <td rowspan="2">2020-06-01 16:31:24</td>
+                            <td rowspan="2">2020070417295853</td>
+                            <td rowspan="2">홍길동C</td>
+                            <td>박보검</td>
+                            <td>3017559</td>
+                            <td>
+                                <div class="goods_excelItem">
+                                    <span class="img_item"></span>   
+                                        윈도우가 설치되어 배송되는거 맞는건가요?아니면 윈도우 설치는 개인이 직접 배송 받은 뒤에 해야되는건가요?설치 프로그램은
+                                    윈도우가 설치되어 배송되는거 맞는건가요?아니면 윈도우 설치는 개인이 직접 배송 받은 뒤에 해야되는건가요?설치 프로그램은
+                                    윈도우가 설치되어 배송되는거 맞는건가요?아니면 윈도우 설치는 개인이 직접 배송 받은 뒤에 해야되는건가요?설치 프로그램은
+                                </div>
+                            </td>
+                            <td>귀리가루 / 5000g</td>
+                            <td>1</td>
+                            <td>999,999,999</td>
+                            <td>999,999,999</td>
+                            <td>999,999,999</td>
+                            <td rowspan="2" class="goods_excelAddress">
+                                <em>(08861)</em>
+                                서울특별시 관악구 난곡로 30
+                            </td>
+                            <td>
+                                <a href="#none" class="f_dblue f_underline">배송중</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+                                    <input type="checkbox" id="order_chk2" class="la_click" name="goodsno[]" value="8_13">
+                                    <label for="order_chk2"></label>
+                                </div>
+                            </td>
+                            <td>4</td>
+                            <td>김태연</td>
+                            <td>3017559</td>
+                            <td>
+                                <div class="goods_item">
+                                    <span class="img_item"></span>   
+                                    윈도우가 설치되어 배송되는거 맞는건가요?아니면 윈도우 설치는 개인이 직접 배송 받은 뒤에 해야되는건가요?설치 프로그램은
+                                </div>
+                            </td>
+                            <td>귀리가루 / 5000g</td>
+                            <td>1</td>
+                            <td>999,999,999</td>
+                            <td>999,999,999</td>
+                            <td>999,999,999</td>
+                            <td>
+                                <a href="#none" class="f_dblue f_underline">배송완료</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+                                    <input type="checkbox" id="order_chk3" class="la_click" name="goodsno[]" value="8_13">
+                                    <label for="order_chk3"></label>
+                                </div>
+                            </td>
+                            <td>3</td>
+                            <td>2020-06-01 16:31:24</td>
+                            <td>2020070417295853</td>
+                            <td>홍길동A</td>
+                            <td>강동원</td>
+                            <td>3017559</td>
+                            <td>
+                                <div class="goods_item">
+                                    <span class="img_item"></span>   
+                                    윈도우가 설치되어 배송되는거 맞는건가요?아니면 윈도우 설치는 개인이 직접 배송 받은 뒤에 해야되는건가요?설치 프로그램은
+                                </div>
+                            </td>
+                            <td>브람스/그레이/255</td>
+                            <td>999</td>
+                            <td>999,999,999</td>
+                            <td>999,999,999</td>
+                            <td>999,999,999</td>
+                            <td class="goods_excelAddress">
+                                <em>(08861)</em>
+                                서울특별시 관악구 난곡로 30
+                            </td>
+                            <td>
+                                구매확정
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+                                    <input type="checkbox" id="order_chk4" class="la_click" name="goodsno[]" value="8_13">
+                                    <label for="order_chk4"></label>
+                                </div>
+                            </td>
+                            <td>2</td>
+                            <td>2020-06-01 16:31:24</td>
+                            <td>2020070417295853</td>
+                            <td>홍길동A</td>
+                            <td>박하늘나래</td>
+                            <td>3017559</td>
+                            <td>
+                                <div class="goods_item">
+                                    <span class="img_item"></span>   
+                                    윈도우가 설치되어 배송되는거 맞는건가요?아니면 윈도우 설치는 개인이 직접 배송 받은 뒤에 해야되는건가요?설치 프로그램은
+                                </div>
+                            </td>
+                            <td>블랙 / FREE</td>
+                            <td>1</td>
+                            <td>999,999,999</td>
+                            <td>999,999,999</td>
+                            <td>999,999,999</td>
+                            <td class="goods_excelAddress">
+                                <em>(08861)</em>
+                                서울특별시 관악구 난곡로 30</td>
+                            <td>
+                                구매확정
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="15">
+                                <div class="box_total fs0">
+                                    <button type="button" class="btn_h30 empty">선택 주문 삭제</button>
+                                    <button type="button" class="btn_h30 fst">주문 전체 삭제</button>
+                                    <span class="fs13">주문금액합계 : 52,000원 + 배송비 합계 : 2,500원 / 총 결제금액 : <strong>4</strong>건 / <strong>54,500원</strong></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div id="regoods_list" class="tab_content tab_type2"></div>
+        <div id="exchange_list" class="tab_content tab_type2"></div> 
+        <div id="exchangeDone_list" class="tab_content tab_type2"></div>
+        <!-- // 도매허브 본문 끝 -->
+    </div>
+</div> <!-- // #wrap -->
+
+<script type="text/javascript">
+function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tab_content");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName(".btn_tab");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" on", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " on";
+}
+
+$(document).ready(function(){
+    // 날짜선택버튼 제어 
+    $(".date-btn").on("click",function(){
+        $(".date-btn").removeClass("choice_date");
+        $(this).addClass("choice_date");
+    });
+
+    //테이블 백그라운드컬러 제어(background-color-control)
+    $(".la_click").click(function(){
+        $(this).parents("tr").toggleClass("bg_check");
+    });
+
+    //전체선택
+    $("#chkAll").on("click", function() {
+        var inputCell = $("input[name='goodsno[]']");
+
+        $("input[name='goodsno[]']").prop("checked", $(this).prop("checked"));
+        inputCell.parents("tr").toggleClass("bg_check");
+    });
+});
+</script>
+</body>
+</html>

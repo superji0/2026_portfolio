@@ -244,10 +244,25 @@
 
             <div class="section_g section_con">
                 <div id="account_list" class="tab_content">
-                    <p class="cell_total">[TOTAL: <span class="total_1">0</span> 개 / 검색 <span class="total_2">0</span> 개]</p>
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                        <p class="cell_total">[TOTAL: <span class="total_1">0</span> 개 / 검색 <span class="total_2">0</span> 개]</p>
+                        <div class="tool_wrap">
+                            <a href="" class="btn_ecxel">엑셀로 저장 </a>
+                            <input type="hidden">                  
+                            <div class="cell_select">
+                                <label for="page_num1" class="blind">리스트출력옵션</label>
+                                <select name="page_num" id="page_num1">
+                                    <option value="20">20개 출력
+                                    </option><option value="50">50개 출력
+                                    </option><option value="100">100개 출력
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <div class="box_tbl">
                         <form name="frmList" method="post">
-                            <table class="tbl_comm tbl_detail" width="1636px" cellpadding="0" cellspacing="0">
+                            <table class="tbl_comm tbl_detail" width="100%" cellpadding="0" cellspacing="0" style="min-width:1636px;">
                                 <caption class="blind">선정산표</caption>
                                 <colgroup>
                                     <col class="col_03">
@@ -310,19 +325,6 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="tool_wrap">
-                                <a href="" class="btn_ecxel">엑셀로 저장 </a>
-                                <input type="hidden">                  
-                                <div class="cell_select">
-                                    <label for="page_num1" class="blind">리스트출력옵션</label>
-                                    <select name="page_num" id="page_num1">
-                                        <option value="20">20개 출력
-                                        </option><option value="50">50개 출력
-                                        </option><option value="100">100개 출력
-                                        </option>
-                                    </select>
-                                </div>
-                            </div> 
                         </form>
                         <div class="sec2_button"></div>
                     </div>

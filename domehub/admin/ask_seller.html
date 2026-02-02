@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes">
+    <title>도매허브 관리자</title>
+    <link rel="stylesheet" type="text/css" href="/shop/admin_provider/common.css">
+
+    <script src="/global/global_custom.js"></script>
+    <link rel="stylesheet" href="/shop/admin_provider/jquery-ui.css">
+    <script type="text/javascript" src="/shop/admin_provider/jquery-1.8.3.min.js"></script>
+    <!--[if lte IE 8]>
+    <script src="../poly-checked.min.js"></script> <![endif]-->
+    <script type="text/javascript" src="/shop/admin_provider/common.js"></script>
+    <script type="text/javascript" src="/shop/admin_provider/custom.js"></script>
+    <script src="/shop/admin_provider/jquery-ui.js"></script>
+    <script>
+        $( document ).ready(function() {
+            if (navigator.userAgent.indexOf('Mac OS X') != -1) {
+                $("body").addClass("mac");
+            } else {
+                $("body").addClass("pc");
+            }
+
+            $('.lnb-tab li a').click(function(){
+                var tab_id = $(this).attr('data-tab');
+
+                $('.lnb-tab li').removeClass('on');
+                $('.lnb_content').removeClass('on');
+
+                $(this).parent().addClass('on');
+                $("#"+tab_id).addClass('on');
+            });
+            $(".sub_arrow").click(function () {
+                $(this).toggleClass('on');
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="header" class="type_selleradmin">
+    <h1 class="logo"><a href="/shop/admin_provider/"><img src="/shop/admin_provider/img/common/logo.png" alt="로고"></a></h1>
+    <div id="gnb" class="gnb">
+        <ul class="gnb-list">
+            <li><a href="../basic/dashboard.php">기본관리</a></li>
+            <li><a href="../order/list_v2.php?mode=group&amp;first=1">주문</a></li>
+            <li><a href="../calc/list.done.php">정산</a></li>
+            <li><a href="../goods/list_v2.php">상품</a></li>
+            <li><a href="../board/provider_bbs_list_v2.php?bid=notice">게시판</a></li>
+            <li class=" additional_service_menu"><a href="/shop/admin_provider/linkage/linkage_state.php">연동현황</a></li>
+            <li><a href="../log/stat.sale_v2.php">통계데이타</a></li>
+            <li><a href="/shop/admin_provider/eventRequest/list.php">★ 행사신청</a></li>
+            <li><a href="#">서비스 이용료 결제관리</a></li>
+            <li><a href="#">개별연동</a></li>
+            <li><a href="#">부가서비스</a></li>
+            <li class="gnb_on"><a href="#">도매서비스</a></li>
+        </ul>
+        <ul class="side-list">
+            <li>
+                <button type="button" id="btnCollect" class="btn_collect ">상품<span class="txt_en">DB</span> 수집</button>
+                <div class="box_collect">
+                    <a href="<?= $gnb_link['6pm']?>" target="_blank">6PM 상품DB 수집</a>
+                    <a href="<?= $gnb_link['godo5'] ?>" target="_blank">고도몰5 상품DB 수집</a>
+                    <a href="<?= $gnb_link['enamoo'] ?>" target="_blank">이나무 상품DB 수집</a>
+                    <a href="<?= $gnb_link['sixshop'] ?>" target="_blank">SixShop 상품DB 수집</a>
+                    <a href="<?= $gnb_link['smartstore'] ?>" target="_blank">SmartStore 상품DB 수집</a>
+                    <a href="<?= $gnb_link['cafe24'] ?>" target="_blank">카페24 상품DB 수집</a>
+                    <a href="<?= $gnb_link['imweb'] ?>" target="_blank">아임웹 상품DB 수집</a>
+                </div>
+            </li>
+            <li><a href="https://www.sellerdeal.co.kr" class="shop_sellerdeal" target="_blank"><span class="icon_g icon_sellerdeal"></span></a></li>
+            <li><a href="https://<?=$_SERVER['HTTP_HOST']?>/shop/main/index.php" target="_blank"><span class="ls_2">셀러 전용 폐쇄형 복지몰</span><span class="shop_sellerhub">셀러허브샵</span></a></li>
+            <li><a href="javascript:void(0)" class="p_news on"><span class="icon_noti">알림보기</span><span class="news_count"></span></a></li>
+            <li>
+                <button type="button" class="sub_menu_btn"><span class="icon_profile">메뉴보기</span></button>
+                <div class="box_userinfo">
+                    <div class="frame_thumb">
+                        <span class="icon_profile"><img src="/shop/admin_provider/imgView.php?sno=22933&amp;type=3" alt="프로필사진"></span>
+                        <a href="/shop/admin_provider/basic/basic_set_2_v2.php" class="btn_revision">사진변경</a>
+                    </div>
+                    <strong class="id_wrap"><a href="#">올리고소프트</a></strong>
+                    <a href="../../member/logout.php?referer=../admin_provider/login/login.php" class="btn_logout">로그아웃</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="lnb">
+        <ul class="lnb-tab">
+            <li class="on" ><a href="#order" data-tab="lnb_dome_buy">구매</a></li>
+            <li><a href="#cancel" data-tab="lnb_dome_sale">판매</a></li>
+        </ul>
+        <ul id="lnb_dome_buy" class="lnb-list lnb_content on">
+            <li>
+                <a href="#" class="sub_arrow on">상품관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="dome_pool.html">도매상품 POOL</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">구매관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="order_buy_list.html">구매리스트</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">엑셀일괄주문</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="excel_order.html">엑셀 상품주문</a></li>
+                    <li><a href="excel_order_state.html">엑셀 상품주문현황</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">관심</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="pick_company.html">찜한 업체</a></li>
+                    <li><a href="pick_goods.html">찜한 상품</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">문의</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="ask_product.html">상품문의</a></li>
+                    <li><a href="ask_oto.html">1:1 문의</a></li>
+                    <li><a href="ask_seller.html" class="now_on">판매자에게 문의</a></li>
+                    <li><a href="??.html">자주하는 질문과 답변 (FAQ)</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul id="lnb_dome_sale" class="lnb-list lnb_content">
+            <li>
+                <a href="#" class="sub_arrow on">상품관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="dome_pool.html">도매상품 POOL</a></li>
+                    <li><a href="dome_list.html">도매 판매 상품리스트</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">판매관리</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="order__list.html">판매리스트</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">캐쉬</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="hubcash.html">허브캐쉬</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">문의</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="ask_product.html">상품문의</a></li>
+                    <li><a href="ask_oto.html">1:1 문의</a></li>
+                    <li><a href="ask_seller.html">판매자에게 문의</a></li>
+                    <li><a href="??.html">자주하는 질문과 답변 (FAQ)</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="sub_arrow on">내정보</a>
+                <ul class="leftmenu_sub">
+                    <li><a href="manage.html">도매신청 관리</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div><!-- // header -->
+
+<div id="wrap">
+    <div class="container_wrap">
+        <!-- 도매허브 본문 시작 -->
+        <link rel="stylesheet" type="text/css" href="/shop/admin_provider/style.order.css">
+        <link rel="stylesheet" type="text/css" href="../css/style.admin.css">
+        <h2 class="screen_out">도매허브</h2>
+        <h3 class="title_section">판매자에게 문의</h3>
+
+        <div class="section_g section_top">
+            <ul class="list_form">
+                <li>
+                    <strong class="tit_form">카테고리</strong>
+                    <div class="item_cate">
+                        <span class="unit_select">
+                            <label for="skey1" class="blind">카테고리 1차 검색 옵션</label>
+                            <select idx="0" name="cate[]" class="goods_category_1_list order_sel1  mr10">
+                                <option value="">1차 분류</option>
+                            </select>
+                        </span>
+                        <span class="unit_select">
+                            <label for="skey1" class="blind">카테고리 2차 검색 옵션</label>
+                            <select idx="0" name="cate[]" class="goods_category_2_list order_sel2  mr10">
+                                <option value="">2차 분류</option>
+                            </select>
+                        </span>
+                        <span class="unit_select">
+                            <label for="skey1" class="blind">카테고리 3차 검색 옵션</label>
+                            <select idx="0" name="cate[]" class="goods_category_3_list order_sel3  mr10">
+                                <option value="">3차 분류</option>
+                            </select>
+                        </span>
+                        <span class="unit_select">
+                            <label for="skey1" class="blind">카테고리 4차 검색 옵션</label>
+                            <select idx="0" name="cate[]" class="goods_category_4_list order_sel4">
+                                <option value="">4차 분류</option>
+                            </select>
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <strong class="tit_form">사이즈</strong>
+                    <div class="unit_select">
+                        <label for="skey1" class="blind">사이즈 검색 옵션</label>
+                        <select name="goods_cls">
+                            <option value="">사이즈</option>
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <strong class="tit_form">답변여부</strong>
+                    <div class="item_put">
+                        <input type="checkbox" name="step[]" value="1" id="askProduct_chk_1" checked><label for="askProduct_chk_1">답변대기</label>
+                        <input type="checkbox" name="step[]" value="2" id="askProduct_chk_2"><label for="askProduct_chk_2">답변완료</label>
+                    </div>
+                </li>
+                <li>
+                    <strong class="tit_form">일자</strong>
+                    
+                    <div class="cell_period">
+                        <span class="unit_select">
+                            <label for="skey1" class="blind">일자 검색 옵션</label>
+                            <select idx="0" name="cate[]" class="mr10">
+                                <option value="">문의일자</option>
+                            </select>
+                        </span>
+                        <span class="inp_date">
+                            <label for="sdate" class="blind">시작날짜</label>
+                            <input type="text" name="regdt[]" id="sdate" value="20200924" autocomplete="off">
+                        </span>
+                        <span class="inp_date">
+                            <label for="edate" class="blind">끝날짜</label>
+                            <input type="text" id="edate" name="regdt[]" value="20200924" autocomplete="off">
+                        </span>
+                        <div class="date_qlist">
+                            <button type="button" onclick="setDate('regdt[]',20200924,20200924)" class="date-btn choice_date">오늘</button>
+                            <button type="button" onclick="setDate('regdt[]',20200917,20200924)" class="date-btn">일주일</button>
+                            <button type="button" onclick="setDate('regdt[]',20200909,20200924)" class="date-btn">15일</button>
+                            <button type="button" onclick="setDate('regdt[]',20200824,20200924)" class="date-btn">한 달</button>
+                            <button type="button" onclick="setDate('regdt[]',20200724,20200924)" class="date-btn">두 달</button>
+                            <button type="button" onclick="setDate('regdt[]')" class="date-btn">전체</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <strong class="tit_form">검색</strong>
+                    <div class="unit_select_txt">
+                        <label for="skey1" class="blind">주문 검색 옵션</label>
+                        <select name="skey" id="skey1">
+                            <option value="all">통합검색</option>
+                            <option value="goi.ordno">주문번호</option>
+                            <option value="goi.outapi_prodord_id">제휴몰주문번호</option>
+                            <option value="go.nameOrder">주문자명</option>
+                            <option value="gg.goodsnm">상품명</option>
+                        </select>
+                        <label for="sword1" class="blind">주문 검색 입력창</label>
+                        <input type="text" id="sword1" name="sword" placeholder="검색어를 입력해주세요" value="">
+                    </div>
+                </li>
+            </ul>
+            <div class="wrap_button">
+                <button type="button" class="btn_g">초기화</button>
+                <button type="submit" class="btn_g active">검색</button>
+            </div>
+        </div>
+        <div class="section_g ">
+            <div class="tool_wrap">
+                <div class="unit_select">
+                    <select name="page_num">
+                        <option value="100" selected="">100개씩 출력</option>
+                        <option value="80">80개씩 출력</option>
+                        <option value="60">60개씩 출력</option>
+                        <option value="40">40개씩 출력</option>
+                        <option value="20">20개씩 출력</option>
+                    </select>
+                </div>
+            </div>
+            <p class="cell_total">[TOTAL: <span class="total_1">2</span> 개 / 검색 <span class="total_1">2</span> 개] 답변대기 : <a href="#none" class="total_2">666</a>건 / 답변완료 : <a href="#none" class="total_2">999</a>건</p>
+            <div class="box_tbl scroll_x">
+                <table class="tbl_comm tbl_detail">
+                    <caption class="blind">배송준비중 주문목록표</caption>
+                    <colgroup>
+                        <col class="col_03"> <!-- 번호 -->
+                        <col class="col_08">  <!-- 카테고리 -->
+                        <col class="col_05">  <!-- 문의유형 -->
+                        <col class="col_20"> <!-- 문의상품 -->
+                        <col class="col_auto"> <!-- 문의내용 -->
+                        <col class="col_06"> <!-- 첨부파일 -->
+                        <col class="col_08"> <!-- 문의자 -->
+                        <col class="col_06"> <!-- 문의일자 -->
+                        <col class="col_08"> <!-- 답변자 -->
+                        <col class="col_06"> <!-- 답변일자 -->
+                        <col class="col_06"> <!-- 답변여부 -->
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>카테고리</th>
+                            <th>문의유형</th>
+                            <th>문의상품</th>
+                            <th>문의내용</th>
+                            <th>첨부파일</th>
+                            <th>문의자</th>
+                            <th>문의일자</th>
+                            <th>답변자</th>
+                            <th>답변일자</th>
+                            <th>답변여부</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="ask_summary">
+                            <td>999</td>
+                            <td>의류</td>
+                            <td>사이즈</td>
+                            <td>
+                                <div class="goods_item">
+                                    <span class="img_item"><img src="http://i.lately.co.kr/8/2003/09/7712883_700_700.jpg" class="img_block" alt=""></span>
+                                    주문상품번호 : <span class="num_g">2016520</span>
+                                    <strong>[셀러허브가이드] [셀러허브가이드</strong>
+                                    <span>옵션 23호 수량 1개</span>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="tbl_subject">윈도우가 설치되어 배송되는거 맞는 건가요? 아니면 설치는 개인이 직접 배송 받은 뒤에 해야되는 건가요? 설치프로그램은</p>
+                            </td>
+                            <td><a href="#none">aa.ppt</a></td>
+                            <td>힘차고 단단한 아침</td>
+                            <td>2020-04-06 15:35:23</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>
+                                <div class="mb4">답변대기</div>
+                                <a href="#none" class="btn_h30">배송추적</a>
+                            </td>
+                        </tr>
+                        <tr class="ask_detail">
+                            <td colspan="11">
+                                <span class="tbl_contact">답변받기 - SMS : <em>01021016790</em> / EMAIL : <em>jinkook.park@sellerhub.co.kr</em></span>
+                                <div>
+                                    <h4 class="content_title">문의내용</h4>
+                                    <span class="content_detail">
+                                        윈도우 설치되어 배송되는거 맞는건가요?
+                                    </span>
+                                    <h4 class="content_title">문의내용</h4>
+                                    <span class="content_detail">
+                                        답변 대기 중
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="ask_summary">
+                            <td>999</td>
+                            <td>의류</td>
+                            <td>사이즈</td>
+                            <td>
+                                <div class="goods_item">
+                                    <span class="img_item"><img src="http://i.lately.co.kr/8/2003/09/7712883_700_700.jpg" class="img_block" alt=""></span>
+                                    상품번호 : <span class="num_g">2016520</span>
+                                    <strong>[셀러허브가이드]국산 볶은 귀리가루5000g[셀러허브가이드]국산 볶은 귀리가루5000g[셀러허브가이드]국산 볶은 귀리가루5000g</strong>
+                                    <span>옵션 23호 수량 1개</span>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="tbl_subject">카피카피 룸룸 카피카피 룸룸 카피카피 룸룸 카피카피 룸룸 일어나용 바람돌이 모래의 요정 이리 와서 들어봐요 우리의 요정 우주선을 태워줘요 공주도 되고 싶어요 어서 빨리 들어줘요 우리의 소원 얘들아 잠깐 소원은 하나씩 하루에 한가지 바람돌이 선물 모래요정 바람돌이 어린이의 친구 카피카피 룸룸 카피카피 룸룸 이루어져라 모래요정 바람돌이 신기한 친구 가자 가자 미래로 재밌는 여행</p>
+                            </td>
+                            <td><a href="#none">aa.ppt</a></td>
+                            <td>힘차고 단단한 아침</td>
+                            <td>2020-04-06 15:35:23</td>
+                            <td>힘차고 단단한 아침</td>
+                            <td>2020-04-06 15:35:23</td>
+                            <td>
+                                <div class="mb4 fc_red">답변완료</div>
+                            </td>
+                        </tr>
+                        <tr class="ask_detail">
+                            <td colspan="11">
+                                <span class="tbl_contact">답변받기 - SMS : <em>01021016790</em> / EMAIL : <em>jinkook.park@sellerhub.co.kr</em></span>
+                                <div>
+                                    <h4 class="content_title">문의내용</h4>
+                                    <span class="content_detail">
+                                        윈도우 설치되어 배송되는거 맞는건가요?
+                                    </span>
+                                    <h4 class="content_title">문의내용</h4>
+                                    <span class="content_detail">
+                                        카피카피 룸룸 카피카피 룸룸 카피카피 룸룸 카피카피 룸룸<br/>
+                                        일어나용 바람돌이 모래의 요정 이리 와서 들어봐요 우리의 요정<br/>
+                                        우주선을 태워줘요 공주도 되고 싶어요 어서 빨리 들어줘요 우리의 소원<br/>
+                                        얘들아 잠깐 소원은 하나씩 하루에 한가지 바람돌이 선물<br/>
+                                        모래요정 바람돌이 어린이의 친구<br/>
+                                        카피카피 룸룸 카피카피 룸룸 이루어져라<br/>
+                                        모래요정 바람돌이 신기한 친구 가자 가자 미래로 재밌는 여행
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="page_wrap"><ul class="pagination"><li class="disabled"><span>«</span></li> <li class="active"><span>1</span></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=2">2</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=3">3</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=4">4</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=5">5</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=6">6</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=7">7</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=8">8</a></li><li class="disabled"><span>...</span></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=115">115</a></li><li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=116">116</a></li> <li><a href="/shop/admin_provider/fulfillment/mapping.php?page_num=10&amp;page=2" rel="next">»</a></li></ul></div>
+            </div>
+        </div>
+        
+        <!-- // 도매허브 본문 끝 -->
+    </div>
+    <!-- 판매자 문의 답변 팝업 -->
+    <div class="layer_comm layer_ask" style="display:none;">
+        <div class="type_popup inner_layer">
+            <div class="title_layer">
+                <strong class="txt_ellipsis">판매자에게 문의 답변하기</strong>
+            </div>
+            <div class="inner_p16">
+                <div class="goods_item">
+                    <span class="img_item"></span>   
+                    [셀러허브가이드] [셀러허브가이드]<br/>
+                    [셀러허브가이드]국산 볶은 귀리가루5000g
+                </div>
+                <strong class="tit_sub">문의</strong>
+                <table class="tbl_basic">
+                    <caption class="screen_hide">판매자 문의 표</caption>
+                    <colgroup>
+                        <col class="col_20">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th>상품옵션</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>문의유형</th>
+                            <td>배송문의</td>
+                        </tr>
+                        <tr>
+                            <th>문의내용</th>
+                            <td><textarea name="" id="" class="inp_txt">발송예정이 2주째인데 언제쯤 배송이 되는건지 알 수 있을까요?</textarea></td>
+                        </tr>
+                        <tr>
+                            <th>답변받기</th>
+                            <td><span>SMS</span> : 01021016790 / <span>EMAIL</span> : jinkook,park@sellerhub.co.kr</td>
+                        </tr>
+                        <tr>
+                            <th>문의자</th>
+                            <td>조용한 바람의 고향</td>
+                        </tr>
+                        <tr>
+                            <th>문의일자</th>
+                            <td>2020.08.20 11:53:23</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <strong class="tit_sub">답변</strong>
+                <table class="tbl_basic">
+                    <colgroup>
+                        <col class="col_20">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th>내용*</th>
+                            <td><textarea name="" id="" class="inp_txt">안녕하세요 고객님 더 열심히 하겠습니다 감사합니다 ?</textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="wrap_button">
+                    <button type="button" class="btn_g revision" onclick="jQuery('.layer_ask').hide();">취소</button>
+                    <button type="submit" class="btn_g active">답변하기</button>
+                </div>
+            </div>
+            <button type="button" class="btn_close" onclick="jQuery('.layer_ask').hide();"><span class="icon_g icon_close_w">닫기</span></button>
+        </div>
+    </div>
+    <!-- // 판매자 문의 팝업 -->
+</div> <!-- // #wrap -->
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    // 날짜선택버튼 제어 
+    $(".date-btn").on("click",function(){
+        $(".date-btn").removeClass("choice_date");
+        $(this).addClass("choice_date");
+    });
+
+    //테이블 백그라운드컬러 제어(background-color-control)
+    $(".la_click").click(function(){
+        $(this).parents("tr").toggleClass("bg_check");
+    });
+
+    $(".ask_summary").click(function(){
+        $(this).siblings(".ask_detail").hide();
+        $(this).next(".ask_detail").toggle();
+    });
+    
+});
+</script>
+</body>
+</html>

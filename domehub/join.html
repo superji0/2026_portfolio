@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>도매허브</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="./css/common.css" />
+    
+    <link rel="stylesheet" href="/shop/admin_provider/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <script type="text/javascript" src="./js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
+
+    <script src="/shop/admin_provider/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("#header").load("_header.html");
+        $("#asideTool").load("_aside.html");
+        $("#footer").load("_footer.html");
+    });
+    </script>
+</head>
+<body>
+<div id="domeWrap" class="type_sub">
+    <Header id="header"></Header>
+
+    <div class="join_wrap">
+        <div id="container" style="min-height: 600px;">
+            <h2 id="domeBody" class="screen_out">도매허브 본문</h2>
+
+            <h3 class="join_title">입점문의</h3>
+            <p class="sub_description">
+                상품입점, 사업제휴, 컨텐츠 제휴 등 다양한 문의를 주세요.최대한 빠르게 성심성의껏 답변드리겠습니다.
+                <span>(<em class="fc_red">*</em>)은 필수 입력사항입니다.</span>
+            </p>
+
+            <div class="info_section">
+                <ul class="join_g info_subject">
+                    <li>
+                        <strong>문의제목 <em class="fc_red">*</em></strong>
+                        <input type="text" class="input_type1" placeholder="문의제목을 입력해주세요." />
+                    </li>
+                    <li>
+                        <strong class="strong_type2">카테고리 <em class="fc_red">*</em></strong>
+                        <input type="checkbox" value="1" name="category" id="category1" />
+                        <label for="category1">패션의류</label>
+                        <input type="checkbox" value="1" name="category" id="category2" checked />
+                        <label for="category2">스포츠/레저</label>
+                        <input type="checkbox" value="1" name="category" id="category3" />
+                        <label for="category3">잡화/슈즈/쥬얼리</label>
+                        <input type="checkbox" value="1" name="category" id="category4" />
+                        <label for="category4">뷰티</label>
+                        <input type="checkbox" value="1" name="category" id="category5" />
+                        <label for="category5">명품/해외직구</label>
+                        <input type="checkbox" value="1" name="category" id="category6" />
+                        <label for="category6">출산/유아동</label>
+                        <input type="checkbox" value="1" name="category" id="category7" />
+                        <label for="category7">생활/건강</label>
+                        <input type="checkbox" value="1" name="category" id="category8" />
+                        <label for="category8">반려동물</label>
+                        <input type="checkbox" value="1" name="category" id="category9" />
+                        <label for="category9">식품</label>
+                        <input type="checkbox" value="1" name="category" id="category10" />
+                        <label for="category10">디지털/가전</label>
+                        <input type="checkbox" value="1" name="category" id="category11" />
+                        <label for="category11">가구/인테리어</label>
+                    </li>
+                </ul>
+
+                <h4>회사정보</h4>
+                <ul class="join_g">
+                    <li>
+                        <strong>문의제목 <em class="fc_red">*</em></strong>
+                        <input type="text" placeholder="회사명을 입력해주세요." />
+                    </li>
+                    <li>
+                        <strong>회사대표번호 <em class="fc_red">*</em></strong>
+                        <input type="text" placeholder="-없이 회사대표번호를 입력해 주세요." />
+                    </li>
+                    <li>
+                        <strong>회사주소</strong>
+                        <input type="text" class="input_type1" />
+                    </li>
+                    <li>
+                        <strong>URL</strong>
+                        <input type="text" class="input_type1" />
+                    </li>
+                    <li>
+                        <strong class="strong_type1">회사소개 <em class="fc_red">*</em></strong>
+                        <textarea rows="6" placeholder="회사소개를 입력해주세요."></textarea>
+                    </li>
+                </ul>
+
+                <h4>담당자정보</h4>
+                <ul class="join_g">
+                    <li>
+                        <strong class="strong_type3">담당자명 <em class="fc_red">*</em></strong>
+                        <input type="text" placeholder="담당자명을 입력해주세요." />
+                    </li>
+                    <li>
+                        <strong>직급</strong>
+                        <input type="text" />
+                    </li>
+                    <li>
+                        <strong>직통전화</strong>
+                        <input type="text" />
+                    </li>
+                    <li>
+                        <strong>휴대폰번호 <em class="fc_red">*</em></strong>
+                        <input type="text" placeholder="-없이 휴대폰번호를 입력해주세요." />
+                    </li>
+                    <li>
+                        <strong>이메일</strong>
+                        <input type="text" class="input_type1" />
+                    </li>
+                    <li>
+                        <strong class="strong_type1">문의내용 <em class="fc_red">*</em></strong>
+                        <textarea rows="6" placeholder="문의내용을 입력해주세요."></textarea>
+                    </li>
+                    <li>
+                        <strong>파일첨부</strong>
+                        <div class="input_file">
+                            <input class="file_nm" value="용량 최대 10M" disabled />
+
+                            <label for="polish_file">파일첨부</label>
+                            <input type="file" id="polish_file" class="filebox_hide">
+                        </div>
+                    </li>
+                    <li>
+                        <strong class="strong_type2">답변받기</strong>
+                        <input type="checkbox" value="1" name="reply_sms" id="reply1" checked />
+                        <label for="reply1">SMS</label>
+                        <input type="checkbox" value="2" name="repla_email" id="reply2">
+                        <label for="reply2">EMAIL</label>
+                    </li>
+                </ul>
+
+                <div class="join_personal">
+                    <input type="checkbox" value="2" name="agree" id="agree">
+                    <label for="agree">개인정보 수집 및 이용에 대한 안내</label>
+                    <textarea readonly>
+개인정보 수집 및 이용에 관한 안내 내용이 여기에 들어갑니다 스크롤로 생겨욥~!
+치키차카초코초코초 길어져라
+카피카피 룸룸 카피카피 룸룸 길어져라
+길어져라 호잇
+길어져라 깐따삐아
+길어져라 얍
+길어져라 얍얍
+길어져라 얍얍얍
+길어져라 얍얍얍얍
+길어져라 얍얍얍얍얍
+길어져라 얍얍얍얍얍얍
+길어져라 얍얍얍얍얍얍얍
+카피카피 룸룸 카피카피 룸룸 카피카피 룸룸 카피카피 룸룸 일어나용 바람돌이 모래의 요정 이리 와서 들어봐요 우리의 요정 우주선을 태워줘요 공주도 되고 싶어요 어서 빨리 들어줘요 우리의 소원 얘들아 잠깐 소원은 하나씩 하루에 한가지 바람돌이 선물 모래요정 바람돌이 어린이의 친구 카피카피 룸룸 카피카피 룸룸 이루어져라 모래요정 바람돌이 신기한 친구 가자 가자 미래로 재밌는 여행</textarea>
+                </div>
+
+                <div class="btn_join">
+                    <button type="submit" class="btn_h35">문의하기</button>
+                </div>
+
+            </div>
+
+        </div> <!-- // container -->
+    </div>
+
+    <div id="asideTool"></div>
+    <footer id="footer"></footer>
+</div>
+
+<script>
+    $(document).ready(function(){
+        var fileTarget = $('.input_file .filebox_hide');
+        
+        fileTarget.on('change', function(){
+            if(window.FileReader){
+                var filename = $(this)[0].files[0].name;
+            } else {
+                var filename = $(this).val().split('/').pop().split('\\').pop();
+            }
+            $(this).siblings('.file_nm').val(filename);
+        });
+    });
+</script>
+
+</body>
+</html>
