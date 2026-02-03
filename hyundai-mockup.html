@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>현대카드 K패스 · 리뉴얼 비교</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --text: #E8E8E8;
+            --accent: #FFD93D;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Pretendard', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: url('images/hyundai_redesign.png') no-repeat center center;
+            background-size: cover;
+        }
+        .phone-mockup {
+            width: 360px;
+            height: 720px;
+            background: #1a1a1a;
+            border-radius: 42px;
+            padding: 14px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.5), 0 0 0 2px #333, inset 0 0 0 2px #222;
+            position: absolute;
+            right: 15%;
+        }
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            top: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 28px;
+            background: #0a0a0a;
+            border-radius: 0 0 18px 18px;
+            z-index: 10;
+        }
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 28px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background: #000;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-gutter: stable;
+            scrollbar-color: rgba(255, 217, 61, 0.5) transparent;
+            position: relative;
+        }
+        .phone-screen::-webkit-scrollbar {
+            width: 3px;
+        }
+        .phone-screen::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .phone-screen::-webkit-scrollbar-thumb {
+            background: rgba(255, 217, 61, 0.5);
+            border-radius: 2px;
+        }
+        .phone-screen::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 217, 61, 0.75);
+        }
+        .scroll-content {
+            width: 100%;
+        }
+        .scroll-content img {
+            display: block;
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            vertical-align: top;
+        }
+        .back-link {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 10;
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            background: rgba(10, 14, 39, 0.8);
+            transition: all 0.3s;
+        }
+        .back-link:hover {
+            background: var(--accent);
+            color: #0A0E27;
+        }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0.6;
+            animation: scrollHint 2s ease-in-out infinite;
+            pointer-events: none;
+        }
+        .scroll-indicator::before {
+            content: '스크롤';
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+        .scroll-indicator::after {
+            content: '↓';
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            animation: bounce 1.5s ease-in-out infinite;
+        }
+        @keyframes scrollHint {
+            0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+            50% { opacity: 0.7; transform: translateX(-50%) translateY(-5px); }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+        .phone-screen:hover .scroll-indicator {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        phone-mockup {
+            position: relative;
+        }
+        .phone-mockup > p {
+            position: absolute;
+            right: 50%;
+            transform: translateX(-50%);
+            bottom: calc(50% + 360px + 20px);
+            transform: translateX(50%);
+            font-size: 13px;
+            color: #222;
+            text-align: center;
+            letter-spacing: 0.5px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">← 포트폴리오로 돌아가기</a>
+    <div class="phone-mockup">
+            <p>Scroll down</p>
+        <div class="phone-screen">
+            <div class="scroll-indicator"></div>
+            <div class="scroll-content">
+                <img src="images/hd_promotion.png" alt="현대카드 K패스 프로모션">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
